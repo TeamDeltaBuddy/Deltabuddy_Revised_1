@@ -96,20 +96,21 @@
       <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo">
       <nav>
         <ul>
-          <li><strong>Dashboard</strong></li>
+          <li><strong>Portfolio</strong></li>
+          <li>Dashboard</li>
           <li>Greeks & Alerts</li>
           <li>Strategy Assistant</li>
           <li>Pre-built Strategies</li>
           <li>Adjustment Bot</li>
           <li>Risk Coach</li>
-          <li>Market Tools</li>
           <li>Market Pulse</li>
+          <li>Market Tools</li>
           <li>FII & DII</li>
           <li>Future & Options</li>
-          <li>Portfolio</li>
           <li>Screener</li>
           <li style="margin-left: 1rem;">└ Smart Filters</li>
           <li style="margin-left: 1rem;">└ Pre-built Filters</li>
+          <li style="margin-left: 1rem;">└ Custom Filters</li>
           <li>Telegram Integration</li>
         </ul>
       </nav>
@@ -118,6 +119,18 @@
     <main>
       <h1>AI + SaaS Platform</h1>
       <div class="grid">
+
+        <!-- Portfolio Summary -->
+        <div class="card">
+          <h3>Portfolio Summary</h3>
+          <p><strong>Net P&L:</strong> ₹15,430</p>
+          <p><strong>Today’s MTM:</strong> +₹2,150</p>
+          <p><strong>Margin Used:</strong> ₹87,000</p>
+          <p><strong>Open Positions:</strong> 4</p>
+          <p><strong>Hedged %:</strong> 75%</p>
+        </div>
+
+        <!-- Real-time Greeks & Alerts -->
         <div class="card">
           <h3>Real-time Option Greeks & Alerts</h3>
           <div class="metrics">
@@ -129,52 +142,127 @@
           <p><strong>IV:</strong> 19.7% &nbsp; <strong>Alert:</strong> 212</p>
         </div>
 
+        <!-- Strategy Assistant -->
         <div class="card">
           <h3>AI-Powered Strategy Assistant</h3>
           <p><strong>User:</strong> What is a good options strategy for low volatility?</p>
           <p><strong>DeltaGPT:</strong> In a low volatility environment, consider an <strong>Iron Condor</strong>...</p>
         </div>
 
+        <!-- Pre-built Strategies -->
         <div class="card">
           <h3>Pre-built Strategies</h3>
           <p><strong>Bull Call Spread:</strong> +530 / 740.00</p>
           <p><strong>Iron Condor:</strong> +5780 / 570.20</p>
         </div>
 
+        <!-- Auto Adjustment Bot -->
         <div class="card">
           <h3>Auto Adjustment Bot</h3>
           <p><strong>Status:</strong> Adjusted</p>
           <p><strong>Action:</strong> Reduced delta exposure by strike change</p>
         </div>
 
+        <!-- Risk Coach -->
         <div class="card">
           <h3>Personalized Risk Coach</h3>
           <p>⚠️ You tend to <strong>overtrade</strong> in low VIX environments. Consider reducing exposure.</p>
         </div>
 
-        <div class="card">
-          <h3>Market Tools</h3>
-          <p><strong>Open Interest:</strong> 64.6</p>
-          <p><strong>PCR:</strong> 0.06</p>
-          <p><strong>IV:</strong> Red &nbsp; 1.41k</p>
-        </div>
-
-        <div class="card">
-          <h3>Portfolio Snapshot</h3>
-          <p>📊 Positions: 4 open</p>
-          <p>💰 Net P/L: ₹15,430</p>
-        </div>
-
+        <!-- Screener -->
         <div class="card">
           <h3>Screener</h3>
           <div class="tabs">
             <div class="tab active">Smart Filters</div>
             <div class="tab">Pre-built Filters</div>
+            <div class="tab">Custom Filters</div>
           </div>
-          <p>Use predefined or AI-tuned filters to screen high-probability setups.</p>
+
+          <!-- Smart Filters -->
+          <div class="smart-filters" style="margin-top: 1rem;">
+            <p>AI-identified setups based on Greeks, IV, and volatility signals.</p>
+            <ul>
+              <li>📈 High Conviction Long – IV < 18%, OI ↑, PCR: 1.2</li>
+              <li>⚠️ Short Gamma Warning – Gamma > 0.5, Vega < 0.1</li>
+            </ul>
+          </div>
+
+          <!-- Pre-built Filters -->
+          <div class="prebuilt-filters" style="margin-top: 1rem; display: none;">
+            <p>Explore filters like:</p>
+            <ul>
+              <li>🔥 OI Spike > 25% — BANKNIFTY 48700 CE</li>
+              <li>💧 IV Crush – INFY, TCS</li>
+              <li>🔍 Unusual Volume – HDFCBANK > 3x avg</li>
+            </ul>
+          </div>
+
+          <!-- Custom Filters -->
+          <div class="custom-filters" style="margin-top: 1rem; display: none;">
+            <label>
+              <strong>Select Symbols:</strong><br>
+              <select multiple style="width: 100%; padding: 0.5rem; border-radius: 5px;">
+                <option>NIFTY</option>
+                <option>BANKNIFTY</option>
+                <option>RELIANCE</option>
+                <option>INFY</option>
+                <option>TCS</option>
+                <option>ICICIBANK</option>
+              </select>
+            </label><br><br>
+
+            <label>
+              <strong>OI Change (%):</strong><br>
+              <input type="number" placeholder="e.g. > 25" style="width: 100%; padding: 0.5rem; border-radius: 5px;">
+            </label><br><br>
+
+            <label>
+              <strong>IV Range (%):</strong><br>
+              <input type="text" placeholder="e.g. 12–25" style="width: 100%; padding: 0.5rem; border-radius: 5px;">
+            </label><br><br>
+
+            <label>
+              <strong>PCR Range:</strong><br>
+              <input type="text" placeholder="e.g. 0.8–1.2" style="width: 100%; padding: 0.5rem; border-radius: 5px;">
+            </label><br><br>
+
+            <label>
+              <strong>Delta Threshold:</strong><br>
+              <input type="text" placeholder="e.g. > 0.3" style="width: 100%; padding: 0.5rem; border-radius: 5px;">
+            </label><br><br>
+
+            <button style="background: #3b82f6; color: white; padding: 0.7rem 1.2rem; border: none; border-radius: 5px; cursor: pointer;">
+              Run Screener
+            </button>
+          </div>
         </div>
+
       </div>
     </main>
   </div>
+
+  <!-- Tab Switching Script -->
+  <script>
+    document.querySelectorAll('.card .tabs').forEach(tabContainer => {
+      const tabs = tabContainer.querySelectorAll('.tab');
+      const parentCard = tabContainer.closest('.card');
+
+      tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+
+          const contentBlocks = parentCard.querySelectorAll('.custom-filters, .smart-filters, .prebuilt-filters');
+          contentBlocks.forEach(block => {
+            if (block) block.style.display = 'none';
+          });
+
+          const targetClass = ['smart-filters', 'prebuilt-filters', 'custom-filters'][index];
+          const targetBlock = parentCard.querySelector(`.${targetClass}`);
+          if (targetBlock) targetBlock.style.display = 'block';
+        });
+      });
+    });
+  </script>
 </body>
 </html>
