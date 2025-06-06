@@ -285,7 +285,45 @@
     <li>🚫 Avoid excessive short gamma positions in the current volatility environment.</li>
   </ul>
 </div>
-
+<!-- Live Alerts -->
+<div class="card">
+  <h3>Live Alerts</h3>
+  <p>Latest Option Trading Signals:</p>
+  <ul>
+    <li>🚀 <strong>RELIANCE</strong> IV Surge +22% @ 10:42 AM</li>
+    <li>📈 <strong>NIFTY 17800 CE</strong> OI Spike +35% @ 10:40 AM</li>
+    <li>⚠️ <strong>INFY</strong> Unusual Put Volume detected @ 10:37 AM</li>
+    <li>🔥 <strong>BANKNIFTY 47000 PE</strong> IV Crush -18% @ 10:35 AM</li>
+  </ul>
+</div>
+<!-- FII & DII Flows -->
+<div class="card">
+  <h3>FII & DII Flows</h3>
+  <table style="width: 100%; border-collapse: collapse; margin-top: 0.5rem;">
+    <thead>
+      <tr style="background: #f3f4f6;">
+        <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">Date</th>
+        <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">FII (₹ Cr)</th>
+        <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">DII (₹ Cr)</th>
+        <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">Net (₹ Cr)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">2025-06-05</td>
+        <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">+1543</td>
+        <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">-843</td>
+        <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">+700</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">2025-06-04</td>
+        <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">-134</td>
+        <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">+421</td>
+        <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">+287</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
   </div> <!-- End of .grid -->
 </main>
@@ -319,6 +357,57 @@
           targetBlock.style.display = 'block';
         }
       });
+    });
+  });
+</script>
+<script>
+  // Run Screener button logic
+  document.querySelectorAll('.custom-filters button').forEach(button => {
+    button.addEventListener('click', () => {
+      const parent = button.closest('.custom-filters');
+      const selectedSymbols = Array.from(parent.querySelector('select').selectedOptions).map(option => option.value);
+      const oiChange = parent.querySelector('input[placeholder*="OI Change"]').value;
+      const ivRange = parent.querySelector('input[placeholder*="IV Range"]').value;
+      const pcrRange = parent.querySelector('input[placeholder*="PCR Range"]').value;
+      const deltaThreshold = parent.querySelector('input[placeholder*="Delta Threshold"]').value;
+
+      const screenerData = {
+        symbols: selectedSymbols,
+        oiChange: oiChange,
+        ivRange: ivRange,
+        pcrRange: pcrRange,
+        deltaThreshold: deltaThreshold
+      };
+
+      console.log('🟢 Screener Request:', screenerData);
+
+      // POST to API
+      fetch('/api/screener', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(screenerData)
+      })
+      .then(response => response.json())
+      .then(results => {
+        console.log('🟢 Screener Response:', results);
+
+        // Populate Results Table
+        const tableBody = document.getElementById('screener-results');
+        tableBody.innerHTML = ''; // clear previous results
+
+        results.forEach(row => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${row.symbol}</td>
+            <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${row.oiChange}</td>
+            <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${row.iv}</td>
+            <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${row.pcr}</td>
+            <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${row.delta}</td>
+          `;
+          tableBody.appendChild(tr);
+        });
+      })
+      .catch(error => console.error('❌ Screener Error:', error));
     });
   });
 </script>
