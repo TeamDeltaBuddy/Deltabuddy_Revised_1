@@ -223,3 +223,26 @@ body {
 .features li {
   margin-bottom: 0.6rem;
 }
+/* Landing page base styles */
+body {
+  background: #f9fafb;
+  color: #1f2937;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.features {
+  padding: 2rem;
+  background: #ffffff;
+  color: #1f2937;
+}
+
+.features ul {
+  list-style: none;
+  padding-left: 1.2rem;
+}
+
+.features li {
+  margin-bottom: 0.6rem;
+}
