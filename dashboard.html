@@ -264,5 +264,31 @@
       });
     });
   </script>
+<script>
+  document.querySelectorAll('.card .tabs').forEach(tabContainer => {
+    const tabs = tabContainer.querySelectorAll('.tab');
+    const parentCard = tabContainer.closest('.card');
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        const contentBlocks = parentCard.querySelectorAll('.custom-filters, .smart-filters, .prebuilt-filters');
+        contentBlocks.forEach(block => {
+          block.style.display = 'none';
+          block.classList.remove('active');
+        });
+
+        const targetClass = ['smart-filters', 'prebuilt-filters', 'custom-filters'][index];
+        const targetBlock = parentCard.querySelector(`.${targetClass}`);
+        if (targetBlock) {
+          targetBlock.style.display = 'block';
+          setTimeout(() => targetBlock.classList.add('active'), 10); // fade in
+        }
+      });
+    });
+  });
+</script>
 </body>
 </html>
