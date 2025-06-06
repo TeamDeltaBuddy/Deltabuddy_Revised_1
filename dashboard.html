@@ -290,5 +290,51 @@
     });
   });
 </script>
+<script>
+  // Run Screener button logic
+  document.querySelectorAll('.custom-filters button').forEach(button => {
+    button.addEventListener('click', () => {
+      const parent = button.closest('.custom-filters');
+
+      // Capture all inputs
+      const selectedSymbols = Array.from(parent.querySelector('select').selectedOptions).map(option => option.value);
+      const oiChange = parent.querySelector('input[placeholder*="OI Change"]').value;
+      const ivRange = parent.querySelector('input[placeholder*="IV Range"]').value;
+      const pcrRange = parent.querySelector('input[placeholder*="PCR Range"]').value;
+      const deltaThreshold = parent.querySelector('input[placeholder*="Delta Threshold"]').value;
+
+      // Build JSON object
+      const screenerData = {
+        symbols: selectedSymbols,
+        oiChange: oiChange,
+        ivRange: ivRange,
+        pcrRange: pcrRange,
+        deltaThreshold: deltaThreshold
+      };
+
+      // For now → log to console
+      console.log('🟢 Screener Request:', screenerData);
+
+      // TODO: Here you can send it to your backend using fetch()
+      /*
+      fetch('/api/screener', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(screenerData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('🟢 Screener Response:', data);
+        // Display results in a table (optional next step)
+      })
+      .catch(error => {
+        console.error('Screener Error:', error);
+      });
+      */
+    });
+  });
+</script> 
 </body>
 </html>
