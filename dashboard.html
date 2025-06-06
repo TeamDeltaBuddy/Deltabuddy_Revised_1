@@ -99,31 +99,32 @@
 <body>
   <div class="layout">
     <aside>
-      <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo">
-      <nav>
-        <ul>
-          <li><strong>Portfolio</strong></li>
-          <li>Dashboard</li>
-          <li>Greeks & Alerts</li>
-          <li>Strategy Assistant</li>
-          <li>Pre-built Strategies</li>
-          <li>Adjustment Bot</li>
-          <li>Risk Coach</li>
-          <li>Market Pulse</li>
-          <li>Market Tools</li>
-          <li>FII & DII</li>
-          <li>Future & Options</li>
-          <li>
-            <a href="events.html" style="color: inherit; text-decoration: none;">Events</a>
-          </li>
-          <li>Screener</li>
-          <li style="margin-left: 1rem;">└ Smart Filters</li>
-          <li style="margin-left: 1rem;">└ Pre-built Filters</li>
-          <li style="margin-left: 1rem;">└ Custom Filters</li>
-          <li>Telegram Integration</li>
-        </ul>
-      </nav>
-    </aside>
+  <a href="index.html">
+    <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo">
+  </a>
+  <nav>
+    <ul>
+      <li><strong>Portfolio</strong></li>
+      <li>Dashboard</li>
+      <li>Greeks & Alerts</li>
+      <li>Strategy Assistant</li> <!-- now single tab -->
+      <li>Adjustment Bot</li>
+      <li>Risk Coach</li>
+      <li>Market Pulse</li>
+      <li>Market Tools</li>
+      <li>FII & DII</li>
+      <li>Future & Options</li>
+      <li>
+        <a href="events.html" style="color: inherit; text-decoration: none;">Events</a>
+      </li>
+      <li>Screener</li>
+      <li style="margin-left: 1rem;">└ Smart Filters</li>
+      <li style="margin-left: 1rem;">└ Pre-built Filters</li>
+      <li style="margin-left: 1rem;">└ Custom Filters</li>
+      <li>Telegram Integration</li>
+    </ul>
+  </nav>
+</aside>
 
     <main>
       <h1>AI + SaaS Platform</h1>
@@ -138,7 +139,38 @@
           <p><strong>Open Positions:</strong> 4</p>
           <p><strong>Hedged %:</strong> 75%</p>
         </div>
+<!-- Strategy Assistant -->
+<div class="card">
+  <h3>Strategy Assistant</h3>
+  <div class="tabs">
+    <div class="tab active">AI Suggestions</div>
+    <div class="tab">Pre-built Strategies</div>
+  </div>
 
+  <!-- AI Suggestions -->
+  <div class="smart-filters" style="margin-top: 1rem;">
+    <p><strong>User:</strong> Generate a low-volatility options strategy.</p>
+    <p><strong>DeltaGPT:</strong> Suggested strategy → <strong>Iron Condor</strong>:</p>
+    <ul>
+      <li>Sell NIFTY 17800 CE</li>
+      <li>Buy NIFTY 18000 CE</li>
+      <li>Sell NIFTY 17200 PE</li>
+      <li>Buy NIFTY 17000 PE</li>
+    </ul>
+  </div>
+
+  <!-- Pre-built Strategies -->
+  <div class="prebuilt-filters" style="margin-top: 1rem; display: none;">
+    <p>Available Pre-built Strategies:</p>
+    <ul>
+      <li>📈 Bull Call Spread — Risk defined bullish strategy</li>
+      <li>📉 Bear Put Spread — Risk defined bearish strategy</li>
+      <li>⚖️ Iron Condor — Neutral market strategy</li>
+      <li>📊 Ratio Spread — Directional volatility play</li>
+    </ul>
+  </div>
+</div>
+        
         <!-- Real-time Greeks & Alerts -->
         <div class="card">
           <h3>Real-time Option Greeks & Alerts</h3>
