@@ -1,41 +1,180 @@
-<link rel="stylesheet" href="styles.css" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard – DeltaBuddy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DeltaBuddy Dashboard</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+    }
+    .layout {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+    aside {
+      width: 250px;
+      background: #0f172a;
+      color: white;
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+    }
+    aside img {
+      width: 120px;
+      margin: 0 auto 2rem;
+    }
+    aside nav ul {
+      list-style: none;
+      padding: 0;
+    }
+    aside nav ul li {
+      padding: 0.8rem 0.5rem;
+      cursor: pointer;
+    }
+    aside nav ul li:hover {
+      background: #1e293b;
+      border-radius: 5px;
+    }
+
+    main {
+      flex-grow: 1;
+      padding: 2rem;
+      overflow-y: auto;
+      background: #f9fafb;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      padding: 1rem 1.5rem;
+    }
+
+    .card h3 {
+      margin-top: 0;
+    }
+
+    .metrics {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .tab {
+      background: #e5e7eb;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: #3b82f6;
+      color: white;
+    }
+  </style>
 </head>
 <body>
-  <nav class="top-nav">
-    <a href="index.html">← Home</a>
-    <span>Dashboard</span>
-  </nav>
-<nav>
-  <ul>
-    <li><a href="#dashboard">Dashboard</a></li>
-    <li><a href="#portfolio">Portfolio</a></li>
-    <li><a href="#greeks-alerts">Greeks & Alerts</a></li>
-    <li><a href="#strategy-assistant">Strategy Assistant</a></li>
-    <li><a href="#adjustment-bot">Adjustment Bot</a></li>
-    <li><a href="#risk-coach">Risk Coach</a></li>
-    <li><a href="#fii-dii">FII & DII</a></li>
-    <li><a href="#events">Events</a></li>
-    <li><a href="#screener">Screener</a></li>
-    <li><a href="#telegram-integration">Telegram Integration</a></li>
-  </ul>
-</nav>
+  <div class="layout">
+    <aside>
+      <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo">
+      <nav>
+        <ul>
+          <li><strong>Dashboard</strong></li>
+          <li>Greeks & Alerts</li>
+          <li>Strategy Assistant</li>
+          <li>Pre-built Strategies</li>
+          <li>Adjustment Bot</li>
+          <li>Risk Coach</li>
+          <li>Market Tools</li>
+          <li>Market Pulse</li>
+          <li>FII & DII</li>
+          <li>Future & Options</li>
+          <li>Portfolio</li>
+          <li>Screener</li>
+          <li style="margin-left: 1rem;">└ Smart Filters</li>
+          <li style="margin-left: 1rem;">└ Pre-built Filters</li>
+          <li>Telegram Integration</li>
+        </ul>
+      </nav>
+    </aside>
 
-  <main class="dashboard">
-    <h1>Welcome to your AI + Options Dashboard</h1>
-    <div class="grid">
-      <a href="events.html" class="card">📅 Economic Events</a>
-      <a href="screener.html" class="card">🔍 Screener</a>
-      <a href="fo.html" class="card">📈 F&O Heatmap</a>
-      <a href="portfolio.html" class="card">💼 Portfolio</a>
-      <a href="alerts.html" class="card">📢 Alerts & Greeks</a>
-    </div>
-  </main>
+    <main>
+      <h1>AI + SaaS Platform</h1>
+      <div class="grid">
+        <div class="card">
+          <h3>Real-time Option Greeks & Alerts</h3>
+          <div class="metrics">
+            <div><strong>Delta:</strong> 0.354</div>
+            <div><strong>Theta:</strong> -0.123</div>
+            <div><strong>Gamma:</strong> 0.008</div>
+            <div><strong>Vega:</strong> 0.218</div>
+          </div>
+          <p><strong>IV:</strong> 19.7% &nbsp; <strong>Alert:</strong> 212</p>
+        </div>
+
+        <div class="card">
+          <h3>AI-Powered Strategy Assistant</h3>
+          <p><strong>User:</strong> What is a good options strategy for low volatility?</p>
+          <p><strong>DeltaGPT:</strong> In a low volatility environment, consider an <strong>Iron Condor</strong>...</p>
+        </div>
+
+        <div class="card">
+          <h3>Pre-built Strategies</h3>
+          <p><strong>Bull Call Spread:</strong> +530 / 740.00</p>
+          <p><strong>Iron Condor:</strong> +5780 / 570.20</p>
+        </div>
+
+        <div class="card">
+          <h3>Auto Adjustment Bot</h3>
+          <p><strong>Status:</strong> Adjusted</p>
+          <p><strong>Action:</strong> Reduced delta exposure by strike change</p>
+        </div>
+
+        <div class="card">
+          <h3>Personalized Risk Coach</h3>
+          <p>⚠️ You tend to <strong>overtrade</strong> in low VIX environments. Consider reducing exposure.</p>
+        </div>
+
+        <div class="card">
+          <h3>Market Tools</h3>
+          <p><strong>Open Interest:</strong> 64.6</p>
+          <p><strong>PCR:</strong> 0.06</p>
+          <p><strong>IV:</strong> Red &nbsp; 1.41k</p>
+        </div>
+
+        <div class="card">
+          <h3>Portfolio Snapshot</h3>
+          <p>📊 Positions: 4 open</p>
+          <p>💰 Net P/L: ₹15,430</p>
+        </div>
+
+        <div class="card">
+          <h3>Screener</h3>
+          <div class="tabs">
+            <div class="tab active">Smart Filters</div>
+            <div class="tab">Pre-built Filters</div>
+          </div>
+          <p>Use predefined or AI-tuned filters to screen high-probability setups.</p>
+        </div>
+      </div>
+    </main>
+  </div>
 </body>
 </html>
