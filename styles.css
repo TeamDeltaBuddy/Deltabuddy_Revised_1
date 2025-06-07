@@ -160,3 +160,93 @@ footer a:hover {
 nav ul li {
   margin-bottom: 1rem;
 }
+/* Dashboard Layout */
+.layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+aside {
+  width: 250px;
+  background: #0f172a;
+  color: white;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+aside img {
+  width: 120px;
+  margin: 0 auto 2rem;
+}
+
+aside nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+aside nav ul li {
+  padding: 0.8rem 0.5rem;
+  cursor: pointer;
+}
+
+aside nav ul li:hover {
+  background: #1e293b;
+  border-radius: 5px;
+}
+
+main {
+  flex-grow: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  background: #f9fafb;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  padding: 1rem 1.5rem;
+}
+
+.card h3 {
+  margin-top: 0;
+}
+
+/* Tabs inside card */
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.tab {
+  background: #f3f4f6;
+  padding: 0.6rem 1rem;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  border-bottom: none;
+}
+
+.tab:hover {
+  background: #e5e7eb;
+}
+
+.tab.active {
+  background: #ffffff;
+  color: #3b82f6;
+  border-color: #e5e7eb #e5e7eb white #e5e7eb;
+  border-bottom: 2px solid white;
+}
