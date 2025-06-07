@@ -5,96 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DeltaBuddy Dashboard</title>
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f3f4f6;
-    }
-    .layout {
-      display: flex;
-      height: 100vh;
-      overflow: hidden;
-    }
-    aside {
-      width: 250px;
-      background: #0f172a;
-      color: white;
-      padding: 1.5rem 1rem;
-      display: flex;
-      flex-direction: column;
-    }
-    aside img {
-      width: 120px;
-      margin: 0 auto 2rem;
-    }
-    aside nav ul {
-      list-style: none;
-      padding: 0;
-    }
-    aside nav ul li {
-      padding: 0.8rem 0.5rem;
-      cursor: pointer;
-    }
-    aside nav ul li:hover {
-      background: #1e293b;
-      border-radius: 5px;
-    }
-
-    main {
-      flex-grow: 1;
-      padding: 2rem;
-      overflow-y: auto;
-      background: #f9fafb;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .card {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      padding: 1rem 1.5rem;
-    }
-
-    .card h3 {
-      margin-top: 0;
-    }
-
-    .tabs {
-      display: flex;
-      gap: 0.5rem;
-      margin-top: 1rem;
-      border-bottom: 2px solid #e5e7eb;
-    }
-
-    .tab {
-      background: #f3f4f6;
-      padding: 0.6rem 1rem;
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: all 0.2s ease;
-      border: 1px solid transparent;
-      border-bottom: none;
-    }
-
-    .tab:hover {
-      background: #e5e7eb;
-    }
-
-    .tab.active {
-      background: #ffffff;
-      color: #3b82f6;
-      border-color: #e5e7eb #e5e7eb white #e5e7eb;
-      border-bottom: 2px solid white;
-    }
-  </style>
 </head>
 <body>
   <div class="layout">
@@ -106,146 +16,86 @@
         <ul>
           <li><a href="portfolio.html" style="color: white; text-decoration: none;">Portfolio</a></li>
           <li><a href="dashboard.html" style="color: white; text-decoration: none;">Dashboard</a></li>
-        <ul style="list-style: none; padding: 0;">
-  <li><a href="greeks.html" style="color: white; text-decoration: none;">Greeks & Alerts</a></li>
-  <li><a href="strategy.html" style="color: white; text-decoration: none;">Strategy Assistant</a></li>
-  <li><a href="adjustment.html" style="color: white; text-decoration: none;">Adjustment Bot</a></li>
-  <li><a href="riskcoach.html" style="color: white; text-decoration: none;">Risk Coach</a></li>
-  <li><a href="marketpulse.html" style="color: white; text-decoration: none;">Market Pulse</a></li>
-  <li><a href="markettools.html" style="color: white; text-decoration: none;">Market Tools</a></li>
-  <li><a href="fii-dii.html" style="color: white; text-decoration: none;">FII & DII</a></li>
-  <li><a href="fo.html" style="color: white; text-decoration: none;">Future & Options</a></li>
-  <li><a href="events.html" style="color: white; text-decoration: none;">Events</a></li>
-  <li><a href="screener.html" style="color: white; text-decoration: none;">Screener</a></li>
-  <li style="margin-left: 1rem;"><a href="screener-smart.html" style="color: white; text-decoration: none;">└ Smart Filters</a></li>
-  <li style="margin-left: 1rem;"><a href="screener-prebuilt.html" style="color: white; text-decoration: none;">└ Pre-built Filters</a></li>
-  <li style="margin-left: 1rem;"><a href="screener-custom.html" style="color: white; text-decoration: none;">└ Custom Filters</a></li>
-  <li><a href="telegram.html" style="color: white; text-decoration: none;">Telegram Integration</a></li>
-</ul>
+          <li><a href="greeks.html" style="color: white; text-decoration: none;">Greeks & Alerts</a></li>
+          <li><a href="strategy.html" style="color: white; text-decoration: none;">Strategy Assistant</a></li>
+          <li><a href="adjustment.html" style="color: white; text-decoration: none;">Adjustment Bot</a></li>
+          <li><a href="riskcoach.html" style="color: white; text-decoration: none;">Risk Coach</a></li>
+          <li><a href="marketpulse.html" style="color: white; text-decoration: none;">Market Pulse</a></li>
+          <li><a href="markettools.html" style="color: white; text-decoration: none;">Market Tools</a></li>
+          <li><a href="fii-dii.html" style="color: white; text-decoration: none;">FII & DII</a></li>
+          <li><a href="fo.html" style="color: white; text-decoration: none;">Future & Options</a></li>
+          <li><a href="events.html" style="color: white; text-decoration: none;">Events</a></li>
+          <li><a href="screener.html" style="color: white; text-decoration: none;">Screener</a></li>
+          <li><a href="telegram.html" style="color: white; text-decoration: none;">Telegram Integration</a></li>
+        </ul>
+      </nav>
     </aside>
-<main>
-  <h1>AI + SaaS Platform</h1>
-  <div class="grid">
-    <!-- Portfolio Summary -->
-    <div class="card">
-      <h3>Portfolio Summary</h3>
-      <p><strong>Net P&L:</strong> ₹15,430</p>
-      <p><strong>Today’s MTM:</strong> +₹2,150</p>
-      <p><strong>Margin Used:</strong> ₹87,000</p>
-      <p><strong>Open Positions:</strong> 4</p>
-      <p><strong>Hedged %:</strong> 75%</p>
-    </div>
+    <main>
+      <h1>AI + SaaS Platform</h1>
+      <div class="grid">
+<!-- Portfolio Summary -->
+<div class="card">
+  <h3>Portfolio Summary</h3>
+  <p><strong>Net P&L:</strong> ₹15,430</p>
+  <p><strong>Today’s MTM:</strong> +₹2,150</p>
+  <p><strong>Margin Used:</strong> ₹87,000</p>
+  <p><strong>Open Positions:</strong> 4</p>
+  <p><strong>Hedged %:</strong> 75%</p>
+</div>
 
-    <!-- Strategy Assistant -->
-    <div class="card">
-      <h3>Strategy Assistant</h3>
-      <div class="tabs">
-        <div class="tab active">AI Suggestions</div>
-        <div class="tab">Pre-built Strategies</div>
-      </div>
+<!-- Strategy Assistant -->
+<div class="card">
+  <h3>Strategy Assistant</h3>
+  <div class="tabs">
+    <div class="tab active">AI Suggestions</div>
+    <div class="tab">Pre-built Strategies</div>
+  </div>
 
-      <!-- AI Suggestions -->
-      <div class="smart-filters" style="margin-top: 1rem;">
-        <p><strong>User:</strong> Generate a low-volatility options strategy.</p>
-        <p><strong>DeltaGPT:</strong> Suggested strategy → <strong>Iron Condor</strong>:</p>
-        <ul>
-          <li>Sell NIFTY 17800 CE</li>
-          <li>Buy NIFTY 18000 CE</li>
-          <li>Sell NIFTY 17200 PE</li>
-          <li>Buy NIFTY 17000 PE</li>
-        </ul>
-      </div>
+  <!-- AI Suggestions -->
+  <div class="smart-filters" style="margin-top: 1rem;">
+    <p><strong>User:</strong> Generate a low-volatility options strategy.</p>
+    <p><strong>DeltaGPT:</strong> Suggested strategy → <strong>Iron Condor</strong>:</p>
+    <ul>
+      <li>Sell NIFTY 17800 CE</li>
+      <li>Buy NIFTY 18000 CE</li>
+      <li>Sell NIFTY 17200 PE</li>
+      <li>Buy NIFTY 17000 PE</li>
+    </ul>
+  </div>
 
-      <!-- Pre-built Strategies -->
-      <div class="prebuilt-filters" style="margin-top: 1rem; display: none;">
-        <p>Available Pre-built Strategies:</p>
-        <ul>
-          <li>📈 Bull Call Spread — Risk defined bullish strategy</li>
-          <li>📉 Bear Put Spread — Risk defined bearish strategy</li>
-          <li>⚖️ Iron Condor — Neutral market strategy</li>
-          <li>📊 Ratio Spread — Directional volatility play</li>
-        </ul>
-      </div>
-    </div>
+  <!-- Pre-built Strategies -->
+  <div class="prebuilt-filters" style="margin-top: 1rem; display: none;">
+    <p>Available Pre-built Strategies:</p>
+    <ul>
+      <li>📈 Bull Call Spread — Risk defined bullish strategy</li>
+      <li>📉 Bear Put Spread — Risk defined bearish strategy</li>
+      <li>⚖️ Iron Condor — Neutral market strategy</li>
+      <li>📊 Ratio Spread — Directional volatility play</li>
+    </ul>
+  </div>
+</div>
 
-   <!-- Real-time Greeks & Alerts -->
 <!-- Real-time Greeks & Alerts -->
 <div class="card">
   <h3>Real-time Option Greeks & Alerts</h3>
   <p><strong>IV:</strong> 19.7% &nbsp; <strong>Alert:</strong> 212</p>
   <div id="greeks-alerts-content"></div>
 </div>
-   <!-- Market Pulse -->
+
+<!-- Market Pulse -->
 <div class="card">
   <h3>Market Pulse</h3>
   <p>Live sentiment and key market indicators:</p>
   <div id="market-pulse-content"></div>
 </div>
-   <!-- Screener -->
+
+<!-- Screener -->
 <div class="card">
   <h3>Screener</h3>
   <p>Filter and find optimal options strategies:</p>
   <div id="screener-content"></div>
 </div>
-      <!-- Smart Filters -->
-      <div class="smart-filters" style="margin-top: 1rem;">
-        <p>AI-identified setups based on Greeks, IV, and volatility signals.</p>
-        <ul>
-          <li>📈 High Conviction Long – IV < 18%, OI ↑, PCR: 1.2</li>
-          <li>⚠️ Short Gamma Warning – Gamma > 0.5, Vega < 0.1</li>
-        </ul>
-      </div>
-
-      <!-- Pre-built Filters -->
-      <div class="prebuilt-filters" style="margin-top: 1rem; display: none;">
-        <p>Explore filters like:</p>
-        <ul>
-          <li>🔥 OI Spike > 25% — BANKNIFTY 48700 CE</li>
-          <li>💧 IV Crush – INFY, TCS</li>
-          <li>🔍 Unusual Volume – HDFCBANK > 3x avg</li>
-        </ul>
-      </div>
-
-      <!-- Custom Filters -->
-      <div class="custom-filters" style="margin-top: 1rem; display: none;">
-        <label>
-          <strong>Select Symbols:</strong><br>
-          <select multiple style="width: 100%; padding: 0.5rem; border-radius: 5px;">
-            <option>NIFTY</option>
-            <option>BANKNIFTY</option>
-            <option>RELIANCE</option>
-            <option>INFY</option>
-            <option>TCS</option>
-            <option>ICICIBANK</option>
-          </select>
-        </label><br><br>
-
-        <label>
-          <strong>OI Change (%):</strong><br>
-          <input type="number" placeholder="e.g. > 25" style="width: 100%; padding: 0.5rem; border-radius: 5px;">
-        </label><br><br>
-
-        <label>
-          <strong>IV Range (%):</strong><br>
-          <input type="text" placeholder="e.g. 12–25" style="width: 100%; padding: 0.5rem; border-radius: 5px;">
-        </label><br><br>
-
-        <label>
-          <strong>PCR Range:</strong><br>
-          <input type="text" placeholder="e.g. 0.8–1.2" style="width: 100%; padding: 0.5rem; border-radius: 5px;">
-        </label><br><br>
-
-        <label>
-          <strong>Delta Threshold:</strong><br>
-          <input type="text" placeholder="e.g. > 0.3" style="width: 100%; padding: 0.5rem; border-radius: 5px;">
-        </label><br><br>
-
-        <button style="background: #3b82f6; color: white; padding: 0.7rem 1.2rem; border: none; border-radius: 5px; cursor: pointer;">
-          Run Screener
-        </button>
-      </div>
-    </div> <!-- End of Screener card -->
-    <!-- Market Tools -->
+<!-- Market Tools -->
 <div class="card">
   <h3>Market Tools</h3>
   <p>Key option market analytics:</p>
@@ -257,6 +107,7 @@
     <li>💥 Unusual IV Surge: RELIANCE +22%</li>
   </ul>
 </div>
+
 <!-- Risk Coach -->
 <div class="card">
   <h3>Risk Coach</h3>
@@ -268,6 +119,7 @@
     <li>🚫 Avoid excessive short gamma positions in the current volatility environment.</li>
   </ul>
 </div>
+
 <!-- Live Alerts -->
 <div class="card">
   <h3>Live Alerts</h3>
@@ -279,6 +131,7 @@
     <li>🔥 <strong>BANKNIFTY 47000 PE</strong> IV Crush -18% @ 10:35 AM</li>
   </ul>
 </div>
+
 <!-- FII & DII Flows -->
 <div class="card">
   <h3>FII & DII Flows</h3>
@@ -307,16 +160,13 @@
     </tbody>
   </table>
 </div>
-
-  </div> <!-- End of .grid -->
-  <!-- Footer -->
+</div> <!-- End of .grid -->
+<!-- Footer -->
 <footer style="background: #1e293b; color: white; text-align: center; padding: 1rem; margin-top: 2rem;">
   © 2025 DeltaBuddy. All rights reserved. |
   <a href="mailto:contact@deltabuddy.com" style="color: #60a5fa; text-decoration: none;">contact@deltabuddy.com</a> |
   <a href="https://t.me/DeltaBuddyBot" style="color: #60a5fa; text-decoration: none;">Telegram</a>
 </footer>
-</main>
-
 <!-- Tab Switching Script -->
 <script>
   document.querySelectorAll('.card .tabs').forEach(tabContainer => {
@@ -342,8 +192,9 @@
     });
   });
 </script>
+
+<!-- Screener Button Script -->
 <script>
-  // Run Screener button logic
   document.querySelectorAll('.custom-filters button').forEach(button => {
     button.addEventListener('click', () => {
       const parent = button.closest('.custom-filters');
@@ -363,7 +214,7 @@
 
       console.log('🟢 Screener Request:', screenerData);
 
-      // POST to API
+      // POST to API (placeholder)
       fetch('/api/screener', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -393,83 +244,8 @@
     });
   });
 </script>
-// dashboard.js
 
-document.addEventListener("DOMContentLoaded", () => {
-  // Simulate dynamic loading of card content
-  simulateCardLoad("market-pulse-content", getMarketPulseData);
-  simulateCardLoad("greeks-alerts-content", getGreeksAlertsData);
-  simulateCardLoad("screener-content", getScreenerData);
-});
-
-// Simulate async load
-function simulateCardLoad(elementId, dataFn) {
-  const container = document.getElementById(elementId);
-  container.innerHTML = "<p>Loading...</p>";
-
-  setTimeout(() => {
-    container.innerHTML = dataFn();
-  }, 1000); // Simulated 1 second load
-}
-
-// Dummy data functions
-function getMarketPulseData() {
-  return `
-    <ul>
-      <li>📉 NIFTY PCR: 0.92 (Bearish)</li>
-      <li>📈 BANKNIFTY PCR: 1.13 (Bullish)</li>
-      <li>🔥 VIX Alert: 15.7 → 19.2 spike</li>
-    </ul>
-  `;
-}
-
-function getGreeksAlertsData() {
-  return `
-    <ul>
-      <li>🚨 Delta spike detected on NIFTY 17600</li>
-      <li>🟠 Gamma shift on BANKNIFTY ATM</li>
-    </ul>
-  `;
-}
-
-function getScreenerData() {
-  return `
-    <div>
-      <label for="sector-filter">Sector:</label>
-      <select id="sector-filter">
-        <option value="">All</option>
-        <option value="IT">IT</option>
-        <option value="Banking">Banking</option>
-        <option value="Pharma">Pharma</option>
-      </select>
-
-      <label for="oi-filter" style="margin-left: 1rem;">OI >:</label>
-      <input type="number" id="oi-filter" placeholder="100000">
-
-      <button onclick="applyScreenerFilters()" style="margin-left: 1rem;">Apply Filters</button>
-    </div>
-
-    <div id="screener-results" style="margin-top: 1rem;">
-      <!-- Results will go here -->
-      <p>No results yet. Apply filters to search.</p>
-    </div>
-  `;
-}
-
-// Example filter logic
-function applyScreenerFilters() {
-  const sector = document.getElementById("sector-filter").value;
-  const oi = document.getElementById("oi-filter").value;
-
-  const resultsContainer = document.getElementById("screener-results");
-  resultsContainer.innerHTML = `
-    <p>Showing results for Sector: <strong>${sector || 'All'}</strong>, OI > <strong>${oi || 'Any'}</strong></p>
-    <ul>
-      <li>Example Result 1</li>
-      <li>Example Result 2</li>
-    </ul>
-  `;
-}
-
+<!-- Dashboard dynamic cards script -->
+<script src="dashboard.js"></script>
 </body>
 </html>
