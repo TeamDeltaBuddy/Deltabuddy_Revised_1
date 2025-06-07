@@ -252,3 +252,11 @@ main {
   border-color: #e5e7eb #e5e7eb white #e5e7eb;
   border-bottom: 2px solid white;
 }
+/* Active sidebar link */
+aside nav ul li a.active {
+  background: #1e293b;
+  border-radius: 5px;
+  font-weight: bold;
+  display: block;
+  padding: 0.8rem 0.5rem;
+}
