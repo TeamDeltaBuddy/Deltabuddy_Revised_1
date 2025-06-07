@@ -168,39 +168,25 @@
       </div>
     </div>
 
-    <!-- Real-time Greeks & Alerts -->
-    <div class="card">
-      <h3>Real-time Option Greeks & Alerts</h3>
-      <div class="metrics">
-        <div><strong>Delta:</strong> 0.354</div>
-        <div><strong>Theta:</strong> -0.123</div>
-        <div><strong>Gamma:</strong> 0.008</div>
-        <div><strong>Vega:</strong> 0.218</div>
-      </div>
-      <p><strong>IV:</strong> 19.7% &nbsp; <strong>Alert:</strong> 212</p>
-    </div>
-
-    <!-- Market Pulse -->
-    <div class="card">
-      <h3>Market Pulse</h3>
-      <p>Live sentiment and key market indicators:</p>
-      <ul>
-        <li>📉 NIFTY PCR: 0.92 (Bearish)</li>
-        <li>📈 BANKNIFTY PCR: 1.13 (Bullish)</li>
-        <li>🔥 VIX Alert: 15.7 → 19.2 spike</li>
-        <li>📊 India VIX: 19.2</li>
-        <li>🌐 Global Market Pulse: Mixed</li>
-      </ul>
-    </div>
-    <!-- Screener -->
-    <div class="card">
-      <h3>Screener</h3>
-      <div class="tabs">
-        <div class="tab active">Smart Filters</div>
-        <div class="tab">Pre-built Filters</div>
-        <div class="tab">Custom Filters</div>
-      </div>
-
+   <!-- Real-time Greeks & Alerts -->
+<!-- Real-time Greeks & Alerts -->
+<div class="card">
+  <h3>Real-time Option Greeks & Alerts</h3>
+  <p><strong>IV:</strong> 19.7% &nbsp; <strong>Alert:</strong> 212</p>
+  <div id="greeks-alerts-content"></div>
+</div>
+   <!-- Market Pulse -->
+<div class="card">
+  <h3>Market Pulse</h3>
+  <p>Live sentiment and key market indicators:</p>
+  <div id="market-pulse-content"></div>
+</div>
+   <!-- Screener -->
+<div class="card">
+  <h3>Screener</h3>
+  <p>Filter and find optimal options strategies:</p>
+  <div id="screener-content"></div>
+</div>
       <!-- Smart Filters -->
       <div class="smart-filters" style="margin-top: 1rem;">
         <p>AI-identified setups based on Greeks, IV, and volatility signals.</p>
@@ -407,6 +393,83 @@
     });
   });
 </script>
+// dashboard.js
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Simulate dynamic loading of card content
+  simulateCardLoad("market-pulse-content", getMarketPulseData);
+  simulateCardLoad("greeks-alerts-content", getGreeksAlertsData);
+  simulateCardLoad("screener-content", getScreenerData);
+});
+
+// Simulate async load
+function simulateCardLoad(elementId, dataFn) {
+  const container = document.getElementById(elementId);
+  container.innerHTML = "<p>Loading...</p>";
+
+  setTimeout(() => {
+    container.innerHTML = dataFn();
+  }, 1000); // Simulated 1 second load
+}
+
+// Dummy data functions
+function getMarketPulseData() {
+  return `
+    <ul>
+      <li>📉 NIFTY PCR: 0.92 (Bearish)</li>
+      <li>📈 BANKNIFTY PCR: 1.13 (Bullish)</li>
+      <li>🔥 VIX Alert: 15.7 → 19.2 spike</li>
+    </ul>
+  `;
+}
+
+function getGreeksAlertsData() {
+  return `
+    <ul>
+      <li>🚨 Delta spike detected on NIFTY 17600</li>
+      <li>🟠 Gamma shift on BANKNIFTY ATM</li>
+    </ul>
+  `;
+}
+
+function getScreenerData() {
+  return `
+    <div>
+      <label for="sector-filter">Sector:</label>
+      <select id="sector-filter">
+        <option value="">All</option>
+        <option value="IT">IT</option>
+        <option value="Banking">Banking</option>
+        <option value="Pharma">Pharma</option>
+      </select>
+
+      <label for="oi-filter" style="margin-left: 1rem;">OI >:</label>
+      <input type="number" id="oi-filter" placeholder="100000">
+
+      <button onclick="applyScreenerFilters()" style="margin-left: 1rem;">Apply Filters</button>
+    </div>
+
+    <div id="screener-results" style="margin-top: 1rem;">
+      <!-- Results will go here -->
+      <p>No results yet. Apply filters to search.</p>
+    </div>
+  `;
+}
+
+// Example filter logic
+function applyScreenerFilters() {
+  const sector = document.getElementById("sector-filter").value;
+  const oi = document.getElementById("oi-filter").value;
+
+  const resultsContainer = document.getElementById("screener-results");
+  resultsContainer.innerHTML = `
+    <p>Showing results for Sector: <strong>${sector || 'All'}</strong>, OI > <strong>${oi || 'Any'}</strong></p>
+    <ul>
+      <li>Example Result 1</li>
+      <li>Example Result 2</li>
+    </ul>
+  `;
+}
 
 </body>
 </html>
