@@ -73,6 +73,14 @@
       <li>📊 Ratio Spread — Directional volatility play</li>
     </ul>
   </div>
+  <!-- Interactive AI Suggestions -->
+<div class="ai-suggestions-content" style="margin-top: 1rem;">
+  <textarea id="strategy-input" rows="4" placeholder="Enter your own market view or strategy goal..." style="width: 100%; padding: 0.5rem; margin-bottom: 1rem;"></textarea>
+  <button onclick="generateStrategy()" style="background: #3b82f6; color: white; padding: 0.7rem 1.2rem; border: none; border-radius: 5px; cursor: pointer;">
+    Generate Strategy
+  </button>
+  <div id="strategy-result" style="margin-top: 1rem; font-family: monospace;"></div>
+</div>
 </div>
 
 <!-- Real-time Greeks & Alerts -->
