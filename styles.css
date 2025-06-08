@@ -260,3 +260,19 @@ aside nav ul li a.active {
   display: block;
   padding: 0.8rem 0.5rem;
 }
+
+.top-nav {
+  display: flex;
+  align-items: center;
+  background: #0f172a;
+  color: white;
+  padding: 0.75rem 1rem;
+  font-weight: bold;
+  gap: 1rem;
+}
+
+.top-nav a {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: bold;
+}
