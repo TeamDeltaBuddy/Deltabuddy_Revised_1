@@ -1,23 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Risk Coach – DeltaBuddy</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <nav class="top-nav">
-    <a href="dashboard.html">← Dashboard</a>
-    <span>Risk Coach</span>
-  </nav>
+<main style="padding: 2rem;">
+  <h2>Risk Coach</h2>
+  <p style="color: #444; max-width: 600px; margin-bottom: 2rem;">
+    Your personal trading behavior and portfolio risk coach. Get actionable insights and tips to help you manage risk more effectively.
+  </p>
 
-  <main style="padding: 2rem;">
-    <h2>Personalized Risk Insights</h2>
-    <div style="background: #fff; padding: 1rem; border-radius: 6px;">
-      <p>📉 You tend to <strong>overtrade</strong> in low VIX environments.</p>
-      <p>👉 Consider reducing your position size or hedging with protective options.</p>
-    </div>
-  </main>
-</body>
-</html>
+  <!-- Risk Coach Card -->
+  <div class="card">
+    <h3>Risk Coach Summary</h3>
+    <p><strong>Risk Score:</strong> 72 / 100 → 🟡 Moderate Risk</p>
+
+    <ul style="margin-top: 1rem; margin-bottom: 1rem;">
+      <li>✅ Balanced Delta</li>
+      <li>⚠️ High Vega exposure</li>
+      <li>✅ Gamma within range</li>
+      <li>⚠️ Overtrading detected today (12 trades)</li>
+      <li>✅ Hedging OK</li>
+      <li>✅ Leverage OK</li>
+    </ul>
+
+    <p><strong>Coach Tip:</strong> Consider reducing Vega exposure to limit P&amp;L swings if VIX rises.</p>
+  </div>
+</main>
