@@ -87,6 +87,29 @@ async function getScreenerData() {
     return `<p style="color:red;">Error loading Screener</p>`;
   }
 }
+async function generateStrategy() {
+  const userInput = document.getElementById('strategy-input').value;
+  const resultContainer = document.getElementById('strategy-result');
+
+  resultContainer.innerHTML = "<p>Generating strategy...</p>";
+
+  try {
+    const response = await fetch('/api/strategy-assistant', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ input: userInput })
+    });
+
+    const data = await response.json();
+
+    resultContainer.innerHTML = `<pre>${data.strategy}</pre>`;
+  } catch (error) {
+    console.error('Error generating strategy:', error);
+    resultContainer.innerHTML = `<p style="color:red;">Error generating strategy.</p>`;
+  }
+}
 
 function applyScreenerFilters() {
   const selectedSymbols = Array.from(document.getElementById("symbol-filter").selectedOptions).map(option => option.value);
