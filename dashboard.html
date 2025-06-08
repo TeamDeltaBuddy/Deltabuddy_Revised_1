@@ -2,262 +2,96 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DeltaBuddy Dashboard</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+
+  <!-- Layout -->
   <div class="layout">
+
+    <!-- Sidebar -->
     <aside>
-      <a href="index.html">
-        <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo">
-      </a>
+      <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo" />
       <nav>
         <ul>
-          <li><a href="portfolio.html" style="color: white; text-decoration: none;">Portfolio</a></li>
-          <li><a href="dashboard.html" class="active" style="color: white; text-decoration: none;">Dashboard</a></li>
-          <li><a href="greeks.html" style="color: white; text-decoration: none;">Greeks & Alerts</a></li>
-          <li><a href="strategy.html" style="color: white; text-decoration: none;">Strategy Assistant</a></li>
-          <li><a href="adjustment.html" style="color: white; text-decoration: none;">Adjustment Bot</a></li>
-          <li><a href="riskcoach.html" style="color: white; text-decoration: none;">Risk Coach</a></li>
-          <li><a href="marketpulse.html" style="color: white; text-decoration: none;">Market Pulse</a></li>
-          <li><a href="markettools.html" style="color: white; text-decoration: none;">Market Tools</a></li>
-          <li><a href="fii-dii.html" style="color: white; text-decoration: none;">FII & DII</a></li>
-          <li><a href="fo.html" style="color: white; text-decoration: none;">Future & Options</a></li>
-          <li><a href="events.html" style="color: white; text-decoration: none;">Events</a></li>
-          <li><a href="screener.html" style="color: white; text-decoration: none;">Screener</a></li>
-          <li><a href="telegram.html" style="color: white; text-decoration: none;">Telegram Integration</a></li>
+          <li><a href="dashboard.html" class="active">Dashboard</a></li>
+          <li><a href="#">Portfolio</a></li>
+          <li><a href="#">Greeks & Alerts</a></li>
+          <li><a href="#">Strategy Assistant</a></li>
+          <li><a href="#">Adjustment Bot</a></li>
+          <li><a href="#">Risk Coach</a></li>
+          <li><a href="#">Future & Options</a></li>
+          <li><a href="#">FII & DII</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="#">Screener</a></li>
+          <li><a href="#">Telegram Integration</a></li>
         </ul>
       </nav>
     </aside>
+
+    <!-- Main Content -->
     <main>
-      <h1>AI + SaaS Platform</h1>
+      <h1>Welcome to DeltaBuddy</h1>
+      <p>This is your personalized AI + SaaS dashboard.</p>
+
+      <!-- Section: Market Monitoring -->
+      <h2 style="margin-top: 2rem;">Market Monitoring</h2>
       <div class="grid">
-<!-- Portfolio Summary -->
-<div class="card">
-  <h3>Portfolio Summary</h3>
-  <p><strong>Net P&L:</strong> ₹15,430</p>
-  <p><strong>Today’s MTM:</strong> +₹2,150</p>
-  <p><strong>Margin Used:</strong> ₹87,000</p>
-  <p><strong>Open Positions:</strong> 4</p>
-  <p><strong>Hedged %:</strong> 75%</p>
-</div>
+        <div class="card">
+          <h3>Real-time Greeks & Alerts</h3>
+          <p>Delta, Theta, Gamma, Vega monitoring with live triggers.</p>
+          <ul>
+            <li>🚨 Delta spike detected on NIFTY 17600</li>
+            <li>🟠 Gamma shift on BANKNIFTY ATM</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Market Pulse</h3>
+          <p>Live sentiment and key market indicators.</p>
+          <ul>
+            <li>📉 NIFTY PCR: 0.92 (Bearish)</li>
+            <li>📈 BANKNIFTY PCR: 1.13 (Bullish)</li>
+            <li>🔥 VIX Alert: 15.7 → 19.2 spike</li>
+          </ul>
+        </div>
+      </div>
 
-<!-- Strategy Assistant -->
-<div class="card">
-  <h3>Strategy Assistant</h3>
-  <div class="tabs">
-    <div class="tab active">AI Suggestions</div>
-    <div class="tab">Pre-built Strategies</div>
+      <!-- Section: AI Tools -->
+      <h2 style="margin-top: 2rem;">AI-Powered Tools</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Strategy Assistant (DeltaGPT)</h3>
+          <p>AI-generated options strategies based on market conditions.</p>
+        </div>
+        <div class="card">
+          <h3>Adjustment Bot</h3>
+          <p>Auto-monitor and adjust your trades based on delta shifts or VIX spikes.</p>
+        </div>
+      </div>
+
+      <!-- Section: Behavior Insights -->
+      <h2 style="margin-top: 2rem;">Behavior & Risk Insights</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Risk Coach</h3>
+          <p>Receive behavioral insights and warnings like overtrading or under-hedging.</p>
+        </div>
+        <div class="card">
+          <h3>Future & Options Tools</h3>
+          <p>OI, IV charts, intraday buildup, heatmaps, and more.</p>
+        </div>
+        <div class="card">
+          <h3>Events Calendar</h3>
+          <p>FOMC, GDP, RBI decisions with impact tags on strategy alerts.</p>
+          <a href="events.html" style="color: #3b82f6; text-decoration: none; font-weight: bold;">View Events →</a>
+        </div>
+      </div>
+
+    </main>
+
   </div>
-  <p>Use DeltaGPT to generate trading strategies.</p>
-  <a href="strategy-assistant.html" class="btn primary">Open Full Strategy Assistant →</a>
-</div>
 
-
-  <!-- AI Suggestions -->
-  <div class="smart-filters" style="margin-top: 1rem;">
-    <p><strong>User:</strong> Generate a low-volatility options strategy.</p>
-    <p><strong>DeltaGPT:</strong> Suggested strategy → <strong>Iron Condor</strong>:</p>
-    <ul>
-      <li>Sell NIFTY 17800 CE</li>
-      <li>Buy NIFTY 18000 CE</li>
-      <li>Sell NIFTY 17200 PE</li>
-      <li>Buy NIFTY 17000 PE</li>
-    </ul>
-  </div>
-
-  <!-- Pre-built Strategies -->
-  <div class="prebuilt-filters" style="margin-top: 1rem; display: none;">
-    <p>Available Pre-built Strategies:</p>
-    <ul>
-      <li>📈 Bull Call Spread — Risk defined bullish strategy</li>
-      <li>📉 Bear Put Spread — Risk defined bearish strategy</li>
-      <li>⚖️ Iron Condor — Neutral market strategy</li>
-      <li>📊 Ratio Spread — Directional volatility play</li>
-    </ul>
-  </div>
-  <!-- Interactive AI Suggestions -->
-<div class="ai-suggestions-content" style="margin-top: 1rem;">
-  <textarea id="strategy-input" rows="4" placeholder="Enter your own market view or strategy goal..." style="width: 100%; padding: 0.5rem; margin-bottom: 1rem;"></textarea>
-  <button onclick="generateStrategy()" style="background: #3b82f6; color: white; padding: 0.7rem 1.2rem; border: none; border-radius: 5px; cursor: pointer;">
-    Generate Strategy
-  </button>
-  <div id="strategy-result" style="margin-top: 1rem; font-family: monospace;"></div>
-</div>
-</div>
-
-<!-- Real-time Greeks & Alerts -->
-<div class="card">
-  <h3>Real-time Option Greeks & Alerts</h3>
-  <p><strong>IV:</strong> 19.7% &nbsp; <strong>Alert:</strong> 212</p>
-  <div id="greeks-alerts-content"></div>
-</div>
-
-<!-- Market Pulse -->
-<div class="card">
-  <h3>Market Pulse</h3>
-  <p>Live sentiment and key market indicators:</p>
-  <div id="market-pulse-content"></div>
-</div>
-
-<!-- Screener -->
-<div class="card">
-  <h3>Screener</h3>
-  <p>Filter and find optimal options strategies:</p>
-  <div id="screener-content"></div>
-</div>
-<!-- Market Tools -->
-<div class="card">
-  <h3>Market Tools</h3>
-  <p>Key option market analytics:</p>
-  <ul>
-    <li>📊 Highest OI: NIFTY 18000 CE (5.2M)</li>
-    <li>📊 Highest Put OI: NIFTY 17000 PE (4.9M)</li>
-    <li>⚡ IV Skew: 2.1 (Bullish bias)</li>
-    <li>🔍 Max Pain: NIFTY 17500</li>
-    <li>💥 Unusual IV Surge: RELIANCE +22%</li>
-  </ul>
-</div>
-
-<!-- Risk Coach -->
-<div class="card">
-  <h3>Risk Coach</h3>
-  <p>Personalized trading risk insights:</p>
-  <ul>
-    <li>⚠️ You tend to overtrade during low VIX periods → recommended reduction in leverage.</li>
-    <li>✅ Current delta exposure is balanced → no immediate hedge needed.</li>
-    <li>🛡️ Consider adding protection as VIX > 19 today.</li>
-    <li>🚫 Avoid excessive short gamma positions in the current volatility environment.</li>
-  </ul>
-</div>
-
-<!-- Live Alerts -->
-<div class="card">
-  <h3>Live Alerts</h3>
-  <p>Latest Option Trading Signals:</p>
-  <ul>
-    <li>🚀 <strong>RELIANCE</strong> IV Surge +22% @ 10:42 AM</li>
-    <li>📈 <strong>NIFTY 17800 CE</strong> OI Spike +35% @ 10:40 AM</li>
-    <li>⚠️ <strong>INFY</strong> Unusual Put Volume detected @ 10:37 AM</li>
-    <li>🔥 <strong>BANKNIFTY 47000 PE</strong> IV Crush -18% @ 10:35 AM</li>
-  </ul>
-</div>
-
-<!-- FII & DII Flows -->
-<div class="card">
-  <h3>FII & DII Flows</h3>
-  <table style="width: 100%; border-collapse: collapse; margin-top: 0.5rem;">
-    <thead>
-      <tr style="background: #f3f4f6;">
-        <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">Date</th>
-        <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">FII (₹ Cr)</th>
-        <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">DII (₹ Cr)</th>
-        <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">Net (₹ Cr)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">2025-06-05</td>
-        <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">+1543</td>
-        <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">-843</td>
-        <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">+700</td>
-      </tr>
-      <tr>
-        <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">2025-06-04</td>
-        <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">-134</td>
-        <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">+421</td>
-        <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">+287</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-</div> <!-- End of .grid -->
-<!-- Footer -->
-<footer style="background: #1e293b; color: white; text-align: center; padding: 1rem; margin-top: 2rem;">
-  © 2025 DeltaBuddy. All rights reserved. |
-  <a href="mailto:contact@deltabuddy.com" style="color: #60a5fa; text-decoration: none;">contact@deltabuddy.com</a> |
-  <a href="https://t.me/DeltaBuddyBot" style="color: #60a5fa; text-decoration: none;">Telegram</a>
-</footer>
-<!-- Tab Switching Script -->
-<script>
-  document.querySelectorAll('.card .tabs').forEach(tabContainer => {
-    const tabs = tabContainer.querySelectorAll('.tab');
-    const parentCard = tabContainer.closest('.card');
-
-    tabs.forEach((tab, index) => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-
-        const contentBlocks = parentCard.querySelectorAll('.custom-filters, .smart-filters, .prebuilt-filters');
-        contentBlocks.forEach(block => {
-          block.style.display = 'none';
-        });
-
-        const targetClass = ['smart-filters', 'prebuilt-filters', 'custom-filters'][index];
-        const targetBlock = parentCard.querySelector(`.${targetClass}`);
-        if (targetBlock) {
-          targetBlock.style.display = 'block';
-        }
-      });
-    });
-  });
-</script>
-
-<!-- Screener Button Script -->
-<script>
-  document.querySelectorAll('.custom-filters button').forEach(button => {
-    button.addEventListener('click', () => {
-      const parent = button.closest('.custom-filters');
-      const selectedSymbols = Array.from(parent.querySelector('select').selectedOptions).map(option => option.value);
-      const oiChange = parent.querySelector('input[placeholder*="OI Change"]').value;
-      const ivRange = parent.querySelector('input[placeholder*="IV Range"]').value;
-      const pcrRange = parent.querySelector('input[placeholder*="PCR Range"]').value;
-      const deltaThreshold = parent.querySelector('input[placeholder*="Delta Threshold"]').value;
-
-      const screenerData = {
-        symbols: selectedSymbols,
-        oiChange: oiChange,
-        ivRange: ivRange,
-        pcrRange: pcrRange,
-        deltaThreshold: deltaThreshold
-      };
-
-      console.log('🟢 Screener Request:', screenerData);
-
-      // POST to API (placeholder)
-      fetch('/api/screener', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(screenerData)
-      })
-      .then(response => response.json())
-      .then(results => {
-        console.log('🟢 Screener Response:', results);
-
-        // Populate Results Table
-        const tableBody = document.getElementById('screener-results');
-        tableBody.innerHTML = ''; // clear previous results
-
-        results.forEach(row => {
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${row.symbol}</td>
-            <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${row.oiChange}</td>
-            <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${row.iv}</td>
-            <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${row.pcr}</td>
-            <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${row.delta}</td>
-          `;
-          tableBody.appendChild(tr);
-        });
-      })
-      .catch(error => console.error('❌ Screener Error:', error));
-    });
-  });
-</script>
-
-<!-- Dashboard dynamic cards script -->
-<script src="dashboard.js"></script>
 </body>
 </html>
