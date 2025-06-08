@@ -12,13 +12,15 @@
     <span>Strategy Assistant</span>
   </nav>
 
-  <main style="padding: 2rem;">
-    <h2>AI Strategy Assistant</h2>
-    <p>Ask DeltaGPT for help with market strategy:</p>
-    <div style="background: #fff; padding: 1rem; border-radius: 6px;">
-      <strong>Q:</strong> What’s a good options strategy for low volatility?<br />
-      <strong>DeltaGPT:</strong> <em>In a low volatility environment, consider an Iron Condor: Sell an OTM put and call, and buy further OTM legs to limit risk.</em>
-    </div>
-  </main>
-</body>
-</html>
+<main style="padding: 2rem;">
+  <h2>AI Strategy Assistant</h2>
+  <p>Ask DeltaGPT for help with market strategy:</p>
+
+  <input type="text" id="strategyInput" placeholder="Type your question..." style="width: 80%; padding: 0.5rem;" />
+  <button id="generateStrategyBtn" style="padding: 0.5rem 1rem; margin-top: 1rem;">Generate Strategy</button>
+
+  <div id="strategyResponse" style="background: #fff; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
+    <em>Strategy response will appear here...</em>
+  </div>
+</main>
+
