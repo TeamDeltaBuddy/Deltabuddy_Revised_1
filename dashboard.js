@@ -15,66 +15,77 @@ function simulateCardLoad(elementId, dataFn) {
   }, 1000); // Simulated 1 second load
 }
 
-// Dummy data functions
-function getMarketPulseData() {
-  return `
-    <ul>
-      <li>📉 NIFTY PCR: 0.92 (Bearish)</li>
-      <li>📈 BANKNIFTY PCR: 1.13 (Bullish)</li>
-      <li>🔥 VIX Alert: 15.7 → 19.2 spike</li>
-    </ul>
-  `;
+async function getMarketPulseData() {
+  try {
+    const response = await fetch('/api/market-pulse');
+    const data = await response.json();
+
+    return `
+      <ul>
+        <li>📉 NIFTY PCR: ${data.niftyPCR} (${data.niftyPCR > 1 ? "Bullish" : "Bearish"})</li>
+        <li>📈 BANKNIFTY PCR: ${data.bankNiftyPCR} (${data.bankNiftyPCR > 1 ? "Bullish" : "Bearish"})</li>
+        <li>🔥 VIX Alert: ${data.vix}</li>
+      </ul>
+    `;
+  } catch (error) {
+    console.error("Error loading Market Pulse:", error);
+    return `<p style="color:red;">Error loading Market Pulse</p>`;
+  }
 }
 
-function getGreeksAlertsData() {
-  return `
-    <ul>
-      <li>🚨 Delta spike detected on NIFTY 17600</li>
-      <li>🟠 Gamma shift on BANKNIFTY ATM</li>
-    </ul>
-  `;
+async function getGreeksAlertsData() {
+  try {
+    const response = await fetch('/api/greeks-alerts');
+    const data = await response.json();
+
+    // Example: data.alerts = [ "Delta spike...", "Gamma shift..." ]
+    return `
+      <ul>
+        ${data.alerts.map(alert => `<li>${alert}</li>`).join("")}
+      </ul>
+    `;
+  } catch (error) {
+    console.error("Error loading Greeks Alerts:", error);
+    return `<p style="color:red;">Error loading Greeks Alerts</p>`;
+  }
 }
 
-function getScreenerData() {
-  return `
-    <div>
-      <label>Select Symbols:</label><br>
-      <select multiple id="symbol-filter" style="width: 100%; padding: 0.5rem; border-radius: 5px;">
-        <option>NIFTY</option>
-        <option>BANKNIFTY</option>
-        <option>RELIANCE</option>
-        <option>INFY</option>
-        <option>TCS</option>
-        <option>ICICIBANK</option>
-      </select><br><br>
+async function getScreenerData() {
+  try {
+    const response = await fetch('/api/screener');
+    const data = await response.json();
 
-      <label>OI Change % (Min):</label><br>
-      <input type="number" id="oi-min" placeholder="e.g. 10" style="width: 100%; padding: 0.5rem;"><br><br>
+    // Example data.rows = [{ symbol, oiChange, iv, pcr, delta }]
+    const rows = data.rows;
 
-      <label>IV Range (%):</label><br>
-      <input type="text" id="iv-range" placeholder="e.g. 12-25" style="width: 100%; padding: 0.5rem;"><br><br>
-
-      <label>PCR Range:</label><br>
-      <input type="text" id="pcr-range" placeholder="e.g. 0.8-1.2" style="width: 100%; padding: 0.5rem;"><br><br>
-
-      <label>Delta Threshold:</label><br>
-      <input type="text" id="delta-threshold" placeholder="e.g. > 0.3" style="width: 100%; padding: 0.5rem;"><br><br>
-
-      <button onclick="applyScreenerFilters()" style="background: #3b82f6; color: white; padding: 0.7rem 1.2rem; border: none; border-radius: 5px; cursor: pointer;">
-        Run Screener
-      </button>
-
-      <button onclick="resetScreenerFilters()" style="background: #e5e7eb; color: #111827; padding: 0.7rem 1.2rem; border: none; border-radius: 5px; cursor: pointer; margin-left: 1rem;">
-        Reset Filters
-      </button>
-    </div>
-
-    <div id="screener-meta" style="margin-top: 1rem; font-weight: bold; color: #3b82f6;"></div>
-
-    <div id="screener-results" style="margin-top: 0.5rem;">
-      <p>No results yet. Apply filters to search.</p>
-    </div>
-  `;
+    return `
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr style="background: #f3f4f6;">
+            <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">Symbol</th>
+            <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">OI Change %</th>
+            <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">IV %</th>
+            <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">PCR</th>
+            <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">Delta</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows.map(row => `
+            <tr>
+              <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${row.symbol}</td>
+              <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${row.oiChange}</td>
+              <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${row.iv}</td>
+              <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${row.pcr}</td>
+              <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${row.delta}</td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    `;
+  } catch (error) {
+    console.error("Error loading Screener:", error);
+    return `<p style="color:red;">Error loading Screener</p>`;
+  }
 }
 
 function applyScreenerFilters() {
