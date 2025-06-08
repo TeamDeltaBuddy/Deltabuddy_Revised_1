@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Strategy Assistant – DeltaBuddy</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<main style="padding: 2rem;">
+  <h2>AI Strategy Assistant</h2>
+  <p>Ask DeltaGPT for help with market strategy:</p>
+
+  <input type="text" id="strategyInput" placeholder="Type your question..." style="width: 80%; padding: 0.5rem;" />
+  <button id="generateStrategyBtn" style="padding: 0.5rem 1rem; margin-top: 1rem;">Generate Strategy</button>
+
+  <div id="strategyResponse" style="background: #fff; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
+    <em>Strategy response will appear here...</em>
+  </div>
+</main>
+
+<script>
+document.getElementById('generateStrategyBtn').addEventListener('click', async () => {
+  const question = document.getElementById('strategyInput').value;
+  const responseDiv = document.getElementById('strategyResponse');
+  responseDiv.innerHTML = 'Loading...';
+
+  try {
+    const res = await fetch('http://localhost:3000/api/generate-strategy', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt: question })
+    });
+
+    if (!res.ok) throw new Error('Error generating strategy');
+
+    const data = await res.json();
+    responseDiv.innerHTML = `<strong>DeltaGPT:</strong> <em>${data.strategy}</em>`;
+  } catch (err) {
+    console.error(err);
+    responseDiv.innerHTML = 'Error generating strategy.';
+  }
+});
+</script>
+
+</body>
+</html>
