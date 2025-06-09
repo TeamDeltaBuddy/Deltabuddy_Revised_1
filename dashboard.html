@@ -6,6 +6,7 @@
   <title>DeltaBuddy Dashboard</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
+    /* Ticker animation */
     @keyframes tickerMove {
       0% { transform: translateX(100%); }
       100% { transform: translateX(-100%); }
@@ -16,6 +17,48 @@
       font-weight: bold;
       color: #0f172a;
       font-size: 0.95rem;
+    }
+
+    /* Sidebar fix */
+    aside {
+      width: 220px; /* wider so text fits */
+      background-color: #0f172a;
+      padding: 1rem;
+      color: white;
+    }
+
+    aside img {
+      max-width: 100%;
+      margin-bottom: 1rem;
+    }
+
+    aside nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    aside nav ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    aside nav ul li a {
+      display: block;
+      padding: 10px 15px;
+      color: white;
+      text-decoration: none;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    aside nav ul li a:hover {
+      background-color: #3b82f6;
+    }
+
+    aside nav ul li a.active {
+      background-color: #3b82f6;
+      font-weight: bold;
     }
   </style>
 </head>
