@@ -224,16 +224,16 @@ main {
 /* Card grid */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
 }
 
 /* Card */
 .card {
   background: white;
-  border-radius: 10px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
 }
 
 .card h3 {
