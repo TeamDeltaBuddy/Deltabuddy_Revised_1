@@ -183,10 +183,12 @@ aside img {
 aside nav ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 aside nav ul li {
   margin-bottom: 0.5rem;
+  /* REMOVE padding + cursor here */
 }
 
 aside nav ul li a {
