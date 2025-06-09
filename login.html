@@ -49,6 +49,17 @@
     .login-card button:hover {
       background: #2563eb;
     }
+    .links {
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .links a {
+      color: #3b82f6;
+      text-decoration: none;
+      display: block;
+      margin: 0.5rem 0;
+      font-size: 0.9rem;
+    }
     .back-home {
       display: block;
       margin-top: 1rem;
@@ -68,6 +79,10 @@
       <input type="password" id="password" placeholder="Password" required />
       <button type="submit">Sign In</button>
     </form>
+    <div class="links">
+      <a href="signup.html">Don’t have an account? Sign Up here</a>
+      <a href="#">Forgot Password?</a> <!-- Placeholder -->
+    </div>
     <a class="back-home" href="index.html">&larr; Back to Home</a>
   </div>
 
@@ -77,9 +92,14 @@
       // Placeholder for future API call
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
-      alert(`Logging in with:\nEmail: ${email}`);
-      // TODO: Replace with actual backend API call
-      // Example: fetch('/api/login', { method: 'POST', body: ... })
+
+      // Simulate login success → redirect to dashboard
+      if (email && password) {
+        alert('Login successful! Redirecting to Dashboard...');
+        window.location.href = 'dashboard.html';
+      } else {
+        alert('Please enter valid email and password.');
+      }
     }
   </script>
 
