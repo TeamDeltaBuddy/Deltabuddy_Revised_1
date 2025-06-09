@@ -78,7 +78,6 @@ body {
   0% { transform: translateX(0%); }
   100% { transform: translateX(-100%); }
 }
-
 /* Features Section */
 .features {
   padding: 2.5rem 1rem;
@@ -155,7 +154,6 @@ footer a {
 footer a:hover {
   text-decoration: underline;
 }
-
 /* Dashboard Layout */
 .layout {
   display: flex;
@@ -188,7 +186,6 @@ aside nav ul {
 
 aside nav ul li {
   margin-bottom: 0.5rem;
-  /* REMOVE padding + cursor here */
 }
 
 aside nav ul li a {
@@ -239,7 +236,6 @@ main {
 .card h3 {
   margin-top: 0;
 }
-
 /* Tabs inside card */
 .tabs {
   display: flex;
