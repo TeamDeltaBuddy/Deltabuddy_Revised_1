@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Strategy Assistant – DeltaBuddy</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+    .top-nav {
+      background: #0f172a;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .top-nav a {
+      color: #3b82f6;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    main {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .strategy {
+      background: white;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    }
+    .strategy h3 {
+      margin-top: 0;
+      color: #0f172a;
+    }
+    .strategy p {
+      margin: 0.5rem 0;
+    }
+    .strategy ul {
+      padding-left: 1.2rem;
+    }
+    .back-home {
+      display: block;
+      margin-top: 2rem;
+      text-align: center;
+      color: #3b82f6;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <a href="dashboard.html">← Dashboard</a>
+    <span>Strategy Assistant</span>
+  </nav>
+
+  <main>
+    <h2>Options Strategy Assistant</h2>
+    <p style="text-align:center; color:#444; max-width:600px; margin:0 auto 2rem;">
+      Learn common options strategies, their structure, usage scenarios, and risk-reward profile.
+    </p>
+
+    <div class="strategy">
+      <h3>📈 Bull Call Spread</h3>
+      <p><strong>Structure:</strong> Buy 1 lower strike Call, Sell 1 higher strike Call</p>
+      <p><strong>When to use:</strong> Moderately bullish market</p>
+      <p><strong>Max Profit:</strong> Difference in strikes - Net Premium Paid</p>
+      <p><strong>Max Loss:</strong> Net Premium Paid</p>
+    </div>
+
+    <div class="strategy">
+      <h3>📉 Bear Call Spread</h3>
+      <p><strong>Structure:</strong> Sell 1 lower strike Call, Buy 1 higher strike Call</p>
+      <p><strong>When to use:</strong> Moderately bearish market</p>
+      <p><strong>Max Profit:</strong> Net Premium Received</p>
+      <p><strong>Max Loss:</strong> Difference between strikes - Net Premium Received</p>
+    </div>
+
+    <div class="strategy">
+      <h3>🌐 Iron Condor</h3>
+      <p><strong>Structure:</strong> Sell 1 lower strike Put, Buy 1 even lower strike Put + Sell 1 higher strike Call, Buy 1 even higher strike Call</p>
+      <p><strong>When to use:</strong> Range-bound market, low volatility</p>
+      <p><strong>Max Profit:</strong> Net Premium Received</p>
+      <p><strong>Max Loss:</strong> Difference between adjacent strikes - Net Premium Received</p>
+    </div>
+
+    <div class="strategy">
+      <h3>🌟 Long Straddle</h3>
+      <p><strong>Structure:</strong> Buy 1 ATM Call, Buy 1 ATM Put</p>
+      <p><strong>When to use:</strong> High volatility expected, big move in any direction</p>
+      <p><strong>Max Profit:</strong> Unlimited</p>
+      <p><strong>Max Loss:</strong> Total Premium Paid</p>
+    </div>
+
+    <div class="strategy">
+      <h3>🔄 Short Strangle</h3>
+      <p><strong>Structure:</strong> Sell 1 OTM Call, Sell 1 OTM Put</p>
+      <p><strong>When to use:</strong> Very low volatility expected, range-bound market</p>
+      <p><strong>Max Profit:</strong> Net Premium Received</p>
+      <p><strong>Max Loss:</strong> Unlimited (on large moves)</p>
+    </div>
+
+    <a class="back-home" href="dashboard.html">← Back to Dashboard</a>
+
+  </main>
+
+</body>
+</html>
