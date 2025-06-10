@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bearish AI Strategy Generator</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="top-nav">
+    <a href="strategy-bearish.html">← Back to Bearish Market</a>
+    <span>AI Strategy Generator</span>
+  </nav>
+  <main>
+    <div class="ai-box">
+      <h3>🧠 AI Strategy Generator</h3>
+      <p>Enter your market view or goal and get a suggested strategy:</p>
+      <textarea id="strategy-input" rows="3" style="width:100%; margin-bottom:1rem;"></textarea>
+      <button onclick="generateStrategy()" style="background:#3b82f6; color:white; padding:0.5rem 1rem; border:none; border-radius:5px; cursor:pointer;">Generate Strategy</button>
+      <div id="strategy-result" style="margin-top:1rem; padding:1rem; background:#f9f9f9; border-radius:6px;"></div>
+    </div>
+  </main>
+
+  <script>
+    async function generateStrategy() {
+      const userInput = document.getElementById('strategy-input').value;
+      const resultContainer = document.getElementById('strategy-result');
+
+      resultContainer.innerHTML = "<p>Generating strategy...</p>";
+
+      try {
+        const response = await fetch('/api/strategy-assistant', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ input: userInput })
+        });
+
+        const data = await response.json();
+
+        resultContainer.innerHTML = `<pre>${data.strategy}</pre>`;
+      } catch (error) {
+        console.error('Error generating strategy:', error);
+        resultContainer.innerHTML = `<p style="color:red;">Error generating strategy.</p>`;
+      }
+    }
+  </script>
+</body>
+</html>
