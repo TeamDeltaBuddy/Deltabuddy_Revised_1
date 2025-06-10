@@ -1,23 +1,64 @@
-<main style="padding: 2rem;">
-  <h2>Risk Coach</h2>
-  <p style="color: #444; max-width: 600px; margin-bottom: 2rem;">
-    Your personal trading behavior and portfolio risk coach. Get actionable insights and tips to help you manage risk more effectively.
-  </p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Risk Coach – DeltaBuddy</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    header { display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: #0f172a; color: white; }
+    .back-dashboard { background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 5px; text-decoration: none; }
+    .card { background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 0 4px rgba(0,0,0,0.1); margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo" style="width: 100px;">
+    <a class="back-dashboard" href="dashboard.html">⬅️ Back to Dashboard</a>
+  </header>
 
-  <!-- Risk Coach Card -->
-  <div class="card">
-    <h3>Risk Coach Summary</h3>
-    <p><strong>Risk Score:</strong> 72 / 100 → 🟡 Moderate Risk</p>
+  <main style="padding: 2rem;">
+    <h2>Risk Coach</h2>
+    <p style="color: #444; max-width: 600px; margin-bottom: 2rem;">
+      Your personal trading behavior and portfolio risk coach. Get actionable insights and tips to help you manage risk more effectively.
+    </p>
 
-    <ul style="margin-top: 1rem; margin-bottom: 1rem;">
-      <li>✅ Balanced Delta</li>
-      <li>⚠️ High Vega exposure</li>
-      <li>✅ Gamma within range</li>
-      <li>⚠️ Overtrading detected today (12 trades)</li>
-      <li>✅ Hedging OK</li>
-      <li>✅ Leverage OK</li>
-    </ul>
+    <!-- Your existing Risk Coach Card -->
+    <div class="card">
+      <h3>Risk Coach Summary</h3>
+      <p><strong>Risk Score:</strong> 72 / 100 → 🟡 Moderate Risk</p>
 
-    <p><strong>Coach Tip:</strong> Consider reducing Vega exposure to limit P&amp;L swings if VIX rises.</p>
-  </div>
-</main>
+      <ul style="margin-top: 1rem; margin-bottom: 1rem;">
+        <li>✅ Balanced Delta</li>
+        <li>⚠️ High Vega exposure</li>
+        <li>✅ Gamma within range</li>
+        <li>⚠️ Overtrading detected today (12 trades)</li>
+        <li>✅ Hedging OK</li>
+        <li>✅ Leverage OK</li>
+      </ul>
+
+      <p><strong>Coach Tip:</strong> Consider reducing Vega exposure to limit P&amp;L swings if VIX rises.</p>
+    </div>
+
+    <!-- Extra Cards (enhancements) -->
+    <div class="card">
+      <h3>Warnings & Tips</h3>
+      <ul>
+        <li>🚨 Overtrading warning: Detected 15 trades in the last 2 hours.</li>
+        <li>⚠️ Under-hedging risk: Current portfolio delta exceeds recommended threshold.</li>
+        <li>💡 Tip: Review your trade journal weekly to track emotional patterns.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Next Features (Phase 2)</h3>
+      <ul>
+        <li>AI-driven personality risk profile</li>
+        <li>Custom alerts based on behavior signals</li>
+        <li>Adaptive coaching tips based on live trades</li>
+      </ul>
+    </div>
+
+  </main>
+</body>
+</html>
