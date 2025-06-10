@@ -5,19 +5,97 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Screener – DeltaBuddy</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    header { display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: #0f172a; color: white; }
+    .back-dashboard { background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 5px; text-decoration: none; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+    .card { background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 0 4px rgba(0,0,0,0.1); }
+    label { display: block; margin-bottom: 0.5rem; font-weight: bold; }
+    select, input[type="number"] { width: 100%; padding: 0.5rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 4px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { border: 1px solid #e5e7eb; padding: 0.75rem; text-align: left; }
+    th { background: #f1f5f9; }
+  </style>
 </head>
 <body>
-  <nav class="top-nav">
-    <a href="dashboard.html">← Dashboard</a>
-    <span>Screener</span>
-  </nav>
+  <header>
+    <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo" style="width: 100px;">
+    <a class="back-dashboard" href="dashboard.html">⬅️ Back to Dashboard</a>
+  </header>
 
   <main style="padding: 2rem;">
+    <h1>Options Screener</h1>
+
+    <!-- Your intro -->
     <h2>Smart Screener</h2>
     <p>🔍 Filter stocks based on Greeks, sectors, market cap, valuation, and more.</p>
     <p style="background: #fff3cd; padding: 1rem; border-radius: 6px;">
       🚧 Smart Filters module coming soon. Please check back later.
     </p>
+
+    <!-- Filters Section -->
+    <section>
+      <h2>Filters</h2>
+      <div class="grid">
+        <div class="card">
+          <label for="symbol">Symbol</label>
+          <select id="symbol">
+            <option>NIFTY</option>
+            <option>BANKNIFTY</option>
+            <option>FINNIFTY</option>
+            <option>RELIANCE</option>
+            <option>INFY</option>
+          </select>
+
+          <label for="greeks-delta">Delta (min)</label>
+          <input type="number" id="greeks-delta" placeholder="e.g. 0.2">
+
+          <label for="oi-change">OI Change % (min)</label>
+          <input type="number" id="oi-change" placeholder="e.g. 5">
+
+          <label for="iv">IV % (max)</label>
+          <input type="number" id="iv" placeholder="e.g. 40">
+
+          <button style="margin-top: 1rem; background: #3b82f6; color: white; padding: 0.5rem 1rem; border: none; border-radius: 5px; cursor: pointer;">Run Screener</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results Placeholder -->
+    <section style="margin-top: 2rem;">
+      <h2>Results</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Symbol</th>
+            <th>Strike</th>
+            <th>Type</th>
+            <th>Delta</th>
+            <th>OI Change %</th>
+            <th>IV %</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>NIFTY</td>
+            <td>22500</td>
+            <td>Call</td>
+            <td>0.35</td>
+            <td>+12%</td>
+            <td>22%</td>
+          </tr>
+          <tr>
+            <td>BANKNIFTY</td>
+            <td>48500</td>
+            <td>Put</td>
+            <td>-0.42</td>
+            <td>+8%</td>
+            <td>27%</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
   </main>
 </body>
 </html>
