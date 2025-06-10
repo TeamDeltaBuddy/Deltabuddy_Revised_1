@@ -5,12 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Adjustment Bot – DeltaBuddy</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    header { display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: #0f172a; color: white; }
+    .back-dashboard { background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 5px; text-decoration: none; }
+    .card { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); margin-top: 1rem; }
+    ul { padding-left: 1.2rem; }
+  </style>
 </head>
 <body>
-  <nav class="top-nav">
-    <a href="dashboard.html">← Dashboard</a>
-    <span>Adjustment Bot</span>
-  </nav>
+
+  <header>
+    <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo" style="width: 100px;">
+    <a class="back-dashboard" href="dashboard.html">⬅️ Back to Dashboard</a>
+  </header>
 
   <main style="padding: 2rem;">
     <h2>Auto Adjustment Bot</h2>
@@ -22,6 +29,34 @@
     <p style="background: #fff3cd; padding: 1rem; border-radius: 6px;">
       ⚙️ Integration with live trades coming soon.
     </p>
+
+    <!-- Adjustment Triggers Card -->
+    <div class="card">
+      <h3>🚨 Recent Adjustment Triggers</h3>
+      <ul>
+        <li>🔄 Delta spike detected on NIFTY 22500 CE → Suggested hedge: Add Bear Call Spread</li>
+        <li>🔥 VIX spike: 13.4 → 18.2 → Suggested: Reduce naked options, consider Iron Condor</li>
+        <li>🔄 Gamma risk detected on BANKNIFTY ATM → Suggested: Roll strikes outward</li>
+        <li>🔄 Large OI build-up detected on FINNIFTY PUT side → Suggested: Monitor PCR, consider adjustment</li>
+      </ul>
+      <p style="margin-top:1rem;"><em>Live adjustment suggestions will appear here as bot connects to your portfolio.</em></p>
+    </div>
+
+    <!-- Upcoming Features Card -->
+    <div class="card">
+      <h3>🌟 Upcoming Features (Phase 2)</h3>
+      <ul>
+        <li>Real-time adjustments based on Delta, Gamma, Vega, and VIX changes</li>
+        <li>Telegram push alerts with adjustment actions</li>
+        <li>Portfolio-aware recommendations (hedging level, capital impact)</li>
+        <li>Auto-tracking of prior adjustments for learning loop</li>
+      </ul>
+    </div>
+
+    <a class="back-home" href="dashboard.html" style="display:block; text-align:center; margin-top:2rem; color:#3b82f6; text-decoration:none; font-weight:bold;">
+      ⬅️ Back to Dashboard
+    </a>
   </main>
+
 </body>
 </html>
