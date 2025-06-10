@@ -11,7 +11,7 @@
 .ticker {
   display: flex;
   gap: 2rem;
-  animation: tickerMove 75s linear infinite;
+ animation: tickerMove 25s linear infinite; /* 3x faster */
 }
 
 .ticker-item {
