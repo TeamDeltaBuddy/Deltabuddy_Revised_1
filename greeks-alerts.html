@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Greeks & Alerts – DeltaBuddy</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    header { display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: #0f172a; color: white; }
+    .back-dashboard { background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 5px; text-decoration: none; }
+    .card { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); margin-top: 1rem; }
+    ul { padding-left: 1.2rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo" style="width: 100px;">
+    <a class="back-dashboard" href="dashboard.html">⬅️ Back to Dashboard</a>
+  </header>
+
+  <main style="padding: 2rem;">
+    <h2>Real-time Greeks & Alerts</h2>
+    <p style="color: #444; max-width: 600px;">
+      Monitor your positions' option Greeks and get live alerts on sudden shifts or risk levels.
+    </p>
+
+    <div class="card">
+      <h3>Δ Delta / Γ Gamma / Θ Theta / ν Vega</h3>
+      <ul>
+        <li>Delta: +35 → Slight bullish bias</li>
+        <li>Gamma: 5.2 → Neutral zone</li>
+        <li>Theta: -18 → Mild decay</li>
+        <li>Vega: +22 → High sensitivity to volatility</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>⚠️ Alerts</h3>
+      <ul>
+        <li>🚨 Delta spike detected in NIFTY ATM</li>
+        <li>📈 Gamma trend increasing</li>
+        <li>🔊 High Vega exposure on BANKNIFTY</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>💡 Tips & Coming Features</h3>
+      <ul>
+        <li>Customizable alert thresholds</li>
+        <li>Broker-linked real-time monitoring (Phase 2)</li>
+        <li>Telegram alert integration</li>
+        <li>Visualization charts of Greeks vs Time</li>
+      </ul>
+    </div>
+
+    <a class="back-home" href="dashboard.html" style="display:block; text-align:center; margin-top:2rem; color:#3b82f6; text-decoration:none; font-weight:bold;">
+      ⬅️ Back to Dashboard
+    </a>
+  </main>
+
+</body>
+</html>
