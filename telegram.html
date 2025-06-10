@@ -5,12 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Telegram Integration – DeltaBuddy</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    header { display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: #0f172a; color: white; }
+    .back-dashboard { background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 5px; text-decoration: none; }
+    .card { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); margin-top: 1rem; }
+    button { background: #3b82f6; color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; }
+    button:hover { background: #2563eb; }
+    ul { padding-left: 1.2rem; }
+    a.btn-primary { background: #3b82f6; color: white; padding: 0.75rem 1.5rem; border-radius: 6px; text-decoration: none; font-weight: bold; }
+    a.btn-primary:hover { background: #2563eb; }
+  </style>
 </head>
 <body>
-  <nav class="top-nav">
-    <a href="dashboard.html">← Dashboard</a>
-    <span>Telegram Bot</span>
-  </nav>
+
+  <header>
+    <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo" style="width: 100px;">
+    <a class="back-dashboard" href="dashboard.html">⬅️ Back to Dashboard</a>
+  </header>
 
   <main style="padding: 2rem;">
     <h2>Connect to Telegram Bot</h2>
@@ -20,7 +31,33 @@
       <li>💬 Trade Entry/Exit Signals</li>
       <li>⚠️ Risk Warnings</li>
     </ul>
-    <p><a href="https://t.me/DeltaBuddyBot" target="_blank" class="btn primary">Join @DeltaBuddyBot</a></p>
+    <p><a href="https://t.me/DeltaBuddyBot" target="_blank" class="btn-primary">Join @DeltaBuddyBot</a></p>
+
+    <div class="card">
+      <h3>📣 Planned Alerts</h3>
+      <ul>
+        <li>🚨 Adjustment Bot triggers</li>
+        <li>🔄 Risk Coach behavioral alerts</li>
+        <li>🔍 Screener hits</li>
+        <li>📈 Market Pulse anomaly alerts</li>
+        <li>📢 Strategy Assistant generated trades</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>🌟 Upcoming Features (Phase 2)</h3>
+      <ul>
+        <li>Two-way Telegram bot interaction</li>
+        <li>AI-generated trade alerts</li>
+        <li>Portfolio risk alerts</li>
+        <li>Customizable alert filters and frequency</li>
+      </ul>
+    </div>
+
+    <a class="back-home" href="dashboard.html" style="display:block; text-align:center; margin-top:2rem; color:#3b82f6; text-decoration:none; font-weight:bold;">
+      ⬅️ Back to Dashboard
+    </a>
   </main>
+
 </body>
 </html>
