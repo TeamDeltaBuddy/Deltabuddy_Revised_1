@@ -6,106 +6,18 @@
   <title>Portfolio – DeltaBuddy</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    header { display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: #0f172a; color: white; }
-    .back-dashboard { background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 5px; text-decoration: none; }
-    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-    th, td { border: 1px solid #e5e7eb; padding: 0.75rem; text-align: left; }
-    th { background: #f1f5f9; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
-    .card { background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 0 4px rgba(0,0,0,0.1); }
+    body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 2rem; }
+    .market-card { background: white; padding: 2rem; margin: 1rem 0; border-radius: 8px; box-shadow: 0 0 4px rgba(0,0,0,0.1); text-align: center; }
+    .market-card a { text-decoration: none; font-weight: bold; color: #3b82f6; font-size: 1.5rem; }
   </style>
 </head>
 <body>
-  <header>
-    <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo" style="width: 100px;">
-    <a class="back-dashboard" href="dashboard.html">⬅️ Back to Dashboard</a>
-  </header>
-
-  <main style="padding: 2rem;">
-    <h1>Portfolio</h1>
-
-    <!-- Your cards -->
-    <section>
-      <h2>Your Portfolio</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>📈 Actual Trading</h3>
-          <p>Track positions synced from your broker account.</p>
-          <ul>
-            <li>Live P&L, Greeks, and margin usage</li>
-            <li>Broker integration coming soon</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>🎯 Paper Trading</h3>
-          <p>Practice with simulators and AI guidance.</p>
-          <ul>
-            <li>Virtual portfolio with live market data</li>
-            <li>Backtest AI strategies</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- My full Portfolio sections -->
-    <section style="margin-top: 2rem;">
-      <h2>Overview</h2>
-      <p>Total P&L: <strong>₹+12,500</strong> | Margin Used: <strong>₹1,75,000</strong> | Exposure: <strong>NIFTY 40%, BANKNIFTY 35%, STOCK OPTIONS 25%</strong></p>
-    </section>
-
-    <section style="margin-bottom: 2rem;">
-      <h2>Positions</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Symbol</th>
-            <th>Quantity</th>
-            <th>Avg Price</th>
-            <th>LTP</th>
-            <th>P&L</th>
-            <th>Greeks</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>NIFTY 17700 CE</td>
-            <td>50</td>
-            <td>120.5</td>
-            <td>118.2</td>
-            <td>₹115</td>
-            <td>Δ +0.45, Θ -1.2, Γ +0.02</td>
-          </tr>
-          <tr>
-            <td>BANKNIFTY 46000 PE</td>
-            <td>25</td>
-            <td>150.0</td>
-            <td>142.8</td>
-            <td>₹180</td>
-            <td>Δ -0.38, Θ -1.5, Γ +0.03</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section style="margin-bottom: 2rem;">
-      <h2>Strategy Buckets</h2>
-      <p>🔹 Iron Condor: 2 legs | 🔹 Bull Put Spread: 1 leg | 🔹 Covered Call: 1 leg</p>
-    </section>
-
-    <section style="margin-bottom: 2rem;">
-      <h2>Hedge Analysis</h2>
-      <p>Hedge ratio: <strong>1.2</strong> | Coverage: <strong>95%</strong>.</p>
-    </section>
-
-    <section style="margin-bottom: 2rem;">
-      <h2>Performance Timeline</h2>
-      <p>📈 Equity Curve (coming soon) | 📉 Max Drawdown: <strong>-4.2%</strong>.</p>
-    </section>
-
-    <section>
-      <h2>Trade Journal</h2>
-      <p>📅 Feature planned in Phase 2 Roadmap.</p>
-    </section>
-  </main>
+  <nav class="top-nav">
+    <a href="dashboard.html">← Dashboard</a>
+    <span>Portfolio</span>
+  </nav>
+  <h2 style="text-align:center;">Choose Portfolio Segment</h2>
+  <div class="market-card"><a href="portfolio-actual.html">📈 Actual Trading</a></div>
+  <div class="market-card"><a href="portfolio-paper.html">📝 Paper Trading</a></div>
 </body>
 </html>
