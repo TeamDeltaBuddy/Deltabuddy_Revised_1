@@ -1,24 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pre-Built Bearish Strategies</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bearish Prebuilt Strategy Finder</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <nav class="top-nav">
-    <a href="strategy-bearish.html">← Back to Bearish Market</a>
-    <span>Pre-Built Strategies</span>
+  <!-- Nav Bar -->
+  <nav style="margin-bottom: 1rem;">
+    <a href="strategy-bearish.html">← Bearish Market Home</a> |
+    <a href="strategy-bearish-ai.html">🧠 AI Generator</a> |
+    <a href="strategy-bearish-prebuilt.html">📋 Prebuilt Finder</a> |
+    <a href="strategy-bearish-custom.html">🛠️ Custom Builder</a>
   </nav>
+
+  <!-- Prebuilt Strategy Finder -->
   <main>
-    <div class="strategy">
-      <h3>📉 Bear Call Spread</h3>
-      <p><strong>Structure:</strong> Sell 1 lower strike Call, Buy 1 higher strike Call</p>
-      <p><strong>When to use:</strong> Moderately bearish market</p>
-      <p><strong>Max Profit:</strong> Net Premium Received</p>
-      <p><strong>Max Loss:</strong> Difference between strikes - Net Premium Received</p>
+    <div class="ai-box">
+      <h3>📋 Strategy Finder</h3>
+      <p>Select filters to find pre-built options strategies:</p>
+      
+      <!-- Filters Placeholder -->
+      <div style="margin-bottom: 1rem;">
+        <label>Underlying: </label>
+        <select>
+          <option>NIFTY</option>
+          <option>BANKNIFTY</option>
+          <option>Stocks</option>
+        </select>
+
+        <label style="margin-left: 1rem;">IV Rank: </label>
+        <select>
+          <option>Low</option>
+          <option>Medium</option>
+          <option>High</option>
+        </select>
+
+        <label style="margin-left: 1rem;">Days to Expiry: </label>
+        <select>
+          <option>&lt; 7</option>
+          <option>7 - 14</option>
+          <option>15+</option>
+        </select>
+      </div>
+
+      <!-- Suggested Strategies Placeholder -->
+      <div style="padding: 1rem; background: #f9f9f9; border-radius: 6px;">
+        <p>[AI Suggested Strategies will appear here]</p>
+      </div>
     </div>
+
+    <!-- Optimizer -->
+    <section class="ai-box" style="margin-top: 2rem;">
+      <h4>Strategy Optimizer</h4>
+      <button style="background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 5px; border: none;">Improve My Strategy</button>
+      <p>[Optimizer Suggestions Placeholder]</p>
+    </section>
   </main>
 </body>
 </html>
