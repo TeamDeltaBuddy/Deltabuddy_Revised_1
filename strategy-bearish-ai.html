@@ -7,10 +7,15 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <nav class="top-nav">
-    <a href="strategy-bearish.html">← Back to Bearish Market</a>
-    <span>AI Strategy Generator</span>
+  <!-- Nav Bar -->
+  <nav style="margin-bottom: 1rem;">
+    <a href="strategy-bearish.html">← Bearish Market Home</a> |
+    <a href="strategy-bearish-ai.html">🧠 AI Generator</a> |
+    <a href="strategy-bearish-prebuilt.html">📋 Prebuilt Finder</a> |
+    <a href="strategy-bearish-custom.html">🛠️ Custom Builder</a>
   </nav>
+
+  <!-- AI Strategy Generator -->
   <main>
     <div class="ai-box">
       <h3>🧠 AI Strategy Generator</h3>
@@ -19,6 +24,13 @@
       <button onclick="generateStrategy()" style="background:#3b82f6; color:white; padding:0.5rem 1rem; border:none; border-radius:5px; cursor:pointer;">Generate Strategy</button>
       <div id="strategy-result" style="margin-top:1rem; padding:1rem; background:#f9f9f9; border-radius:6px;"></div>
     </div>
+
+    <!-- Optimizer -->
+    <section class="ai-box" style="margin-top: 2rem;">
+      <h4>Strategy Optimizer</h4>
+      <button style="background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 5px; border: none;">Improve My Strategy</button>
+      <p>[Optimizer Suggestions Placeholder]</p>
+    </section>
   </main>
 
   <script>
