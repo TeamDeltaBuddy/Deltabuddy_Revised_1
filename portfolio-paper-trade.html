@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paper Trade Simulator</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 2rem; }
+    .summary-box { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); margin-bottom: 2rem; }
+    .summary-box h3 { margin-top: 0; }
+    .slider-container { margin-bottom: 2rem; }
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <a href="portfolio-paper.html">← Paper Trading</a>
+    <span>Paper Trade Simulator</span>
+  </nav>
+
+  <h2 style="text-align:center;">Paper Trade Summary & Simulator</h2>
+
+  <div class="summary-box">
+    <h3>Trade Summary</h3>
+    <p><strong>Option:</strong> <span id="summary-symbol"></span></p>
+    <p><strong>Strike Price:</strong> <span id="summary-strike"></span></p>
+    <p><strong>Expiry:</strong> <span id="summary-expiry"></span></p>
+    <p><strong>Probability of Profit:</strong> <span id="summary-pop">72%</span></p>
+    <p><strong>Margin Required:</strong> ₹<span id="summary-margin">50,000</span></p>
+  </div>
+
+  <div class="slider-container">
+    <h3>📈 Drag to Simulate Expiry Market Close Price</h3>
+    <input type="range" id="price-slider" min="16000" max="18000" step="50" value="17000" oninput="updatePnL()" style="width:100%;">
+    <p>Market Close Price: <span id="slider-price">17000</span></p>
+  </div>
+
+  <canvas id="pnlChart" width="600" height="300"></canvas>
+
+  <button onclick="addPaperTrade()" style="margin-top:2rem; background:#10b981; color:white; padding:0.75rem 1.5rem; border:none; border-radius:5px; cursor:pointer;">Add to Paper Trades</button>
+
+  <script>
+    // Read URL params
+    const urlParams = new URLSearchParams(window.location.search);
+    const symbol = urlParams.get('symbol');
+    const strike = urlParams.get('strike');
+    const expiry = urlParams.get('expiry');
+
+    // Fill Summary
+    document.getElementById('summary-symbol').textContent = symbol;
+    document.getElementById('summary-strike').textContent = strike;
+    document.getElementById('summary-expiry').textContent = expiry;
+
+    // Initial P&L Chart
+    const ctx = document.getElementById('pnlChart').getContext('2d');
+    const pnlChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'P&L vs Market Close',
+          data: [],
+          fill: false,
+          borderColor: '#3b82f6',
+          tension: 0.1
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Market Close Price'
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Profit / Loss (₹)'
+            }
+          }
+        }
+      }
+    });
+
+    // Update P&L when slider changes
+    function updatePnL() {
+      const price = document.getElementById('price-slider').value;
+      document.getElementById('slider-price').textContent = price;
+
+      // Simple P&L formula → replace with actual calculation later!
+      // Example: max profit ₹5000 above strike, linear curve
+      const strikePrice = parseInt(strike);
+      let pnl = 0;
+      if (price > strikePrice) {
+        pnl = Math.min((price - strikePrice) * 100, 5000);
+      } else {
+        pnl = -((strikePrice - price) * 100);
+      }
+
+      // Update chart
+      const prices = [];
+      const pnls = [];
+      for (let p = 16000; p <= 18000; p += 50) {
+        let tempPnl = 0;
+        if (p > strikePrice) {
+          tempPnl = Math.min((p - strikePrice) * 100, 5000);
+        } else {
+          tempPnl = -((strikePrice - p) * 100);
+        }
+        prices.push(p);
+        pnls.push(tempPnl);
+      }
+
+      pnlChart.data.labels = prices;
+      pnlChart.data.datasets[0].data = pnls;
+      pnlChart.update();
+    }
+
+    updatePnL(); // Initialize chart
+
+    // Add to Paper Trades (store in localStorage for demo)
+    function addPaperTrade() {
+      const trade = {
+        symbol,
+        strike,
+        expiry,
+        entryPrice: document.getElementById('price-slider').value
+      };
+
+      const trades = JSON.parse(localStorage.getItem('paperTrades') || '[]');
+      trades.push(trade);
+      localStorage.setItem('paperTrades', JSON.stringify(trades));
+
+      alert('Paper Trade added!');
+      window.location.href = 'portfolio-paper-trades.html';
+    }
+  </script>
+</body>
+</html>

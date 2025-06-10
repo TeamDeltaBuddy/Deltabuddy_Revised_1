@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paper Trading – Select Option</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 2rem; }
+    .form-group { margin-bottom: 1rem; }
+    label { display: block; margin-bottom: 0.5rem; font-weight: bold; }
+    select, button { width: 100%; padding: 0.5rem; border-radius: 5px; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <a href="portfolio.html">← Portfolio</a>
+    <span>Paper Trading</span>
+  </nav>
+
+  <h2 style="text-align:center;">Paper Trading – Select Option</h2>
+
+  <div style="max-width: 600px; margin: 0 auto;">
+    <div class="form-group">
+      <label for="option-symbol">Select Option:</label>
+      <select id="option-symbol" onchange="fetchStrikesAndExpiries()">
+        <option value="">-- Choose Option --</option>
+        <option value="NIFTY">NIFTY</option>
+        <option value="BANKNIFTY">BANKNIFTY</option>
+        <!-- You can add more, or fill dynamically from API -->
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="strike-price">Select Strike Price:</label>
+      <select id="strike-price">
+        <option value="">-- Select Strike --</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="expiry">Select Expiry:</label>
+      <select id="expiry">
+        <option value="">-- Select Expiry --</option>
+      </select>
+    </div>
+
+    <button onclick="proceedToTrade()" style="background:#3b82f6; color:white; padding:0.5rem 1rem; border:none; border-radius:5px; cursor:pointer;">Proceed to Trade →</button>
+  </div>
+
+  <script>
+    function fetchStrikesAndExpiries() {
+      const symbol = document.getElementById('option-symbol').value;
+      if (!symbol) return;
+
+      // Placeholder → Replace this with your API call
+      console.log('Fetching strikes and expiries for', symbol);
+
+      // Example static fill (replace with API result):
+      const strikes = [17000, 17100, 17200, 17300];
+      const expiries = ['2025-06-19', '2025-06-26', '2025-07-03'];
+
+      const strikeSelect = document.getElementById('strike-price');
+      const expirySelect = document.getElementById('expiry');
+
+      // Clear previous
+      strikeSelect.innerHTML = '<option value="">-- Select Strike --</option>';
+      expirySelect.innerHTML = '<option value="">-- Select Expiry --</option>';
+
+      // Populate strikes
+      strikes.forEach(strike => {
+        const option = document.createElement('option');
+        option.value = strike;
+        option.textContent = strike;
+        strikeSelect.appendChild(option);
+      });
+
+      // Populate expiries
+      expiries.forEach(expiry => {
+        const option = document.createElement('option');
+        option.value = expiry;
+        option.textContent = expiry;
+        expirySelect.appendChild(option);
+      });
+    }
+
+    function proceedToTrade() {
+      const symbol = document.getElementById('option-symbol').value;
+      const strike = document.getElementById('strike-price').value;
+      const expiry = document.getElementById('expiry').value;
+
+      if (!symbol || !strike || !expiry) {
+        alert('Please select all fields.');
+        return;
+      }
+
+      // Redirect with parameters
+      const url = `portfolio-paper-trade.html?symbol=${symbol}&strike=${strike}&expiry=${expiry}`;
+      window.location.href = url;
+    }
+  </script>
+</body>
+</html>
