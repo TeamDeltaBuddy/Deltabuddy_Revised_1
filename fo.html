@@ -5,12 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>F&O – DeltaBuddy</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    header { display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: #0f172a; color: white; }
+    .back-dashboard { background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 5px; text-decoration: none; }
+    .card { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); margin-top: 1rem; }
+    ul { padding-left: 1.2rem; }
+  </style>
 </head>
 <body>
-  <nav class="top-nav">
-    <a href="dashboard.html">← Dashboard</a>
-    <span>Futures & Options</span>
-  </nav>
+
+  <header>
+    <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo" style="width: 100px;">
+    <a class="back-dashboard" href="dashboard.html">⬅️ Back to Dashboard</a>
+  </header>
 
   <main style="padding: 2rem;">
     <h2>F&O Insights</h2>
@@ -22,6 +29,32 @@
     <p style="background: #fff3cd; padding: 1rem; border-radius: 6px;">
       🚧 Live F&O data integration is under development.
     </p>
+
+    <div class="card">
+      <h3>🔢 Key F&O Metrics (Sample)</h3>
+      <ul>
+        <li>OI Change (NIFTY 22500 CE): +18%</li>
+        <li>IV Skew (BANKNIFTY): 12.5% (Bullish skew)</li>
+        <li>PCR (FINNIFTY): 1.08 (Mildly bullish)</li>
+        <li>Max Pain (NIFTY): 22400</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>🌟 Upcoming Features</h3>
+      <ul>
+        <li>Real-time OI Heatmaps</li>
+        <li>Strike-wise Greeks visualization</li>
+        <li>IV Skew charts over time</li>
+        <li>OI Buildup trends & anomaly detection</li>
+        <li>Telegram alert integration</li>
+      </ul>
+    </div>
+
+    <a class="back-home" href="dashboard.html" style="display:block; text-align:center; margin-top:2rem; color:#3b82f6; text-decoration:none; font-weight:bold;">
+      ⬅️ Back to Dashboard
+    </a>
   </main>
+
 </body>
 </html>
