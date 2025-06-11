@@ -9,6 +9,9 @@
     header { display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: #0f172a; color: white; }
     .back-dashboard { background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 5px; text-decoration: none; }
     .card { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); margin-top: 1rem; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { padding: 0.75rem; border: 1px solid #ccc; text-align: center; }
+    th { background-color: #f1f5f9; }
     ul { padding-left: 1.2rem; }
   </style>
 </head>
@@ -33,12 +36,42 @@
     <!-- Adjustment Triggers Card -->
     <div class="card">
       <h3>🚨 Recent Adjustment Triggers</h3>
-      <ul>
-        <li>🔄 Delta spike detected on NIFTY 22500 CE → Suggested hedge: Add Bear Call Spread</li>
-        <li>🔥 VIX spike: 13.4 → 18.2 → Suggested: Reduce naked options, consider Iron Condor</li>
-        <li>🔄 Gamma risk detected on BANKNIFTY ATM → Suggested: Roll strikes outward</li>
-        <li>🔄 Large OI build-up detected on FINNIFTY PUT side → Suggested: Monitor PCR, consider adjustment</li>
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Risk Type</th>
+            <th>Details</th>
+            <th>Suggested Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>10:05 AM</td>
+            <td>Delta Spike</td>
+            <td>NIFTY 22500 CE</td>
+            <td>Add Bear Call Spread</td>
+          </tr>
+          <tr>
+            <td>10:12 AM</td>
+            <td>VIX Spike</td>
+            <td>VIX 13.4 → 18.2</td>
+            <td>Reduce naked options, consider Iron Condor</td>
+          </tr>
+          <tr>
+            <td>10:25 AM</td>
+            <td>Gamma Risk</td>
+            <td>BANKNIFTY ATM spreads</td>
+            <td>Roll strikes outward</td>
+          </tr>
+          <tr>
+            <td>10:40 AM</td>
+            <td>OI Build-up</td>
+            <td>FINNIFTY PUT side</td>
+            <td>Monitor PCR, consider adjustment</td>
+          </tr>
+        </tbody>
+      </table>
       <p style="margin-top:1rem;"><em>Live adjustment suggestions will appear here as bot connects to your portfolio.</em></p>
     </div>
 
