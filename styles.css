@@ -1,4 +1,4 @@
-/* Market Overview Ticker */
+/* ===== Market Overview Ticker ===== */
 .ticker-wrap {
   margin: 1rem 0;
   background: #fff;
@@ -11,7 +11,16 @@
 .ticker {
   display: flex;
   gap: 2rem;
- animation: tickerMove 25s linear infinite; /* 3x faster */
+  white-space: nowrap;
+  animation: tickerMove 25s linear infinite;
+}
+
+.ticker.global {
+  animation: tickerMove 25s linear infinite;
+}
+
+.ticker.fno {
+  animation: tickerMove 35s linear infinite;
 }
 
 .ticker-item {
@@ -21,20 +30,22 @@
   font-size: 0.95rem;
 }
 
-@keyframes tickerMove {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
-}
 .ticker-item .positive {
-  color: #16a34a; /* green-600 */
+  color: #16a34a;
   font-weight: bold;
 }
 
 .ticker-item .negative {
-  color: #dc2626; /* red-600 */
+  color: #dc2626;
   font-weight: bold;
 }
-/* Features Section */
+
+@keyframes tickerMove {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* ===== Features Section ===== */
 .features {
   padding: 2.5rem 1rem;
   text-align: center;
@@ -64,7 +75,7 @@
   box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
-/* How It Works Section */
+/* ===== How It Works Section ===== */
 .how-steps {
   display: flex;
   flex-wrap: wrap;
@@ -94,7 +105,7 @@
   margin-bottom: 0.5rem;
 }
 
-/* Footer */
+/* ===== Footer ===== */
 footer {
   background: #1e293b;
   color: white;
@@ -110,13 +121,14 @@ footer a {
 footer a:hover {
   text-decoration: underline;
 }
-/* Dashboard Layout */
+
+/* ===== Dashboard Layout ===== */
 .layout {
   display: flex;
   min-height: 100vh;
 }
 
-/* Sidebar */
+/* ===== Sidebar ===== */
 aside {
   width: 250px;
   background: #0f172a;
@@ -167,7 +179,7 @@ aside nav ul li a.active {
   font-weight: bold;
 }
 
-/* Main content */
+/* ===== Main content ===== */
 main {
   flex-grow: 1;
   min-height: 100vh;
@@ -176,14 +188,14 @@ main {
   background: #f9fafb;
 }
 
-/* Card grid */
+/* ===== Card grid ===== */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
 }
 
-/* Card */
+/* ===== Card ===== */
 .card {
   background: white;
   border-radius: 8px;
@@ -194,7 +206,8 @@ main {
 .card h3 {
   margin-top: 0;
 }
-/* Tabs inside card */
+
+/* ===== Tabs inside card ===== */
 .tabs {
   display: flex;
   gap: 0.5rem;
@@ -225,7 +238,7 @@ main {
   border-bottom: 2px solid white;
 }
 
-/* Top nav */
+/* ===== Top nav ===== */
 .top-nav {
   display: flex;
   align-items: center;
@@ -241,29 +254,8 @@ main {
   text-decoration: none;
   font-weight: bold;
 }
-/* Market Overview Ticker */
-.ticker-wrap {
-  margin: 1rem 0;
-  background: #fff;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
-  overflow: hidden;
-}
 
-.ticker {
-  display: flex;
-  gap: 2rem;
-  animation: tickerMove 25s linear infinite; /* 3x faster */
-}
-
-.ticker-item {
-  white-space: nowrap;
-  font-weight: bold;
-  color: #0f172a;
-  font-size: 0.95rem;
-}
-/* === Portfolio Summary Header === */
+/* ===== Portfolio Summary Header ===== */
 .summary-header {
   display: flex;
   flex-wrap: wrap;
@@ -281,7 +273,7 @@ main {
   text-align: center;
 }
 
-/* === Portfolio Action Bar === */
+/* ===== Portfolio Action Bar ===== */
 .action-bar {
   text-align: center;
   margin: 1rem 0;
@@ -300,9 +292,4 @@ main {
 
 .action-bar button:hover {
   background: #2563eb;
-}
-
-@keyframes tickerMove {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
 }
