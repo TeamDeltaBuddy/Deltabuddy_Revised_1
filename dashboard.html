@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DeltaBuddy Dashboard</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    /* Ticker animation */
     @keyframes tickerMove {
       0% { transform: translateX(100%); }
       100% { transform: translateX(-100%); }
@@ -19,9 +19,8 @@
       font-size: 0.95rem;
     }
 
-    /* Sidebar fix */
     aside {
-      width: 220px; /* wider so text fits */
+      width: 220px;
       background-color: #0f172a;
       padding: 1rem;
       color: white;
@@ -60,43 +59,56 @@
       background-color: #3b82f6;
       font-weight: bold;
     }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    th, td {
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f1f5f9;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Layout -->
   <div class="layout">
-<!-- Sidebar -->
-<aside>
-  <a href="index.html">
-    <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo" />
-  </a>
-  <nav>
-    <ul>
-      <li><a href="dashboard.html" class="active">Dashboard</a></li>
-      <li><a href="portfolio.html">Portfolio</a></li>
-      <li><a href="greeks-alerts.html">Greeks & Alerts</a></li>
-      <li><a href="strategy-assistant.html">Strategy Assistant</a></li>
-      <li><a href="adjustment-bot.html">Adjustment Bot</a></li>
-      <li><a href="risk-coach.html">Risk Coach</a></li>
-      <li><a href="fno.html">Future & Options</a></li>
-      <li><a href="fii-dii.html">FII & DII</a></li>
-      <li><a href="events.html">Events</a></li>
-      <li><a href="screener.html">Screener</a></li>
-      <li><a href="telegram.html">Telegram Integration</a></li>
-    </ul>
-  </nav>
-</aside>
+    <aside>
+      <a href="index.html">
+        <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo" />
+      </a>
+      <nav>
+        <ul>
+          <li><a href="dashboard.html" class="active">Dashboard</a></li>
+          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="greeks-alerts.html">Greeks & Alerts</a></li>
+          <li><a href="strategy-assistant.html">Strategy Assistant</a></li>
+          <li><a href="adjustment-bot.html">Adjustment Bot</a></li>
+          <li><a href="risk-coach.html">Risk Coach</a></li>
+          <li><a href="fno.html">Future & Options</a></li>
+          <li><a href="fii-dii.html">FII & DII</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="screener.html">Screener</a></li>
+          <li><a href="telegram.html">Telegram Integration</a></li>
+        </ul>
+      </nav>
+    </aside>
 
-    <!-- Main Content -->
     <main>
       <h1>Welcome to DeltaBuddy</h1>
       <p>This is your personalized AI + SaaS dashboard.</p>
 
-     <!-- Market Overview Ticker -->
-<div class="ticker-wrap">
-  <div class="ticker">
-    <div class="ticker-item">📊 India VIX: 13.45</div>
+      <!-- Market Overview Ticker -->
+      <div class="ticker-wrap">
+        <div class="ticker">
+         <div class="ticker-item">📊 India VIX: 13.45</div>
     <div class="ticker-item">📈 NIFTY 50: 22,510</div>
     <div class="ticker-item">🏦 BANKNIFTY: 48,120</div>
     <div class="ticker-item">📈 SENSEX: 74,250</div>
@@ -124,13 +136,14 @@
     <div class="ticker-item">🇸🇬 STI (Singapore): 3,250</div>
     <div class="ticker-item">🇲🇾 KLCI (Malaysia): 1,585</div>
     <div class="ticker-item">🇹🇭 SET (Thailand): 1,320</div>
-  </div>
-</div>
-<!-- F&O Stocks Ticker -->
+        </div>
+      </div>
+
+      <!-- F&O Stocks Ticker -->
       <h2 style="margin-top: 1rem;">F&O Stocks Snapshot</h2>
-<div class="ticker-wrap" style="margin-top: 0.5rem; background: #f0f9ff;">
-  <div class="ticker" style="display: inline-block; padding-left: 100%; animation: tickerMove 30s linear infinite;">
-    <div class="ticker-item">📈 RELIANCE: ₹2,700 <span class="positive">(+1.2%)</span></div>
+      <div class="ticker-wrap" style="margin-top: 0.5rem; background: #f0f9ff;">
+        <div class="ticker" style="display: inline-block; padding-left: 100%; animation: tickerMove 30s linear infinite;">
+         <div class="ticker-item">📈 RELIANCE: ₹2,700 <span class="positive">(+1.2%)</span></div>
     <div class="ticker-item">📉 INFY: ₹1,500 <span class="negative">(−0.8%)</span></div>
     <div class="ticker-item">📈 ICICIBANK: ₹1,020 <span class="positive">(+0.5%)</span></div>
     <div class="ticker-item">📉 HDFCBANK: ₹1,650 <span class="negative">(−0.6%)</span></div>
@@ -157,9 +170,10 @@
     <div class="ticker-item">📉 NTPC: ₹250 <span class="negative">(−0.7%)</span></div>
     <div class="ticker-item">📈 GRASIM: ₹1,900 <span class="positive">(+0.5%)</span></div>
     <div class="ticker-item">📉 CIPLA: ₹1,400 <span class="negative">(−0.3%)</span></div>
-  </div>
-</div>
-      <!-- Section: Market Monitoring -->
+        </div>
+      </div>
+
+      <!-- Market Monitoring -->
       <h2 style="margin-top: 2rem;">Market Monitoring</h2>
       <div class="grid">
         <div class="card">
@@ -172,20 +186,49 @@
         </div>
         <div class="card">
           <h3>Market Pulse</h3>
-          <p>Live sentiment and key market indicators.</p>
-          <ul>
-            <li>📉 NIFTY PCR: 0.92 (Bearish)</li>
-            <li>📈 BANKNIFTY PCR: 1.13 (Bullish)</li>
-            <li>🔥 VIX Alert: 15.7 → 19.2 spike</li>
-          </ul>
+          <canvas id="marketPulseChart" height="200"></canvas>
         </div>
         <div class="card">
           <h3>Live Greeks Widget (Coming Soon)</h3>
-          <p>Real-time Delta, Theta, Gamma, Vega widget integration planned for Phase 2.</p>
+          <canvas id="liveGreeksChart" height="200"></canvas>
         </div>
       </div>
 
-      <!-- Section: AI Tools -->
+      <!-- Top Movers -->
+      <h2 style="margin-top: 2rem;">Top Movers</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Symbol</th>
+            <th>LTP</th>
+            <th>% Change</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>RELIANCE</td>
+            <td>₹2,700</td>
+            <td style="color:green;">+1.2%</td>
+          </tr>
+          <tr>
+            <td>INFY</td>
+            <td>₹1,500</td>
+            <td style="color:red;">-0.8%</td>
+          </tr>
+          <tr>
+            <td>ICICIBANK</td>
+            <td>₹1,020</td>
+            <td style="color:green;">+0.5%</td>
+          </tr>
+          <tr>
+            <td>TCS</td>
+            <td>₹3,500</td>
+            <td style="color:red;">-1.1%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- AI Tools -->
       <h2 style="margin-top: 2rem;">AI-Powered Tools</h2>
       <div class="grid">
         <div class="card">
@@ -200,7 +243,7 @@
         </div>
       </div>
 
-      <!-- Section: Behavior Insights -->
+      <!-- Behavior & Risk Insights -->
       <h2 style="margin-top: 2rem;">Behavior & Risk Insights</h2>
       <div class="grid">
         <div class="card">
@@ -226,8 +269,65 @@
       </div>
 
     </main>
-
   </div>
+
+  <script>
+    const ctxPulse = document.getElementById('marketPulseChart').getContext('2d');
+    new Chart(ctxPulse, {
+      type: 'line',
+      data: {
+        labels: ['Day -6', 'Day -5', 'Day -4', 'Day -3', 'Day -2', 'Yesterday', 'Today'],
+        datasets: [
+          {
+            label: 'PCR Trend',
+            data: [1.02, 1.05, 1.10, 1.08, 0.95, 0.98, 0.92],
+            borderColor: '#3b82f6',
+            fill: false
+          },
+          {
+            label: 'VIX',
+            data: [14.5, 15.2, 16.0, 15.7, 15.0, 16.5, 19.2],
+            borderColor: '#ef4444',
+            fill: false
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: false }
+        }
+      }
+    });
+
+    const ctxGreeks = document.getElementById('liveGreeksChart').getContext('2d');
+    new Chart(ctxGreeks, {
+      type: 'line',
+      data: {
+        labels: ['T-6', 'T-5', 'T-4', 'T-3', 'T-2', 'T-1', 'Today'],
+        datasets: [
+          {
+            label: 'Delta',
+            data: [0.3, 0.35, 0.4, 0.38, 0.36, 0.42, 0.45],
+            borderColor: '#10b981',
+            fill: false
+          },
+          {
+            label: 'Gamma',
+            data: [5.2, 5.5, 5.8, 6.0, 5.9, 6.1, 6.3],
+            borderColor: '#f59e0b',
+            fill: false
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: false }
+        }
+      }
+    });
+  </script>
 
 </body>
 </html>
