@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Paper Trades - DeltaBuddy</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 2rem; }
     .btn { padding: 0.7rem 1.2rem; margin: 0.5rem; border-radius: 5px; text-decoration: none; font-weight: bold; cursor: pointer; border: none; }
@@ -15,17 +16,74 @@
     th { background: #f1f1f1; }
     .pnl-positive { color: green; font-weight: bold; }
     .pnl-negative { color: red; font-weight: bold; }
+    .flex-container { display: flex; gap: 2rem; flex-wrap: wrap; }
+    .card { background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 0 5px rgba(0,0,0,0.1); flex: 1; min-width: 300px; }
+    .summary { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .summary .card { flex: 1 1 200px; }
   </style>
 </head>
 <body>
 
   <nav class="top-nav">
     <a href="portfolio-paper.html" class="btn secondary">← Back to Portfolio</a>
-    <span style="font-size: 1.5rem; font-weight: bold;">All Paper Trades</span>
+    <span style="font-size: 1.5rem; font-weight: bold;">Paper Trading Dashboard</span>
     <button class="btn secondary" onclick="clearAllTrades()">Clear All Trades</button>
   </nav>
 
-  <h2 style="margin-top: 1rem;">Trades Summary</h2>
+  <div class="flex-container" style="margin-top: 2rem;">
+    <div class="card" style="flex: 2;">
+      <h3>P/L vs Spot Chart</h3>
+      <canvas id="plChart"></canvas>
+    </div>
+
+    <div class="card" style="flex: 1;">
+      <h3>Add Trade Leg</h3>
+      <label>Type</label>
+      <select id="tradeType">
+        <option>Call</option>
+        <option>Put</option>
+      </select>
+
+      <label>Symbol</label>
+      <input type="text" id="symbol" placeholder="e.g. NIFTY">
+
+      <label>Strike</label>
+      <input type="number" id="strike" placeholder="e.g. 25000">
+
+      <label>Expiry</label>
+      <input type="text" id="expiry" placeholder="e.g. 27-Jun-2025">
+
+      <label>Entry Price</label>
+      <input type="number" id="entryPrice" placeholder="e.g. 150">
+
+      <button class="btn primary" onclick="addTrade()">Add Leg</button>
+    </div>
+  </div>
+
+  <div class="summary" style="margin-top: 2rem;">
+    <div class="card">
+      <h4>Max Profit</h4>
+      <p id="maxProfit">₹ --</p>
+    </div>
+    <div class="card">
+      <h4>Max Loss</h4>
+      <p id="maxLoss">₹ --</p>
+    </div>
+    <div class="card">
+      <h4>Breakevens</h4>
+      <p id="breakevens">--</p>
+    </div>
+    <div class="card">
+      <h4>POP</h4>
+      <p id="pop">-- %</p>
+    </div>
+    <div class="card">
+      <h4>Margin Required</h4>
+      <p id="margin">₹ --</p>
+    </div>
+  </div>
+
+  <h2 style="margin-top: 2rem;">Trades Summary</h2>
 
   <table>
     <thead>
@@ -44,22 +102,61 @@
   </table>
 
   <script>
+    const currentMarketPrice = 25685; // Example Spot Price
+    const dummyMargin = 212899; // Example Margin
+
+    const plChart = new Chart(document.getElementById('plChart').getContext('2d'), {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'P/L',
+          data: [],
+          borderColor: '#3b82f6',
+          fill: false
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: { title: { display: true, text: 'Underlying Price' } },
+          y: { title: { display: true, text: 'Profit / Loss (₹)' } }
+        }
+      }
+    });
+
+    function updateSummary() {
+      document.getElementById('maxProfit').innerText = '₹ ' + Math.floor(Math.random() * 100000);
+      document.getElementById('maxLoss').innerText = '₹ ' + Math.floor(Math.random() * 50000);
+      document.getElementById('breakevens').innerText = (currentMarketPrice - 200) + ' - ' + (currentMarketPrice + 200);
+      document.getElementById('pop').innerText = (60 + Math.floor(Math.random() * 20)) + ' %';
+      document.getElementById('margin').innerText = '₹ ' + dummyMargin;
+    }
+
+    function updatePLChart() {
+      const range = 500;
+      const step = 50;
+      const labels = [];
+      const data = [];
+
+      for (let price = currentMarketPrice - range; price <= currentMarketPrice + range; price += step) {
+        labels.push(price);
+        data.push(Math.floor(Math.random() * 10000) - 5000); // Dummy P/L
+      }
+
+      plChart.data.labels = labels;
+      plChart.data.datasets[0].data = data;
+      plChart.update();
+    }
+
     function loadTrades() {
       const trades = JSON.parse(localStorage.getItem('paperTrades') || '[]');
-      const currentMarketPrice = 17250; // Simulated current market price
 
       const tbody = document.getElementById('tradesTableBody');
       tbody.innerHTML = '';
 
       trades.forEach(trade => {
-        let pnl = 0;
-        const strike = parseInt(trade.strike);
-        if (currentMarketPrice > strike) {
-          pnl = Math.min((currentMarketPrice - strike) * 100, 5000);
-        } else {
-          pnl = -((strike - currentMarketPrice) * 100);
-        }
-
+        let pnl = Math.floor(Math.random() * 10000) - 5000; // Dummy P/L for now
         const pnlClass = pnl >= 0 ? 'pnl-positive' : 'pnl-negative';
 
         const row = `<tr>
@@ -73,6 +170,25 @@
         </tr>`;
         tbody.innerHTML += row;
       });
+
+      updateSummary();
+      updatePLChart();
+    }
+
+    function addTrade() {
+      const trade = {
+        type: document.getElementById('tradeType').value,
+        symbol: document.getElementById('symbol').value,
+        strike: document.getElementById('strike').value,
+        expiry: document.getElementById('expiry').value,
+        entryPrice: document.getElementById('entryPrice').value
+      };
+
+      const trades = JSON.parse(localStorage.getItem('paperTrades') || '[]');
+      trades.push(trade);
+      localStorage.setItem('paperTrades', JSON.stringify(trades));
+
+      loadTrades();
     }
 
     function clearAllTrades() {
@@ -84,6 +200,5 @@
 
     loadTrades();
   </script>
-
 </body>
 </html>
