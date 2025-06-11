@@ -13,6 +13,8 @@
     table { width: 100%; background: white; border-radius: 8px; padding: 1rem; border-collapse: collapse; margin-top: 1rem; }
     th, td { border: 1px solid #ddd; padding: 0.75rem; text-align: center; }
     th { background: #f1f1f1; }
+    .pnl-positive { color: green; font-weight: bold; }
+    .pnl-negative { color: red; font-weight: bold; }
   </style>
 </head>
 <body>
@@ -33,6 +35,8 @@
         <th>Strike</th>
         <th>Expiry</th>
         <th>Entry Price</th>
+        <th>Current Price</th>
+        <th>P&amp;L (₹)</th>
       </tr>
     </thead>
     <tbody id="tradesTableBody">
@@ -42,16 +46,30 @@
   <script>
     function loadTrades() {
       const trades = JSON.parse(localStorage.getItem('paperTrades') || '[]');
+      const currentMarketPrice = 17250; // Simulated current market price
+
       const tbody = document.getElementById('tradesTableBody');
       tbody.innerHTML = '';
 
       trades.forEach(trade => {
+        let pnl = 0;
+        const strike = parseInt(trade.strike);
+        if (currentMarketPrice > strike) {
+          pnl = Math.min((currentMarketPrice - strike) * 100, 5000);
+        } else {
+          pnl = -((strike - currentMarketPrice) * 100);
+        }
+
+        const pnlClass = pnl >= 0 ? 'pnl-positive' : 'pnl-negative';
+
         const row = `<tr>
           <td>${trade.type}</td>
           <td>${trade.symbol}</td>
           <td>${trade.strike}</td>
           <td>${trade.expiry}</td>
           <td>₹${trade.entryPrice}</td>
+          <td>₹${currentMarketPrice}</td>
+          <td class="${pnlClass}">${pnl}</td>
         </tr>`;
         tbody.innerHTML += row;
       });
