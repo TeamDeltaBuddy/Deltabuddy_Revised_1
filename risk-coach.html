@@ -9,6 +9,10 @@
     header { display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: #0f172a; color: white; }
     .back-dashboard { background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 5px; text-decoration: none; }
     .card { background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 0 4px rgba(0,0,0,0.1); margin-top: 1rem; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { padding: 0.75rem; border: 1px solid #ccc; text-align: center; }
+    th { background-color: #f1f5f9; }
+    ul { padding-left: 1.2rem; }
   </style>
 </head>
 <body>
@@ -23,24 +27,59 @@
       Your personal trading behavior and portfolio risk coach. Get actionable insights and tips to help you manage risk more effectively.
     </p>
 
-    <!-- Your existing Risk Coach Card -->
+    <!-- Risk Score Summary -->
     <div class="card">
       <h3>Risk Coach Summary</h3>
       <p><strong>Risk Score:</strong> 72 / 100 → 🟡 Moderate Risk</p>
-
-      <ul style="margin-top: 1rem; margin-bottom: 1rem;">
-        <li>✅ Balanced Delta</li>
-        <li>⚠️ High Vega exposure</li>
-        <li>✅ Gamma within range</li>
-        <li>⚠️ Overtrading detected today (12 trades)</li>
-        <li>✅ Hedging OK</li>
-        <li>✅ Leverage OK</li>
-      </ul>
-
-      <p><strong>Coach Tip:</strong> Consider reducing Vega exposure to limit P&amp;L swings if VIX rises.</p>
     </div>
 
-    <!-- Extra Cards (enhancements) -->
+    <!-- Risk Insights Table -->
+    <div class="card">
+      <h3>Current Risk Insights</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Status</th>
+            <th>Comments</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Delta</td>
+            <td>✅ Balanced</td>
+            <td>Within acceptable range</td>
+          </tr>
+          <tr>
+            <td>Vega</td>
+            <td>⚠️ High</td>
+            <td>Consider reducing Vega exposure</td>
+          </tr>
+          <tr>
+            <td>Gamma</td>
+            <td>✅ Normal</td>
+            <td>No action required</td>
+          </tr>
+          <tr>
+            <td>Overtrading</td>
+            <td>⚠️ Detected</td>
+            <td>12 trades today — review trade plan</td>
+          </tr>
+          <tr>
+            <td>Hedging</td>
+            <td>✅ OK</td>
+            <td>Sufficient hedges in place</td>
+          </tr>
+          <tr>
+            <td>Leverage</td>
+            <td>✅ OK</td>
+            <td>Leverage within safe limits</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Warnings & Tips -->
     <div class="card">
       <h3>Warnings & Tips</h3>
       <ul>
@@ -50,6 +89,7 @@
       </ul>
     </div>
 
+    <!-- Next Features -->
     <div class="card">
       <h3>Next Features (Phase 2)</h3>
       <ul>
