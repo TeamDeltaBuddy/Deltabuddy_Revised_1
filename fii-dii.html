@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FII & DII Activity – DeltaBuddy</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -24,6 +25,20 @@
       padding: 1rem;
       border-radius: 8px;
       box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    th, td {
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    th {
+      background-color: #f1f5f9;
     }
   </style>
 </head>
@@ -43,8 +58,37 @@
       View official data from NSE for both cash market and derivatives.
     </p>
 
+    <!-- FII-DII Summary Table -->
+    <div class="card">
+      <h3>Recent FII/DII Flows (Last 10 Days)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>FII Net (Cr)</th>
+            <th>DII Net (Cr)</th>
+          </tr>
+        </thead>
+        <tbody id="fii-dii-table">
+          <!-- Data will be inserted here -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- FII-DII Bar Chart -->
+    <div class="card">
+      <h3>FII vs DII Net Flows Chart</h3>
+      <canvas id="fiiDiiChart" height="300"></canvas>
+    </div>
+
+    <!-- Insights Block -->
+    <div class="card">
+      <h3>💡 Insights</h3>
+      <p id="insights-text">Loading insights...</p>
+    </div>
+
     <!-- FII/DII Cash Market Section -->
-    <div class="card" style="margin-bottom: 2rem;">
+    <div class="card">
       <h3>FII/DII Cash Market Activity</h3>
       <p style="margin-top: 1rem;">
         <a href="https://www.nseindia.com/all-reports/historical-equities-fii-fpi-dii-trading-activity" target="_blank" style="color: #3b82f6; text-decoration: none; font-weight: bold;">View Official NSE FII/FPI/DII Trading Activity ↗</a>
@@ -60,6 +104,90 @@
     </div>
 
   </main>
+
+  <script>
+    // Dummy data
+    const data = [
+      { date: '2025-06-10', fii: 1250, dii: -500 },
+      { date: '2025-06-09', fii: -1100, dii: 800 },
+      { date: '2025-06-08', fii: 900, dii: -300 },
+      { date: '2025-06-07', fii: -450, dii: 1200 },
+      { date: '2025-06-06', fii: 1300, dii: -600 },
+      { date: '2025-06-05', fii: -750, dii: 950 },
+      { date: '2025-06-04', fii: 600, dii: -200 },
+      { date: '2025-06-03', fii: -500, dii: 700 },
+      { date: '2025-06-02', fii: 800, dii: -100 },
+      { date: '2025-06-01', fii: -300, dii: 400 }
+    ];
+
+    // Populate table
+    const tableBody = document.getElementById('fii-dii-table');
+    data.forEach(row => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${row.date}</td>
+        <td style="color:${row.fii >= 0 ? 'green' : 'red'};">${row.fii >= 0 ? '+' : ''}${row.fii}</td>
+        <td style="color:${row.dii >= 0 ? 'green' : 'red'};">${row.dii >= 0 ? '+' : ''}${row.dii}</td>
+      `;
+      tableBody.appendChild(tr);
+    });
+
+    // Generate Chart
+    const ctx = document.getElementById('fiiDiiChart').getContext('2d');
+    const fiiDiiChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: data.map(row => row.date),
+        datasets: [
+          {
+            label: 'FII Net (Cr)',
+            data: data.map(row => row.fii),
+            backgroundColor: data.map(row => row.fii >= 0 ? 'rgba(16,185,129,0.7)' : 'rgba(239,68,68,0.7)')
+          },
+          {
+            label: 'DII Net (Cr)',
+            data: data.map(row => row.dii),
+            backgroundColor: data.map(row => row.dii >= 0 ? 'rgba(59,130,246,0.7)' : 'rgba(239,68,68,0.4)')
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Net Inflow/Outflow (Cr)'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Date'
+            }
+          }
+        }
+      }
+    });
+
+    // Simple Insights Logic
+    const last3FiiSum = data.slice(0,3).reduce((sum, row) => sum + row.fii, 0);
+    const last3DiiSum = data.slice(0,3).reduce((sum, row) => sum + row.dii, 0);
+
+    let insightText = '';
+    if (last3FiiSum > 0 && last3DiiSum > 0) {
+      insightText = 'Strong bullish undertone: Both FII and DII buying in last 3 days.';
+    } else if (last3FiiSum > 0 && last3DiiSum < 0) {
+      insightText = 'FII buying but DII selling → watch for divergence.';
+    } else if (last3FiiSum < 0 && last3DiiSum > 0) {
+      insightText = 'FII selling but DII absorbing → sideways market likely.';
+    } else {
+      insightText = 'Net selling pressure from both FII and DII → caution advised.';
+    }
+
+    document.getElementById('insights-text').textContent = insightText;
+  </script>
 
 </body>
 </html>
