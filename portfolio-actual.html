@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio – Actual Trading</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 2rem; }
+    .summary-header { display: flex; justify-content: space-around; margin-bottom: 1rem; }
+    .summary-card { background: white; padding: 1rem; border-radius: 6px; box-shadow: 0 0 4px rgba(0,0,0,0.1); flex: 1; margin: 0 0.5rem; text-align: center; }
+    .action-bar { text-align: center; margin: 1rem 0; }
+    .action-bar button { background: #3b82f6; color: white; border: none; padding: 0.6rem 1rem; border-radius: 5px; margin: 0 0.5rem; cursor: pointer; }
+    table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 0 4px rgba(0,0,0,0.1); border-radius: 6px; overflow: hidden; margin-top: 1rem; }
+    th, td { padding: 0.8rem; text-align: center; border-bottom: 1px solid #eee; }
+    th { background: #f0f4f8; }
+    #tradeChart { height: 400px; background: white; margin-top: 2rem; border-radius: 6px; box-shadow: 0 0 4px rgba(0,0,0,0.1); padding: 1rem; }
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <a href="dashboard.html">← Dashboard</a>
+    <span>Portfolio – Actual Trading</span>
+  </nav>
+
+  <div class="summary-header">
+    <div class="summary-card"><h4>Total PnL</h4><p>₹12,350</p></div>
+    <div class="summary-card"><h4>Probability of Profit</h4><p>72%</p></div>
+    <div class="summary-card"><h4>Open Positions</h4><p>8</p></div>
+    <div class="summary-card"><h4>MTM</h4><p>₹5,150</p></div>
+  </div>
+
+  <div class="action-bar">
+    <button>Trade from Chart</button>
+    <button>Optimize Portfolio</button>
+    <button>Export</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Symbol</th>
+        <th>Qty</th>
+        <th>Delta</th>
+        <th>Theta</th>
+        <th>Gamma</th>
+        <th>Vega</th>
+        <th>PnL</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>NIFTY 17600 CE</td>
+        <td>75</td>
+        <td>0.52</td>
+        <td>-0.43</td>
+        <td>0.02</td>
+        <td>1.12</td>
+        <td>₹3,250</td>
+        <td><button>Adjust</button></td>
+      </tr>
+      <!-- Add more positions here -->
+    </tbody>
+  </table>
+
+  <div id="tradeChart">
+    <p style="text-align:center; color:#999;">[ Trade Chart Placeholder ]</p>
+  </div>
+</body>
+</html>
