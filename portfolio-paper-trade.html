@@ -27,7 +27,7 @@
     <p><strong>Strike Price:</strong> <span id="summary-strike"></span></p>
     <p><strong>Expiry:</strong> <span id="summary-expiry"></span></p>
     <p><strong>Probability of Profit:</strong> <span id="summary-pop">72%</span></p>
-    <p><strong>Margin Required:</strong> ₹<span id="summary-margin">50,000</span></p>
+    <p><strong>Margin Required:</strong> ₹50,000</p>
   </div>
 
   <div class="slider-container">
@@ -46,6 +46,7 @@
     const symbol = urlParams.get('symbol');
     const strike = urlParams.get('strike');
     const expiry = urlParams.get('expiry');
+    const entryPriceParam = urlParams.get('entryPrice');
 
     // Fill Summary
     document.getElementById('summary-symbol').textContent = symbol;
@@ -90,7 +91,6 @@
       document.getElementById('slider-price').textContent = price;
 
       // Simple P&L formula → replace with actual calculation later!
-      // Example: max profit ₹5000 above strike, linear curve
       const strikePrice = parseInt(strike);
       let pnl = 0;
       if (price > strikePrice) {
@@ -119,6 +119,14 @@
     }
 
     updatePnL(); // Initialize chart
+
+    // After initial updatePnL, set entryPrice if Adjust flow
+    if (entryPriceParam && !window._entryPriceSet) {
+      document.getElementById('price-slider').value = entryPriceParam;
+      document.getElementById('slider-price').textContent = entryPriceParam;
+      window._entryPriceSet = true;
+      updatePnL(); // Update chart as well
+    }
 
     // Add to Paper Trades (store in localStorage for demo)
     function addPaperTrade() {
