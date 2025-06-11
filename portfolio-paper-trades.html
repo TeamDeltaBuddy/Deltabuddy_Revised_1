@@ -89,10 +89,16 @@
       loadTrades();
     }
 
-    function adjustTrade(index) {
-      alert('Adjust Trade feature coming soon!');
-      // Here you can later redirect to an Adjust page, or open a modal etc.
-    }
+   function adjustTrade(index) {
+  const trades = JSON.parse(localStorage.getItem('paperTrades') || '[]');
+  const trade = trades[index];
+
+  // Build URL with pre-filled params:
+  const url = `portfolio-paper-trade.html?symbol=${encodeURIComponent(trade.symbol)}&strike=${encodeURIComponent(trade.strike)}&expiry=${encodeURIComponent(trade.expiry)}&entryPrice=${encodeURIComponent(trade.entryPrice)}`;
+
+  // Redirect to trade simulator:
+  window.location.href = url;
+}
 
     // Initialize table
     loadTrades();
