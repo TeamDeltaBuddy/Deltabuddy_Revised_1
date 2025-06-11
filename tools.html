@@ -5,8 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Market Tools – DeltaBuddy</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .card {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 4px rgba(0,0,0,0.1);
+      flex: 1 1 220px;
+      text-align: center;
+    }
+    .tools-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .card a {
+      display: inline-block;
+      margin-top: 0.75rem;
+      background: #3b82f6;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+    .card a:hover {
+      background: #2563eb;
+    }
+  </style>
 </head>
 <body>
+
   <nav class="top-nav">
     <a href="dashboard.html">← Dashboard</a>
     <span>Market Tools</span>
@@ -14,11 +43,49 @@
 
   <main style="padding: 2rem;">
     <h2>Options Market Tools</h2>
+
+    <!-- Key Market Metrics -->
     <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
       <div class="card"><strong>📊 Open Interest</strong><br /> NIFTY 17500 CE: 1.4M</div>
       <div class="card"><strong>🔍 PCR</strong><br /> 0.96 (neutral)</div>
       <div class="card"><strong>📉 IV Levels</strong><br /> Elevated for BankNIFTY puts</div>
     </div>
+
+    <!-- Tools Catalog -->
+    <h3 style="margin-top: 2rem;">🛠️ Market Tools & Calculators</h3>
+    <div class="tools-grid">
+      <div class="card">
+        <strong>📈 Option Chain Viewer</strong>
+        <p>View full Option Chain with OI, IV, Greeks.</p>
+        <a href="#">Open Tool</a>
+      </div>
+      <div class="card">
+        <strong>📉 Payoff Chart Builder</strong>
+        <p>Visualize potential payoff for your strategy.</p>
+        <a href="#">Open Tool</a>
+      </div>
+      <div class="card">
+        <strong>⚙️ Strategy Simulator</strong>
+        <p>Simulate multi-leg option strategies over time.</p>
+        <a href="#">Open Tool</a>
+      </div>
+      <div class="card">
+        <strong>📊 OI Analyzer</strong>
+        <p>Analyze strike-wise OI buildup and trends.</p>
+        <a href="#">Open Tool</a>
+      </div>
+      <div class="card">
+        <strong>📈 IV Skew Viewer</strong>
+        <p>View implied volatility skew across strikes.</p>
+        <a href="#">Open Tool</a>
+      </div>
+    </div>
+
+    <p style="margin-top: 1.5rem; font-size: 0.95rem; color: #555;">
+      More advanced tools coming soon in Phase 2 updates.
+    </p>
+
   </main>
+
 </body>
 </html>
