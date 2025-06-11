@@ -1,150 +1,96 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Screener – DeltaBuddy</title>
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    header { display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: #0f172a; color: white; }
-    .back-dashboard { background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 5px; text-decoration: none; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
-    .card { background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 0 4px rgba(0,0,0,0.1); }
-    label { display: block; margin-bottom: 0.5rem; font-weight: bold; }
-    select, input[type="number"] { width: 100%; padding: 0.5rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 4px; }
-    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-    th, td { border: 1px solid #e5e7eb; padding: 0.75rem; text-align: left; }
-    th { background: #f1f5f9; }
-  </style>
-</head>
-<body>
-  <header>
-    <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo" style="width: 100px;">
-    <a class="back-dashboard" href="dashboard.html">⬅️ Back to Dashboard</a>
-  </header>
+<script>
+  // Tab switching
+  function showTab(tabId) {
+    document.querySelectorAll('.screener-tab').forEach(tab => {
+      tab.style.display = 'none';
+    });
+    document.getElementById(tabId).style.display = 'block';
 
-  <main style="padding: 2rem;">
-    <h1>Options Screener</h1>
+    // Optional: highlight active button (advanced UX, can add if needed)
+  }
 
-    <!-- Filters Section -->
-    <section>
-      <h2>Filters</h2>
-      <div class="grid">
-        <div class="card">
-          <label for="symbol">Symbol</label>
-          <select id="symbol">
-            <option value="">-- Any --</option>
-            <option>NIFTY</option>
-            <option>BANKNIFTY</option>
-            <option>FINNIFTY</option>
-            <option>RELIANCE</option>
-            <option>INFY</option>
-          </select>
+  // Event Listeners
+  document.getElementById('run-custom').addEventListener('click', runScreener);
+  document.getElementById('run-prebuilt').addEventListener('click', runPrebuilt);
+  // Optional: If you later add "Run AI Screener" button → add listener here
 
-          <label for="greeks-delta">Delta (min)</label>
-          <input type="number" id="greeks-delta" placeholder="e.g. 0.2">
+  // Run Custom Screener (Symbol, Greeks, OI, IV)
+  function runScreener() {
+    const symbolFilter = document.getElementById('symbol').value;
+    const deltaMin = parseFloat(document.getElementById('greeks-delta').value);
+    const oiMin = parseFloat(document.getElementById('oi-change').value);
+    const ivMax = parseFloat(document.getElementById('iv').value);
 
-          <label for="oi-change">OI Change % (min)</label>
-          <input type="number" id="oi-change" placeholder="e.g. 5">
+    const data = getDummyData();
 
-          <label for="iv">IV % (max)</label>
-          <input type="number" id="iv" placeholder="e.g. 40">
+    const filtered = data.filter(stock => {
+      if (symbolFilter && stock.symbol !== symbolFilter) return false;
+      if (!isNaN(deltaMin) && Math.abs(stock.delta) < deltaMin) return false;
+      if (!isNaN(oiMin) && stock.oiChange < oiMin) return false;
+      if (!isNaN(ivMax) && stock.iv > ivMax) return false;
 
-          <label for="open-filter">Open = High / Low</label>
-          <select id="open-filter">
-            <option value="">-- No Filter --</option>
-            <option value="open-high">Open = High</option>
-            <option value="open-low">Open = Low</option>
-          </select>
+      return true;
+    });
 
-          <button id="run-screener" style="margin-top: 1rem; background: #3b82f6; color: white; padding: 0.5rem 1rem; border: none; border-radius: 5px; cursor: pointer;">Run Screener</button>
-        </div>
-      </div>
-    </section>
+    renderResults(filtered);
+  }
 
-    <!-- Results Placeholder -->
-    <section style="margin-top: 2rem;">
-      <h2>Results</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Symbol</th>
-            <th>Strike</th>
-            <th>Type</th>
-            <th>Delta</th>
-            <th>OI Change %</th>
-            <th>IV %</th>
-            <th>Open</th>
-            <th>High</th>
-            <th>Low</th>
-          </tr>
-        </thead>
-        <tbody id="results-body">
-          <!-- Dynamic results here -->
-        </tbody>
-      </table>
-    </section>
+  // Run Pre-Built Screener (Open = High / Low only)
+  function runPrebuilt() {
+    const openFilter = document.getElementById('open-filter').value;
+    const data = getDummyData();
 
-  </main>
+    const filtered = data.filter(stock => {
+      if (openFilter === 'open-high' && Math.abs(stock.open - stock.high) >= 0.01) return false;
+      if (openFilter === 'open-low' && Math.abs(stock.open - stock.low) >= 0.01) return false;
+      return true;
+    });
 
-  <script>
-    document.getElementById('run-screener').addEventListener('click', runScreener);
+    renderResults(filtered);
+  }
 
-    function runScreener() {
-      const symbolFilter = document.getElementById('symbol').value;
-      const deltaMin = parseFloat(document.getElementById('greeks-delta').value);
-      const oiMin = parseFloat(document.getElementById('oi-change').value);
-      const ivMax = parseFloat(document.getElementById('iv').value);
-      const openFilter = document.getElementById('open-filter').value;
+  // Optional Future → Run AI Screener (DeltaGPT integration placeholder)
+  /*
+  function runAIScreener() {
+    // Example: Call DeltaGPT API → receive suggestions → renderResults(suggestions);
+    console.log('Run AI Screener triggered (coming soon)');
+  }
+  */
 
-      // Example dummy data - replace with real API data
-      const data = [
-        { symbol: 'NIFTY', strike: 22500, type: 'Call', delta: 0.35, oiChange: 12, iv: 22, open: 22500, high: 22500, low: 22000 },
-        { symbol: 'BANKNIFTY', strike: 48500, type: 'Put', delta: -0.42, oiChange: 8, iv: 27, open: 48500, high: 48700, low: 48500 },
-        { symbol: 'RELIANCE', strike: 2600, type: 'Call', delta: 0.5, oiChange: 10, iv: 30, open: 2600, high: 2650, low: 2600 },
-        { symbol: 'INFY', strike: 1500, type: 'Put', delta: -0.3, oiChange: 6, iv: 25, open: 1500, high: 1500, low: 1490 },
-      ];
+  // Render Results Table
+  function renderResults(results) {
+    const tbody = document.getElementById('results-body');
+    tbody.innerHTML = '';
 
-      const filtered = data.filter(stock => {
-        if (symbolFilter && stock.symbol !== symbolFilter) return false;
-        if (!isNaN(deltaMin) && Math.abs(stock.delta) < deltaMin) return false;
-        if (!isNaN(oiMin) && stock.oiChange < oiMin) return false;
-        if (!isNaN(ivMax) && stock.iv > ivMax) return false;
-
-        if (openFilter === 'open-high' && Math.abs(stock.open - stock.high) >= 0.01) return false;
-        if (openFilter === 'open-low' && Math.abs(stock.open - stock.low) >= 0.01) return false;
-
-        return true;
-      });
-
-      renderResults(filtered);
+    if (results.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="9">No matching results.</td></tr>';
+      return;
     }
 
-    function renderResults(results) {
-      const tbody = document.getElementById('results-body');
-      tbody.innerHTML = '';
+    results.forEach(stock => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${stock.symbol}</td>
+        <td>${stock.strike}</td>
+        <td>${stock.type}</td>
+        <td>${stock.delta}</td>
+        <td>${stock.oiChange}%</td>
+        <td>${stock.iv}%</td>
+        <td>${stock.open}</td>
+        <td>${stock.high}</td>
+        <td>${stock.low}</td>
+      `;
+      tbody.appendChild(row);
+    });
+  }
 
-      if (results.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="9">No matching results.</td></tr>';
-        return;
-      }
-
-      results.forEach(stock => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${stock.symbol}</td>
-          <td>${stock.strike}</td>
-          <td>${stock.type}</td>
-          <td>${stock.delta}</td>
-          <td>${stock.oiChange}%</td>
-          <td>${stock.iv}%</td>
-          <td>${stock.open}</td>
-          <td>${stock.high}</td>
-          <td>${stock.low}</td>
-        `;
-        tbody.appendChild(row);
-      });
-    }
-  </script>
-</body>
-</html>
+  // Dummy Data for Testing (Replace later with API)
+  function getDummyData() {
+    return [
+      { symbol: 'NIFTY', strike: 22500, type: 'Call', delta: 0.35, oiChange: 12, iv: 22, open: 22500, high: 22500, low: 22000 },
+      { symbol: 'BANKNIFTY', strike: 48500, type: 'Put', delta: -0.42, oiChange: 8, iv: 27, open: 48500, high: 48700, low: 48500 },
+      { symbol: 'RELIANCE', strike: 2600, type: 'Call', delta: 0.5, oiChange: 10, iv: 30, open: 2600, high: 2650, low: 2600 },
+      { symbol: 'INFY', strike: 1500, type: 'Put', delta: -0.3, oiChange: 6, iv: 25, open: 1500, high: 1500, low: 1490 },
+    ];
+  }
+</script>
