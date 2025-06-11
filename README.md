@@ -1,3 +1,4 @@
+# DeltaBuddy
 
 ---
 
@@ -11,10 +12,20 @@
 
 ---
 
+## ✅ Completed Features (Phase 1)
+
+- ✅ Options Screener → AI / Pre-Built / Custom Tabs → Live Filters + Results Table
+- ✅ Portfolio → Paper Trading Module → Trade from Chart + P/L Summary + Paper Trades Log
+- ✅ Strategy Assistant → Separate module with DeltaGPT integration
+- ✅ Dashboard → Market Pulse / Greeks Alerts / Screener Summary → Modular Cards
+- ✅ FII/DII Section → Cash and Derivatives sub-pages (Tabs)
+
+---
+
 ## 🚧 Phase 2 Roadmap
 
 - Live Data Integration (F&O API, FII/DII feeds)
-- AI Layer (DeltaGPT)
+- AI Layer (DeltaGPT Strategy Assistant full rollout)
 - Personalization (User login, preferences)
 - Trade Journal & Backtest Engine
 - Visual Charts (FII flows, IV heatmap, PCR trends)
@@ -27,6 +38,7 @@
 
 - HTML5, CSS3 (matching DeltaBuddy clean UI)
 - Modular file structure → easy to maintain & scale
+- Modular UI architecture → Screener, Portfolio, Strategy, FII/DII → each as separate folder with index + subpages
 - Ready to connect with:
   - Python / Node.js backend
   - Real-time data APIs
@@ -47,4 +59,3 @@
 For feature requests or contributions → reach out via DeltaBuddy core team.
 
 ---
-
