@@ -5,7 +5,6 @@
     });
     document.getElementById(tabId).style.display = 'block';
 
-    // Button highlight
     document.querySelectorAll('.btn').forEach(btn => btn.classList.remove('primary'));
     const tabButtonMap = {
       'ai-tab': 'AI Based',
@@ -100,7 +99,6 @@
     ];
   }
 
-  // Auto-open Custom tab by default
   window.addEventListener('DOMContentLoaded', () => {
     showTab('custom-tab');
   });
