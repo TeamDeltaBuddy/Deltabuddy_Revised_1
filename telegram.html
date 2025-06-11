@@ -14,6 +14,9 @@
     ul { padding-left: 1.2rem; }
     a.btn-primary { background: #3b82f6; color: white; padding: 0.75rem 1.5rem; border-radius: 6px; text-decoration: none; font-weight: bold; }
     a.btn-primary:hover { background: #2563eb; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { padding: 0.75rem; border: 1px solid #ccc; text-align: center; }
+    th { background-color: #f1f5f9; }
   </style>
 </head>
 <body>
@@ -44,6 +47,44 @@
       </ul>
     </div>
 
+    <!-- Phase 2: Latest Alerts Table -->
+    <div class="card">
+      <h3>📡 Latest Alerts Sent to Telegram</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Alert / Message</th>
+            <th>Channel / Group</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>10:10 AM</td>
+            <td>🚨 Delta spike on BANKNIFTY 48700 CE</td>
+            <td>DeltaBuddy Alerts Channel</td>
+          </tr>
+          <tr>
+            <td>10:22 AM</td>
+            <td>🔥 VIX spike → Adjust Iron Condor</td>
+            <td>DeltaBuddy Alerts Channel</td>
+          </tr>
+          <tr>
+            <td>10:35 AM</td>
+            <td>📈 Screener hit: OI buildup NIFTY 22500 PE</td>
+            <td>Private Trading Group</td>
+          </tr>
+          <tr>
+            <td>10:50 AM</td>
+            <td>⚠️ Risk Coach alert: Overtrading detected</td>
+            <td>DeltaBuddy Alerts Channel</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="margin-top: 1rem;"><em>More real-time alerts will appear here as API/Telegram bot integration is completed.</em></p>
+    </div>
+
+    <!-- Upcoming Features -->
     <div class="card">
       <h3>🌟 Upcoming Features (Phase 2)</h3>
       <ul>
