@@ -25,6 +25,15 @@
   0% { transform: translateX(100%); }
   100% { transform: translateX(-100%); }
 }
+.ticker-item .positive {
+  color: #16a34a; /* green-600 */
+  font-weight: bold;
+}
+
+.ticker-item .negative {
+  color: #dc2626; /* red-600 */
+  font-weight: bold;
+}
 /* Features Section */
 .features {
   padding: 2.5rem 1rem;
