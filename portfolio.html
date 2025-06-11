@@ -7,8 +7,29 @@
   <link rel="stylesheet" href="styles.css" />
   <style>
     body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 2rem; }
-    .market-card { background: white; padding: 2rem; margin: 1rem 0; border-radius: 8px; box-shadow: 0 0 4px rgba(0,0,0,0.1); text-align: center; }
-    .market-card a { text-decoration: none; font-weight: bold; color: #3b82f6; font-size: 1.5rem; }
+    .top-nav { margin-bottom: 1rem; }
+    .top-nav a { text-decoration: none; color: #3b82f6; font-weight: bold; }
+    .market-card {
+      background: white;
+      padding: 2rem;
+      margin: 1rem auto;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 400px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .market-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+    .market-card a {
+      text-decoration: none;
+      font-weight: bold;
+      color: #3b82f6;
+      font-size: 1.5rem;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -16,8 +37,15 @@
     <a href="dashboard.html">← Dashboard</a>
     <span>Portfolio</span>
   </nav>
+
   <h2 style="text-align:center;">Choose Portfolio Segment</h2>
-  <div class="market-card"><a href="portfolio-actual.html">📈 Actual Trading</a></div>
-  <div class="market-card"><a href="portfolio-paper.html">📝 Paper Trading</a></div>
+
+  <div class="market-card">
+    <a href="portfolio-actual.html">📈 Actual Trading</a>
+  </div>
+
+  <div class="market-card">
+    <a href="portfolio-paper.html">📝 Paper Trading</a>
+  </div>
 </body>
 </html>
