@@ -5,6 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Alerts – DeltaBuddy</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1.5rem;
+    }
+
+    th, td {
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f1f5f9;
+    }
+  </style>
 </head>
 <body>
   <nav class="top-nav">
@@ -14,12 +31,44 @@
 
   <main style="padding: 2rem;">
     <h2>Live Greeks & Sudden Alerts</h2>
-    <ul>
-      <li>⚠️ Delta spike on BANKNIFTY 48700 CE</li>
-      <li>🚨 Vega jump on NIFTY 22550 PE</li>
-      <li>📊 Gamma risk rising on ATM spreads</li>
-      <li>📉 PCR dropping below 1.0 on NIFTY</li>
-    </ul>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Alert Type</th>
+          <th>Details</th>
+          <th>Action Suggestion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>10:15 AM</td>
+          <td>Delta Spike</td>
+          <td>Delta spike on BANKNIFTY 48700 CE</td>
+          <td>Monitor or Hedge CE positions</td>
+        </tr>
+        <tr>
+          <td>10:22 AM</td>
+          <td>Vega Jump</td>
+          <td>Vega jump on NIFTY 22550 PE</td>
+          <td>Review volatility impact</td>
+        </tr>
+        <tr>
+          <td>10:30 AM</td>
+          <td>Gamma Risk</td>
+          <td>Gamma risk rising on ATM spreads</td>
+          <td>Check spreads risk</td>
+        </tr>
+        <tr>
+          <td>10:45 AM</td>
+          <td>PCR Alert</td>
+          <td>PCR dropping below 1.0 on NIFTY</td>
+          <td>Watch for Bearish bias</td>
+        </tr>
+      </tbody>
+    </table>
+
     <p style="margin-top: 2rem;">More real-time signals will be available with live API integration.</p>
   </main>
 </body>
