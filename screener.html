@@ -26,13 +26,6 @@
   <main style="padding: 2rem;">
     <h1>Options Screener</h1>
 
-    <!-- Your intro -->
-    <h2>Smart Screener</h2>
-    <p>🔍 Filter stocks based on Greeks, sectors, market cap, valuation, and more.</p>
-    <p style="background: #fff3cd; padding: 1rem; border-radius: 6px;">
-      🚧 Smart Filters module coming soon. Please check back later.
-    </p>
-
     <!-- Filters Section -->
     <section>
       <h2>Filters</h2>
@@ -40,6 +33,7 @@
         <div class="card">
           <label for="symbol">Symbol</label>
           <select id="symbol">
+            <option value="">-- Any --</option>
             <option>NIFTY</option>
             <option>BANKNIFTY</option>
             <option>FINNIFTY</option>
@@ -56,7 +50,14 @@
           <label for="iv">IV % (max)</label>
           <input type="number" id="iv" placeholder="e.g. 40">
 
-          <button style="margin-top: 1rem; background: #3b82f6; color: white; padding: 0.5rem 1rem; border: none; border-radius: 5px; cursor: pointer;">Run Screener</button>
+          <label for="open-filter">Open = High / Low</label>
+          <select id="open-filter">
+            <option value="">-- No Filter --</option>
+            <option value="open-high">Open = High</option>
+            <option value="open-low">Open = Low</option>
+          </select>
+
+          <button id="run-screener" style="margin-top: 1rem; background: #3b82f6; color: white; padding: 0.5rem 1rem; border: none; border-radius: 5px; cursor: pointer;">Run Screener</button>
         </div>
       </div>
     </section>
@@ -73,29 +74,77 @@
             <th>Delta</th>
             <th>OI Change %</th>
             <th>IV %</th>
+            <th>Open</th>
+            <th>High</th>
+            <th>Low</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>NIFTY</td>
-            <td>22500</td>
-            <td>Call</td>
-            <td>0.35</td>
-            <td>+12%</td>
-            <td>22%</td>
-          </tr>
-          <tr>
-            <td>BANKNIFTY</td>
-            <td>48500</td>
-            <td>Put</td>
-            <td>-0.42</td>
-            <td>+8%</td>
-            <td>27%</td>
-          </tr>
+        <tbody id="results-body">
+          <!-- Dynamic results here -->
         </tbody>
       </table>
     </section>
 
   </main>
+
+  <script>
+    document.getElementById('run-screener').addEventListener('click', runScreener);
+
+    function runScreener() {
+      const symbolFilter = document.getElementById('symbol').value;
+      const deltaMin = parseFloat(document.getElementById('greeks-delta').value);
+      const oiMin = parseFloat(document.getElementById('oi-change').value);
+      const ivMax = parseFloat(document.getElementById('iv').value);
+      const openFilter = document.getElementById('open-filter').value;
+
+      // Example dummy data - replace with real API data
+      const data = [
+        { symbol: 'NIFTY', strike: 22500, type: 'Call', delta: 0.35, oiChange: 12, iv: 22, open: 22500, high: 22500, low: 22000 },
+        { symbol: 'BANKNIFTY', strike: 48500, type: 'Put', delta: -0.42, oiChange: 8, iv: 27, open: 48500, high: 48700, low: 48500 },
+        { symbol: 'RELIANCE', strike: 2600, type: 'Call', delta: 0.5, oiChange: 10, iv: 30, open: 2600, high: 2650, low: 2600 },
+        { symbol: 'INFY', strike: 1500, type: 'Put', delta: -0.3, oiChange: 6, iv: 25, open: 1500, high: 1500, low: 1490 },
+      ];
+
+      const filtered = data.filter(stock => {
+        if (symbolFilter && stock.symbol !== symbolFilter) return false;
+        if (!isNaN(deltaMin) && Math.abs(stock.delta) < deltaMin) return false;
+        if (!isNaN(oiMin) && stock.oiChange < oiMin) return false;
+        if (!isNaN(ivMax) && stock.iv > ivMax) return false;
+
+        if (openFilter === 'open-high' && Math.abs(stock.open - stock.high) >= 0.01) return false;
+        if (openFilter === 'open-low' && Math.abs(stock.open - stock.low) >= 0.01) return false;
+
+        return true;
+      });
+
+      renderResults(filtered);
+    }
+
+    function renderResults(results) {
+      const tbody = document.getElementById('results-body');
+      tbody.innerHTML = '';
+
+      if (results.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9">No matching results.</td></tr>';
+        return;
+      }
+
+      results.forEach(stock => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${stock.symbol}</td>
+          <td>${stock.strike}</td>
+          <td>${stock.type}</td>
+          <td>${stock.delta}</td>
+          <td>${stock.oiChange}%</td>
+          <td>${stock.iv}%</td>
+          <td>${stock.open}</td>
+          <td>${stock.high}</td>
+          <td>${stock.low}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+  </script>
 </body>
 </html>
