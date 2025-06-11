@@ -263,6 +263,44 @@ main {
   color: #0f172a;
   font-size: 0.95rem;
 }
+/* === Portfolio Summary Header === */
+.summary-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.summary-card {
+  background: white;
+  padding: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.1);
+  flex: 1 1 200px;
+  text-align: center;
+}
+
+/* === Portfolio Action Bar === */
+.action-bar {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.action-bar button {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  margin: 0 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.action-bar button:hover {
+  background: #2563eb;
+}
 
 @keyframes tickerMove {
   0% { transform: translateX(100%); }
