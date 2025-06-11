@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Screener - DeltaBuddy</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .btn { padding: 0.7rem 1.2rem; margin: 0.5rem; border-radius: 5px; font-weight: bold; cursor: pointer; border: none; }
+    .btn.primary { background: #3b82f6; color: white; }
+    .btn.secondary { background: #e5e7eb; color: #111827; }
+    .tab-section { display: none; padding: 1rem; background: #fff; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1); margin-top: 1rem; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="../dashboard.html" class="btn secondary">← Back to Dashboard</a>
+    <span style="font-size: 1.5rem; font-weight: bold;">Screener</span>
+  </nav>
+
+  <div style="margin-top: 1rem;">
+    <button class="btn primary" onclick="showTab('prebuilt')">Pre-Built</button>
+    <button class="btn secondary" onclick="showTab('custom')">Custom</button>
+    <button class="btn secondary" onclick="showTab('ai')">AI Based</button>
+  </div>
+
+  <div id="prebuilt" class="tab-section">
+    <h2>Pre-Built Screener</h2>
+    <p>Link: <a href="prebuilt.html">Go to Pre-Built Screener →</a></p>
+  </div>
+
+  <div id="custom" class="tab-section">
+    <h2>Custom Screener</h2>
+    <p>Link: <a href="custom.html">Go to Custom Screener →</a></p>
+  </div>
+
+  <div id="ai" class="tab-section">
+    <h2>AI Based Screener</h2>
+    <p>Link: <a href="ai.html">Go to AI Based Screener →</a></p>
+  </div>
+
+  <script>
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-section').forEach(tab => tab.style.display = 'none');
+      document.getElementById(tabId).style.display = 'block';
+      document.querySelectorAll('.btn').forEach(btn => btn.classList.remove('primary'));
+      document.querySelectorAll('.btn').forEach(btn => {
+        if (btn.textContent.trim() === capitalize(tabId.replace('-', ' '))) {
+          btn.classList.add('primary');
+        } else {
+          btn.classList.add('secondary');
+        }
+      });
+    }
+
+    function capitalize(str) {
+      return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    }
+
+    // Show Pre-Built tab by default
+    window.addEventListener('DOMContentLoaded', () => {
+      showTab('prebuilt');
+    });
+  </script>
+
+</body>
+</html>

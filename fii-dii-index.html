@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FII/DII - DeltaBuddy</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .btn { padding: 0.7rem 1.2rem; margin: 0.5rem; border-radius: 5px; font-weight: bold; cursor: pointer; border: none; }
+    .btn.primary { background: #3b82f6; color: white; }
+    .btn.secondary { background: #e5e7eb; color: #111827; }
+    .tab-section { display: none; padding: 1rem; background: #fff; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1); margin-top: 1rem; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="../dashboard.html" class="btn secondary">← Back to Dashboard</a>
+    <span style="font-size: 1.5rem; font-weight: bold;">FII / DII Section</span>
+  </nav>
+
+  <div style="margin-top: 1rem;">
+    <button class="btn primary" onclick="showTab('cash')">Cash</button>
+    <button class="btn secondary" onclick="showTab('derivatives')">Derivatives</button>
+  </div>
+
+  <div id="cash" class="tab-section">
+    <h2>Cash Segment</h2>
+    <p>Link: <a href="cash.html">Go to Cash Segment →</a></p>
+  </div>
+
+  <div id="derivatives" class="tab-section">
+    <h2>Derivatives Segment</h2>
+    <p>Link: <a href="derivatives.html">Go to Derivatives Segment →</a></p>
+  </div>
+
+  <script>
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-section').forEach(tab => tab.style.display = 'none');
+      document.getElementById(tabId).style.display = 'block';
+      document.querySelectorAll('.btn').forEach(btn => btn.classList.remove('primary'));
+      document.querySelectorAll('.btn').forEach(btn => {
+        if (btn.textContent.trim() === capitalize(tabId)) {
+          btn.classList.add('primary');
+        } else {
+          btn.classList.add('secondary');
+        }
+      });
+    }
+
+    function capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    // Show Cash tab by default
+    window.addEventListener('DOMContentLoaded', () => {
+      showTab('cash');
+    });
+  </script>
+
+</body>
+</html>
