@@ -53,21 +53,47 @@
     <input type="number" id="delta-threshold" placeholder="e.g. 0.2" />
 
     <button class="btn primary" id="run-custom">Run Screener</button>
+  </div>
 
-    <h3>Results</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Symbol</th>
-          <th>Strike</th>
-          <th>Type</th>
-          <th>Delta</th>
-          <th>OI Change %</th>
-          <th>IV %</th>
-          <th>PCR</th>
-          <th>Open</th>
-          <th>High</th>
-          <th>Low<
+  <!-- Pre-Built Tab -->
+  <div id="prebuilt-tab" class="tab-section">
+    <h2>Pre-Built Screener</h2>
+
+    <label>Open Filter:</label>
+    <select id="open-filter">
+      <option value="">-- Select --</option>
+      <option value="open-high">Open = High</option>
+      <option value="open-low">Open = Low</option>
+    </select>
+
+    <button class="btn primary" id="run-prebuilt">Run Pre-Built Screener</button>
+  </div>
+
+  <!-- AI Tab -->
+  <div id="ai-tab" class="tab-section">
+    <h2>AI Based Screener</h2>
+    <p>Coming soon — AI powered screening and strategy suggestions!</p>
+  </div>
+
+  <!-- Shared Results Table -->
+  <h3>Results</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Symbol</th>
+        <th>Strike</th>
+        <th>Type</th>
+        <th>Delta</th>
+        <th>OI Change %</th>
+        <th>IV %</th>
+        <th>PCR</th>
+        <th>Open</th>
+        <th>High</th>
+        <th>Low</th>
+      </tr>
+    </thead>
+    <tbody id="results-body"></tbody>
+  </table>
 <script>
   function showTab(tabId) {
     document.querySelectorAll('.tab-section').forEach(tab => {
@@ -125,20 +151,29 @@
     const data = getDummyData();
 
     const filtered = data.filter(stock => {
-      if (openFilter === 'open-high' && Math.abs(stock.open - stock.high) >= 0.01) return false;
-      if (openFilter === 'open-low' && Math.abs(stock.open - stock.low) >= 0.01) return false;
+      if (openFilter === 'open-high') {
+        return Math.abs(stock.open - stock.high) < 0.01;
+      }
+      if (openFilter === 'open-low') {
+        return Math.abs(stock.open - stock.low) < 0.01;
+      }
       return true;
     });
+
+    console.log(`🟢 Pre-built Screener: ${openFilter}`, filtered.map(stock => ({
+      symbol: stock.symbol,
+      strike: stock.strike
+    })));
 
     renderResults(filtered);
   }
 
   function renderResults(results) {
-    const tbody = document.querySelectorAll('#results-body');
-    tbody.forEach(tb => tb.innerHTML = '');
+    const tbody = document.getElementById('results-body');
+    tbody.innerHTML = '';
 
     if (results.length === 0) {
-      tbody.forEach(tb => tb.innerHTML = '<tr><td colspan="10">No matching results.</td></tr>');
+      tbody.innerHTML = '<tr><td colspan="10">No matching results.</td></tr>';
       return;
     }
 
@@ -157,7 +192,7 @@
           <td>${stock.low}</td>
         </tr>
       `;
-      tbody.forEach(tb => tb.innerHTML += row);
+      tbody.innerHTML += row;
     });
   }
 
