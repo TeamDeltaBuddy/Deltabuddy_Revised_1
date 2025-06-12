@@ -21,6 +21,26 @@
     th {
       background-color: #f1f5f9;
     }
+
+    .alert-type {
+      font-weight: bold;
+    }
+
+    .alert-type.gamma {
+      color: red;
+    }
+
+    .alert-type.delta {
+      color: orange;
+    }
+
+    .alert-type.vega {
+      color: purple;
+    }
+
+    .alert-type.pcr {
+      color: teal;
+    }
   </style>
 </head>
 <body>
@@ -36,34 +56,44 @@
       <thead>
         <tr>
           <th>Time</th>
+          <th>Symbol</th>
+          <th>Strike</th>
           <th>Alert Type</th>
           <th>Details</th>
           <th>Action Suggestion</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="alerts-body">
         <tr>
           <td>10:15 AM</td>
-          <td>Delta Spike</td>
-          <td>Delta spike on BANKNIFTY 48700 CE</td>
+          <td>BANKNIFTY</td>
+          <td>48700</td>
+          <td class="alert-type delta">Delta Spike</td>
+          <td>Delta spike on BANKNIFTY 48700 CE → Delta 0.55 ↑</td>
           <td>Monitor or Hedge CE positions</td>
         </tr>
         <tr>
           <td>10:22 AM</td>
-          <td>Vega Jump</td>
-          <td>Vega jump on NIFTY 22550 PE</td>
+          <td>NIFTY</td>
+          <td>22550</td>
+          <td class="alert-type vega">Vega Jump</td>
+          <td>Vega ↑ on NIFTY 22550 PE → IV up 3%</td>
           <td>Review volatility impact</td>
         </tr>
         <tr>
           <td>10:30 AM</td>
-          <td>Gamma Risk</td>
-          <td>Gamma risk rising on ATM spreads</td>
-          <td>Check spreads risk</td>
+          <td>NIFTY</td>
+          <td>22500</td>
+          <td class="alert-type gamma">Gamma Blast</td>
+          <td>Gamma ↑ 75% on NIFTY 22500 CE → Delta 0.48 ATM</td>
+          <td>Check for adjustments / Hedge Gamma</td>
         </tr>
         <tr>
           <td>10:45 AM</td>
-          <td>PCR Alert</td>
-          <td>PCR dropping below 1.0 on NIFTY</td>
+          <td>NIFTY</td>
+          <td>--</td>
+          <td class="alert-type pcr">PCR Alert</td>
+          <td>PCR dropping below 1.0 on NIFTY overall</td>
           <td>Watch for Bearish bias</td>
         </tr>
       </tbody>
