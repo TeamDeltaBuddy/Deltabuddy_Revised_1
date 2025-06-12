@@ -6,76 +6,6 @@
   <title>DeltaBuddy Dashboard</title>
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    @keyframes tickerMove {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
-    }
-
-    .ticker-item {
-      white-space: nowrap;
-      font-weight: bold;
-      color: #0f172a;
-      font-size: 0.95rem;
-    }
-
-    aside {
-      width: 220px;
-      background-color: #0f172a;
-      padding: 1rem;
-      color: white;
-    }
-
-    aside img {
-      max-width: 100%;
-      margin-bottom: 1rem;
-    }
-
-    aside nav ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    aside nav ul li {
-      margin-bottom: 0.5rem;
-    }
-
-    aside nav ul li a {
-      display: block;
-      padding: 10px 15px;
-      color: white;
-      text-decoration: none;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    aside nav ul li a:hover {
-      background-color: #3b82f6;
-    }
-
-    aside nav ul li a.active {
-      background-color: #3b82f6;
-      font-weight: bold;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1rem;
-    }
-
-    th, td {
-      padding: 0.75rem;
-      border: 1px solid #ccc;
-      text-align: center;
-    }
-
-    th {
-      background-color: #f1f5f9;
-    }
-  </style>
 </head>
 <body>
 
@@ -101,108 +31,81 @@
       </nav>
     </aside>
 
-<main>
-  <h1>Welcome to DeltaBuddy</h1>
-  <p>This is your personalized AI + SaaS dashboard.</p>
+    <main>
+      <h1>Welcome to DeltaBuddy</h1>
+      <p>This is your personalized AI + SaaS dashboard.</p>
+      <!-- Market Overview Ticker -->
+      <h2 style="margin-top: 1rem;">Global Indices Snapshot</h2>
+      <div class="ticker-wrap">
+        <div class="ticker global">
+          <div class="ticker-item">📊 India VIX: 13.45</div>
+          <div class="ticker-item">📈 NIFTY 50: 22,510</div>
+          <div class="ticker-item">🏦 BANKNIFTY: 48,120</div>
+          <div class="ticker-item">🇺🇸 DOW JONES: 38,150</div>
+          <div class="ticker-item">🇺🇸 NASDAQ: 16,920</div>
+          <div class="ticker-item">🇩🇪 DAX: 18,800</div>
+        </div>
+      </div>
 
-  <!-- Market Overview Ticker -->
-  <h2 style="margin-top: 1rem;">Global Indices Snapshot</h2>
-  <div class="ticker-wrap">
-    <div class="ticker global">
-      <div class="ticker-item">📊 India VIX: 13.45</div>
-      <div class="ticker-item">📈 NIFTY 50: 22,510</div>
-      <div class="ticker-item">🏦 BANKNIFTY: 48,120</div>
-      <div class="ticker-item">🇺🇸 DOW JONES: 38,150</div>
-      <div class="ticker-item">🇺🇸 NASDAQ: 16,920</div>
-      <div class="ticker-item">🇩🇪 DAX: 18,800</div>
-      <div class="ticker-item">🇯🇵 NIKKEI: 38,800</div>
-      <div class="ticker-item">🇭🇰 Hang Seng: 18,550</div>
-      <div class="ticker-item">🇨🇳 Shanghai Composite: 3,150</div>
-      <div class="ticker-item">🇬🇧 FTSE 100: 8,275</div>
-      <div class="ticker-item">🇺🇸 S&P 500: 5,290</div>
-      <div class="ticker-item">🇮🇳 Gift Nifty: 22,600</div>
-      <div class="ticker-item">🇨🇭 Swiss SMI: 11,600</div>
-    </div>
-  </div>
+      <!-- F&O Stocks Ticker -->
+      <h2 style="margin-top: 1rem;">F&O Stocks Snapshot</h2>
+      <div class="ticker-wrap" style="background: #f0f9ff;">
+        <div class="ticker fno">
+          <div class="ticker-item">📈 RELIANCE: ₹2,700 <span class="positive">(+1.2%)</span></div>
+          <div class="ticker-item">📉 INFY: ₹1,500 <span class="negative">(-0.8%)</span></div>
+        </div>
+      </div>
 
-  <!-- F&O Stocks Ticker -->
-  <h2 style="margin-top: 1rem;">F&O Stocks Snapshot</h2>
-  <div class="ticker-wrap" style="background: #f0f9ff;">
-    <div class="ticker fno">
-      <div class="ticker-item">📈 RELIANCE: ₹2,700 <span class="positive">(+1.2%)</span></div>
-      <div class="ticker-item">📉 INFY: ₹1,500 <span class="negative">(-0.8%)</span></div>
-      <div class="ticker-item">📈 ICICIBANK: ₹1,020 <span class="positive">(+0.5%)</span></div>
-      <div class="ticker-item">📉 HDFCBANK: ₹1,650 <span class="negative">(-0.6%)</span></div>
-      <div class="ticker-item">📈 SBIN: ₹720 <span class="positive">(+0.9%)</span></div>
-      <div class="ticker-item">📉 TCS: ₹3,500 <span class="negative">(-1.1%)</span></div>
-      <div class="ticker-item">📈 AXISBANK: ₹1,090 <span class="positive">(+0.3%)</span></div>
-      <div class="ticker-item">📉 MARUTI: ₹11,500 <span class="negative">(-0.7%)</span></div>
-      <div class="ticker-item">📈 TATAMOTORS: ₹920 <span class="positive">(+1.5%)</span></div>
-      <div class="ticker-item">📈 ADANIENT: ₹3,250 <span class="positive">(+0.9%)</span></div>
-      <div class="ticker-item">📉 JSWSTEEL: ₹850 <span class="negative">(-0.4%)</span></div>
-      <div class="ticker-item">📈 BAJFINANCE: ₹7,100 <span class="positive">(+1.0%)</span></div>
-      <div class="ticker-item">📉 KOTAKBANK: ₹1,950 <span class="negative">(-0.3%)</span></div>
-      <div class="ticker-item">📈 BHARTIARTL: ₹1,020 <span class="positive">(+0.6%)</span></div>
-      <div class="ticker-item">📉 ITC: ₹440 <span class="negative">(-0.2%)</span></div>
-    </div>
-  </div>
+      <!-- Market Monitoring -->
+      <h2 style="margin-top: 2rem;">Market Monitoring</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Real-time Greeks & Alerts</h3>
+          <p>Delta, Theta, Gamma, Vega monitoring with live triggers.</p>
+          <ul>
+            <li>🚨 Delta spike detected on NIFTY 17600</li>
+            <li>🟠 Gamma shift on BANKNIFTY ATM</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Market Pulse</h3>
+          <canvas id="marketPulseChart" height="200"></canvas>
+        </div>
+        <div class="card">
+          <h3>Live Greeks Widget (Coming Soon)</h3>
+          <canvas id="liveGreeksChart" height="200"></canvas>
+        </div>
+      </div>
 
-  <!-- Market Monitoring -->
-  <h2 style="margin-top: 2rem;">Market Monitoring</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Real-time Greeks & Alerts</h3>
-      <p>Delta, Theta, Gamma, Vega monitoring with live triggers.</p>
-      <ul>
-        <li>🚨 Delta spike detected on NIFTY 17600</li>
-        <li>🟠 Gamma shift on BANKNIFTY ATM</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>Market Pulse</h3>
-      <canvas id="marketPulseChart" height="200"></canvas>
-    </div>
-    <div class="card">
-      <h3>Live Greeks Widget (Coming Soon)</h3>
-      <canvas id="liveGreeksChart" height="200"></canvas>
-    </div>
-  </div>
-</main>
       <!-- Top Movers -->
       <h2 style="margin-top: 2rem;">Top Movers</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Symbol</th>
-            <th>LTP</th>
-            <th>% Change</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>RELIANCE</td>
-            <td>₹2,700</td>
-            <td style="color:green;">+1.2%</td>
-          </tr>
-          <tr>
-            <td>INFY</td>
-            <td>₹1,500</td>
-            <td style="color:red;">-0.8%</td>
-          </tr>
-          <tr>
-            <td>ICICIBANK</td>
-            <td>₹1,020</td>
-            <td style="color:green;">+0.5%</td>
-          </tr>
-          <tr>
-            <td>TCS</td>
-            <td>₹3,500</td>
-            <td style="color:red;">-1.1%</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- AI Tools -->
+      <div class="grid">
+        <div class="card">
+          <h3>Top Movers</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Symbol</th>
+                <th>LTP</th>
+                <th>% Change</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>RELIANCE</td>
+                <td>₹2,700</td>
+                <td style="color:green;">+1.2%</td>
+              </tr>
+              <tr>
+                <td>INFY</td>
+                <td>₹1,500</td>
+                <td style="color:red;">-0.8%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- AI-Powered Tools -->
       <h2 style="margin-top: 2rem;">AI-Powered Tools</h2>
       <div class="grid">
         <div class="card">
