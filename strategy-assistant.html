@@ -41,6 +41,7 @@
     .card a:hover {
       background: #2563eb;
     }
+    .btn { padding: 0.5rem 1rem; background: #3b82f6; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 1rem; }
   </style>
 </head>
 <body>
@@ -84,6 +85,7 @@
   <!-- Recent Strategy History -->
   <div class="card">
     <h3>📜 Recent Strategy History</h3>
+    <button class="btn" onclick="generateStrategy()">🔄 Generate AI Strategy</button>
     <table>
       <thead>
         <tr>
@@ -93,7 +95,7 @@
           <th>Status</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="strategy-history">
         <tr>
           <td>10:15 AM</td>
           <td>Bullish</td>
@@ -128,6 +130,35 @@
       <li>Strategy journal & review feature</li>
     </ul>
   </div>
+
+  <script>
+    const strategies = [
+      { market: 'Bullish', strategy: 'Bull Put Spread', status: 'AI Suggested' },
+      { market: 'Bearish', strategy: 'Bear Call Spread', status: 'AI Suggested' },
+      { market: 'Sideways', strategy: 'Iron Condor', status: 'AI Suggested' },
+      { market: 'Volatile', strategy: 'Long Straddle', status: 'AI Suggested' },
+      { market: 'Bullish', strategy: 'Synthetic Long', status: 'AI Suggested' },
+      { market: 'Bearish', strategy: 'Synthetic Short', status: 'AI Suggested' },
+      { market: 'Sideways', strategy: 'Short Strangle', status: 'AI Suggested' }
+    ];
+
+    function generateStrategy() {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const pick = strategies[Math.floor(Math.random() * strategies.length)];
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${timeStr}</td>
+        <td>${pick.market}</td>
+        <td>${pick.strategy}</td>
+        <td>${pick.status}</td>
+      `;
+
+      const tbody = document.getElementById('strategy-history');
+      tbody.insertBefore(row, tbody.firstChild);
+    }
+  </script>
 
 </body>
 </html>
