@@ -13,6 +13,7 @@
     th, td { padding: 0.75rem; border: 1px solid #ccc; text-align: center; }
     th { background-color: #f1f5f9; }
     ul { padding-left: 1.2rem; }
+    .btn { padding: 0.5rem 1rem; background: #3b82f6; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 1rem; }
   </style>
 </head>
 <body>
@@ -30,7 +31,7 @@
     <!-- Risk Score Summary -->
     <div class="card">
       <h3>Risk Coach Summary</h3>
-      <p><strong>Risk Score:</strong> 72 / 100 → 🟡 Moderate Risk</p>
+      <p id="risk-score"><strong>Risk Score:</strong> 72 / 100 → 🟡 Moderate Risk</p>
     </div>
 
     <!-- Risk Insights Table -->
@@ -44,37 +45,13 @@
             <th>Comments</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>Delta</td>
-            <td>✅ Balanced</td>
-            <td>Within acceptable range</td>
-          </tr>
-          <tr>
-            <td>Vega</td>
-            <td>⚠️ High</td>
-            <td>Consider reducing Vega exposure</td>
-          </tr>
-          <tr>
-            <td>Gamma</td>
-            <td>✅ Normal</td>
-            <td>No action required</td>
-          </tr>
-          <tr>
-            <td>Overtrading</td>
-            <td>⚠️ Detected</td>
-            <td>12 trades today — review trade plan</td>
-          </tr>
-          <tr>
-            <td>Hedging</td>
-            <td>✅ OK</td>
-            <td>Sufficient hedges in place</td>
-          </tr>
-          <tr>
-            <td>Leverage</td>
-            <td>✅ OK</td>
-            <td>Leverage within safe limits</td>
-          </tr>
+        <tbody id="insights-table">
+          <tr><td>Delta</td><td>✅ Balanced</td><td>Within acceptable range</td></tr>
+          <tr><td>Vega</td><td>⚠️ High</td><td>Consider reducing Vega exposure</td></tr>
+          <tr><td>Gamma</td><td>✅ Normal</td><td>No action required</td></tr>
+          <tr><td>Overtrading</td><td>⚠️ Detected</td><td>12 trades today — review trade plan</td></tr>
+          <tr><td>Hedging</td><td>✅ OK</td><td>Sufficient hedges in place</td></tr>
+          <tr><td>Leverage</td><td>✅ OK</td><td>Leverage within safe limits</td></tr>
         </tbody>
       </table>
     </div>
@@ -82,11 +59,12 @@
     <!-- Warnings & Tips -->
     <div class="card">
       <h3>Warnings & Tips</h3>
-      <ul>
+      <ul id="tips-list">
         <li>🚨 Overtrading warning: Detected 15 trades in the last 2 hours.</li>
         <li>⚠️ Under-hedging risk: Current portfolio delta exceeds recommended threshold.</li>
         <li>💡 Tip: Review your trade journal weekly to track emotional patterns.</li>
       </ul>
+      <button class="btn" onclick="exportTips()">Download Tips</button>
     </div>
 
     <!-- Next Features -->
@@ -100,5 +78,50 @@
     </div>
 
   </main>
+
+  <script>
+    function updateRiskScore() {
+      const score = Math.floor(Math.random() * 40) + 60;
+      let level = '🟡 Moderate Risk';
+      if (score >= 85) level = '🟢 Low Risk';
+      else if (score <= 65) level = '🔴 High Risk';
+
+      document.getElementById('risk-score').innerHTML = `<strong>Risk Score:</strong> ${score} / 100 → ${level}`;
+    }
+
+    function updateInsights() {
+      const table = document.getElementById('insights-table');
+      const statuses = ['✅', '⚠️', '🚨'];
+      const comments = ['Within acceptable range', 'Monitor exposure', 'Consider adjustments', 'No action required'];
+
+      Array.from(table.rows).forEach(row => {
+        const status = statuses[Math.floor(Math.random() * statuses.length)];
+        const comment = comments[Math.floor(Math.random() * comments.length)];
+
+        row.cells[1].textContent = status;
+        row.cells[2].textContent = comment;
+      });
+    }
+
+    function exportTips() {
+      const tips = Array.from(document.querySelectorAll('#tips-list li')).map(li => li.textContent).join('\n');
+      const blob = new Blob([tips], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'risk-tips.txt';
+      link.click();
+    }
+
+    // Auto refresh every 10 seconds
+    setInterval(() => {
+      updateRiskScore();
+      updateInsights();
+    }, 10000);
+
+    // Initialize
+    updateRiskScore();
+    updateInsights();
+  </script>
+
 </body>
 </html>
