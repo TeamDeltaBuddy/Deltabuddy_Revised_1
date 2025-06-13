@@ -93,6 +93,15 @@
       const password = document.getElementById('password').value;
 
       if (email && password) {
+        // TEMP: Simulate successful login for frontend testing
+        localStorage.setItem('token', 'demo-token');
+        localStorage.setItem('userEmail', email);
+        alert('Login successful! Redirecting to Dashboard...');
+        window.location.href = 'dashboard.html';
+
+        /* 
+        // When backend ready, replace this block with actual fetch:
+
         fetch('https://your-backend-url/api/login', {
           method: 'POST',
           headers: {
@@ -103,8 +112,8 @@
         .then(response => response.json())
         .then(data => {
           if (data.token) {
-            // Save token in localStorage
             localStorage.setItem('token', data.token);
+            localStorage.setItem('userEmail', email);
             alert('Login successful! Redirecting to Dashboard...');
             window.location.href = 'dashboard.html';
           } else {
@@ -115,6 +124,7 @@
           console.error('Error:', error);
           alert('An error occurred during login.');
         });
+        */
       } else {
         alert('Please enter valid email and password.');
       }
