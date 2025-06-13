@@ -36,11 +36,11 @@
 
     <div class="card">
       <h3>Δ Delta / Γ Gamma / Θ Theta / ν Vega</h3>
-      <ul>
-        <li>Delta: +35 → Slight bullish bias</li>
-        <li>Gamma: 5.2 → Neutral zone</li>
-        <li>Theta: -18 → Mild decay</li>
-        <li>Vega: +22 → High sensitivity to volatility</li>
+      <ul id="live-greeks">
+        <li>Delta: <span id="delta-value">0</span></li>
+        <li>Gamma: <span id="gamma-value">0</span></li>
+        <li>Theta: <span id="theta-value">0</span></li>
+        <li>Vega: <span id="vega-value">0</span></li>
       </ul>
     </div>
 
@@ -182,8 +182,17 @@
       alert('Auto alerts added!');
     }
 
+    function updateGreeks() {
+      document.getElementById('delta-value').innerText = (Math.random() * 100 - 50).toFixed(1);
+      document.getElementById('gamma-value').innerText = (Math.random() * 10).toFixed(2);
+      document.getElementById('theta-value').innerText = (Math.random() * -50).toFixed(0);
+      document.getElementById('vega-value').innerText = (Math.random() * 50).toFixed(0);
+    }
+
     // Initialize
     loadAlerts();
+    updateGreeks();
+    setInterval(updateGreeks, 10000); // update every 10 sec
   </script>
 </body>
 </html>
