@@ -93,8 +93,28 @@
       const password = document.getElementById('password').value;
 
       if (email && password) {
-        alert('Login successful! Redirecting to Dashboard...');
-        window.location.href = 'dashboard.html';
+        fetch('https://your-backend-url/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email, password })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.token) {
+            // Save token in localStorage
+            localStorage.setItem('token', data.token);
+            alert('Login successful! Redirecting to Dashboard...');
+            window.location.href = 'dashboard.html';
+          } else {
+            alert('Login failed: ' + (data.message || 'Unknown error'));
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('An error occurred during login.');
+        });
       } else {
         alert('Please enter valid email and password.');
       }
