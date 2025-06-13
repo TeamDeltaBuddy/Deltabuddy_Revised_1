@@ -13,6 +13,7 @@
     th, td { padding: 0.75rem; border: 1px solid #ccc; text-align: center; }
     th { background-color: #f1f5f9; }
     ul { padding-left: 1.2rem; }
+    .btn { padding: 0.5rem 1rem; background: #3b82f6; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 1rem; }
   </style>
 </head>
 <body>
@@ -45,7 +46,7 @@
             <th>Suggested Action</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="triggers-body">
           <tr>
             <td>10:05 AM</td>
             <td>Delta Spike</td>
@@ -73,6 +74,7 @@
         </tbody>
       </table>
       <p style="margin-top:1rem;"><em>Live adjustment suggestions will appear here as bot connects to your portfolio.</em></p>
+      <button class="btn" id="pause-btn" onclick="toggleSimulation()">Pause Simulation</button>
     </div>
 
     <!-- Upcoming Features Card -->
@@ -90,6 +92,53 @@
       ⬅️ Back to Dashboard
     </a>
   </main>
+
+  <script>
+    const triggers = [
+      { risk: 'Delta Spike', details: 'NIFTY 22500 CE', action: 'Add Bear Call Spread' },
+      { risk: 'VIX Spike', details: 'VIX 13.2 → 18.5', action: 'Reduce naked options' },
+      { risk: 'Gamma Risk', details: 'BANKNIFTY ATM', action: 'Roll strikes outward' },
+      { risk: 'OI Build-up', details: 'FINNIFTY PUT side', action: 'Monitor PCR' },
+      { risk: 'Theta Decay', details: 'Option cluster', action: 'Adjust time spreads' },
+      { risk: 'Skew Shift', details: 'Option skew increasing', action: 'Hedge with vertical spreads' },
+      { risk: 'IV Spike', details: 'IV 22 → 29', action: 'Switch to spreads' },
+      { risk: 'Liquidity Drop', details: 'Low depth in options', action: 'Reduce position size' }
+    ];
+
+    let simulationInterval;
+    let isPaused = false;
+
+    function addTrigger() {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const trigger = triggers[Math.floor(Math.random() * triggers.length)];
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${timeStr}</td>
+        <td>${trigger.risk}</td>
+        <td>${trigger.details}</td>
+        <td>${trigger.action}</td>
+      `;
+
+      const tbody = document.getElementById('triggers-body');
+      tbody.insertBefore(row, tbody.firstChild);
+    }
+
+    function startSimulation() {
+      simulationInterval = setInterval(() => {
+        if (!isPaused) addTrigger();
+      }, 10000);
+    }
+
+    function toggleSimulation() {
+      isPaused = !isPaused;
+      document.getElementById('pause-btn').textContent = isPaused ? 'Resume Simulation' : 'Pause Simulation';
+    }
+
+    // Initialize
+    startSimulation();
+  </script>
 
 </body>
 </html>
