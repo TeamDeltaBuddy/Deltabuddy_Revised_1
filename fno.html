@@ -36,7 +36,7 @@
 
     <!-- OI Buildup Table -->
     <div class="card">
-      <h3>🔢 OI Buildup (Sample)</h3>
+      <h3>🔢 OI Buildup (Live)</h3>
       <table>
         <thead>
           <tr>
@@ -53,13 +53,13 @@
 
     <!-- IV Skew Chart -->
     <div class="card">
-      <h3>📊 IV Skew (Sample)</h3>
+      <h3>📊 IV Skew</h3>
       <canvas id="ivSkewChart" height="300"></canvas>
     </div>
 
     <!-- PCR Trend Chart -->
     <div class="card">
-      <h3>📊 PCR Trend (Sample)</h3>
+      <h3>📊 PCR Trend</h3>
       <canvas id="pcrTrendChart" height="300"></canvas>
     </div>
 
@@ -92,102 +92,103 @@
   </main>
 
   <script>
-    // Sample data
-    const oiData = [
-      { strike: 22000, callOiChange: 10, putOiChange: -5 },
-      { strike: 22100, callOiChange: 15, putOiChange: 8 },
-      { strike: 22200, callOiChange: -12, putOiChange: 20 },
-      { strike: 22300, callOiChange: 5, putOiChange: 3 },
-      { strike: 22400, callOiChange: -8, putOiChange: -10 }
-    ];
+    fetch("http://localhost:8000/api/fno/oi-buildup")
+      .then(res => res.json())
+      .then(response => {
+        const oiData = response.data;
 
-    // Populate OI Table
-    const oiTableBody = document.getElementById('oi-table');
-    oiData.forEach(row => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${row.strike}</td>
-        <td style="color:${row.callOiChange >= 0 ? 'green' : 'red'};">${row.callOiChange >= 0 ? '+' : ''}${row.callOiChange}%</td>
-        <td style="color:${row.putOiChange >= 0 ? 'green' : 'red'};">${row.putOiChange >= 0 ? '+' : ''}${row.putOiChange}%</td>
-      `;
-      oiTableBody.appendChild(tr);
-    });
+        // Populate OI Table
+        const oiTableBody = document.getElementById('oi-table');
+        oiTableBody.innerHTML = "";
+        oiData.forEach(row => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${row.strike}</td>
+            <td style="color:${row.call_oi >= 0 ? 'green' : 'red'};">${row.call_oi >= 0 ? '+' : ''}${row.call_oi}%</td>
+            <td style="color:${row.put_oi >= 0 ? 'green' : 'red'};">${row.put_oi >= 0 ? '+' : ''}${row.put_oi}%</td>
+          `;
+          oiTableBody.appendChild(tr);
+        });
 
-    // IV Skew Chart
-    const ivCtx = document.getElementById('ivSkewChart').getContext('2d');
-    new Chart(ivCtx, {
-      type: 'line',
-      data: {
-        labels: oiData.map(row => row.strike),
-        datasets: [
-          {
-            label: 'Call IV %',
-            data: [18, 17, 16.5, 17.2, 18.1],
-            borderColor: '#3b82f6',
-            fill: false
+        // IV Skew Chart (Static for now)
+        const ivCtx = document.getElementById('ivSkewChart').getContext('2d');
+        new Chart(ivCtx, {
+          type: 'line',
+          data: {
+            labels: oiData.map(row => row.strike),
+            datasets: [
+              {
+                label: 'Call IV %',
+                data: [18, 17, 16.5, 17.2, 18.1], // Replace with dynamic IV data if needed
+                borderColor: '#3b82f6',
+                fill: false
+              },
+              {
+                label: 'Put IV %',
+                data: [19, 18.2, 17.8, 18.5, 19.3],
+                borderColor: '#ef4444',
+                fill: false
+              }
+            ]
           },
-          {
-            label: 'Put IV %',
-            data: [19, 18.2, 17.8, 18.5, 19.3],
-            borderColor: '#ef4444',
-            fill: false
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: false,
-            title: {
-              display: true,
-              text: 'IV %'
-            }
-          },
-          x: {
-            title: {
-              display: true,
-              text: 'Strike'
+          options: {
+            responsive: true,
+            scales: {
+              y: {
+                beginAtZero: false,
+                title: {
+                  display: true,
+                  text: 'IV %'
+                }
+              },
+              x: {
+                title: {
+                  display: true,
+                  text: 'Strike'
+                }
+              }
             }
           }
-        }
-      }
-    });
+        });
 
-    // PCR Trend Chart
-    const pcrCtx = document.getElementById('pcrTrendChart').getContext('2d');
-    new Chart(pcrCtx, {
-      type: 'line',
-      data: {
-        labels: ['2025-06-01', '2025-06-02', '2025-06-03', '2025-06-04', '2025-06-05', '2025-06-06', '2025-06-07'],
-        datasets: [
-          {
-            label: 'PCR',
-            data: [1.05, 1.12, 1.08, 1.15, 1.09, 1.03, 1.10],
-            borderColor: '#10b981',
-            fill: false
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: false,
-            title: {
-              display: true,
-              text: 'PCR Value'
-            }
+        // PCR Trend Chart (Static for now)
+        const pcrCtx = document.getElementById('pcrTrendChart').getContext('2d');
+        new Chart(pcrCtx, {
+          type: 'line',
+          data: {
+            labels: ['2025-06-01', '2025-06-02', '2025-06-03', '2025-06-04', '2025-06-05', '2025-06-06', '2025-06-07'],
+            datasets: [
+              {
+                label: 'PCR',
+                data: [1.05, 1.12, 1.08, 1.15, 1.09, 1.03, 1.10],
+                borderColor: '#10b981',
+                fill: false
+              }
+            ]
           },
-          x: {
-            title: {
-              display: true,
-              text: 'Date'
+          options: {
+            responsive: true,
+            scales: {
+              y: {
+                beginAtZero: false,
+                title: {
+                  display: true,
+                  text: 'PCR Value'
+                }
+              },
+              x: {
+                title: {
+                  display: true,
+                  text: 'Date'
+                }
+              }
             }
           }
-        }
-      }
-    });
+        });
+      })
+      .catch(error => {
+        console.error("Failed to fetch OI Buildup data:", error);
+      });
   </script>
 
 </body>
