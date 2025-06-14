@@ -68,29 +68,6 @@
         </div>
       </div>
 
-      <div class="grid" style="margin-top: 2rem;">
-        <div class="card">
-          <h4>Max Profit</h4>
-          <p id="maxProfit">₹ --</p>
-        </div>
-        <div class="card">
-          <h4>Max Loss</h4>
-          <p id="maxLoss">₹ --</p>
-        </div>
-        <div class="card">
-          <h4>Breakevens</h4>
-          <p id="breakevens">--</p>
-        </div>
-        <div class="card">
-          <h4>POP</h4>
-          <p id="pop">-- %</p>
-        </div>
-        <div class="card">
-          <h4>Margin Required</h4>
-          <p id="margin">₹ --</p>
-        </div>
-      </div>
-
       <h2 style="margin-top: 2rem;">Trades Summary</h2>
 
       <table>
@@ -107,7 +84,6 @@
         </thead>
         <tbody id="tradesTableBody"></tbody>
       </table>
-
       <h2 style="margin-top: 2rem;">Option Chain Picker</h2>
       <div class="card">
         <table>
@@ -126,9 +102,59 @@
           <tbody id="optionChainBody"></tbody>
         </table>
       </div>
+
+      <!-- Strategy Optimizer Block -->
+      <h2 style="margin-top: 2rem;">Strategy Optimizer</h2>
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Strategy</th>
+              <th>Max Profit</th>
+              <th>Max Loss</th>
+              <th>Breakevens</th>
+              <th>POP</th>
+              <th>Margin Required</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Iron Fly</td>
+              <td>₹10000</td>
+              <td>₹5000</td>
+              <td>25400 - 25800</td>
+              <td>68%</td>
+              <td>₹200000</td>
+              <td><button class="btn secondary" onclick="applyStrategy('Iron Fly')">Apply</button></td>
+            </tr>
+            <tr>
+              <td>Bull Call Spread</td>
+              <td>₹7000</td>
+              <td>₹3000</td>
+              <td>25700+</td>
+              <td>72%</td>
+              <td>₹150000</td>
+              <td><button class="btn secondary" onclick="applyStrategy('Bull Call Spread')">Apply</button></td>
+            </tr>
+            <tr>
+              <td>Short Straddle</td>
+              <td>₹12000</td>
+              <td>Unlimited</td>
+              <td>--</td>
+              <td>54%</td>
+              <td>₹300000</td>
+              <td><button class="btn secondary" onclick="applyStrategy('Short Straddle')">Apply</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
 <script>
-  const currentMarketPrice = 25685; // Example Spot Price
-  const dummyMargin = 212899; // Example Margin
+  const currentMarketPrice = 25685;
+  const dummyMargin = 212899;
 
   const multiplierMap = {
     'NIFTY': 50,
@@ -158,11 +184,7 @@
   });
 
   function updateSummary() {
-    document.getElementById('maxProfit').innerText = '₹ ' + Math.floor(Math.random() * 100000);
-    document.getElementById('maxLoss').innerText = '₹ ' + Math.floor(Math.random() * 50000);
-    document.getElementById('breakevens').innerText = (currentMarketPrice - 200) + ' - ' + (currentMarketPrice + 200);
-    document.getElementById('pop').innerText = (60 + Math.floor(Math.random() * 20)) + ' %';
-    document.getElementById('margin').innerText = '₹ ' + dummyMargin;
+    // Optional: You can implement summary stats if needed
   }
 
   function updatePLChart() {
@@ -173,7 +195,7 @@
 
     for (let price = currentMarketPrice - range; price <= currentMarketPrice + range; price += step) {
       labels.push(price);
-      data.push(Math.floor(Math.random() * 10000) - 5000); // Dummy P/L
+      data.push(Math.floor(Math.random() * 10000) - 5000);
     }
 
     plChart.data.labels = labels;
@@ -193,7 +215,7 @@
     tbody.innerHTML = '';
 
     trades.forEach(trade => {
-      const currentPrice = currentMarketPrice; // For now use spot price as proxy for options current price
+      const currentPrice = currentMarketPrice;
       const pnl = calculatePnL(parseFloat(trade.entryPrice), currentPrice, trade.symbol);
       const pnlClass = pnl >= 0 ? 'pnl-positive' : 'pnl-negative';
 
@@ -209,7 +231,6 @@
       tbody.innerHTML += row;
     });
 
-    updateSummary();
     updatePLChart();
   }
 
@@ -235,42 +256,3 @@
       loadTrades();
     }
   }
-
-  function loadOptionChain() {
-    const options = [
-      { symbol: 'NIFTY', strike: 22500, expiry: '27-Jun-2025', type: 'Call', iv: 22, oiChange: 12, ltp: 150 },
-      { symbol: 'BANKNIFTY', strike: 48500, expiry: '27-Jun-2025', type: 'Put', iv: 27, oiChange: 8, ltp: 200 },
-      { symbol: 'RELIANCE', strike: 2600, expiry: '27-Jun-2025', type: 'Call', iv: 30, oiChange: 10, ltp: 100 },
-      { symbol: 'INFY', strike: 1500, expiry: '27-Jun-2025', type: 'Put', iv: 25, oiChange: 6, ltp: 80 },
-    ];
-
-    const tbody = document.getElementById('optionChainBody');
-    tbody.innerHTML = '';
-
-    options.forEach(option => {
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${option.symbol}</td>
-        <td>${option.strike}</td>
-        <td>${option.expiry}</td>
-        <td>${option.type}</td>
-        <td>${option.iv}%</td>
-        <td>${option.oiChange}%</td>
-        <td>₹${option.ltp}</td>
-        <td><button class="btn secondary" onclick="fillAddTrade('${option.symbol}', ${option.strike}, '${option.expiry}', '${option.type}', ${option.ltp})">Select</button></td>
-      `;
-      tbody.appendChild(row);
-    });
-  }
-
-  function fillAddTrade(symbol, strike, expiry, type, ltp) {
-    document.getElementById('symbol').value = symbol;
-    document.getElementById('strike').value = strike;
-    document.getElementById('expiry').value = expiry;
-    document.getElementById('tradeType').value = type;
-    document.getElementById('entryPrice').value = ltp;
-  }
-
-  loadTrades();
-  loadOptionChain();
-</script>
