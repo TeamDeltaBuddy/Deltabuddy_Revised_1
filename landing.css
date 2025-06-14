@@ -2,152 +2,117 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DeltaBuddy – Professional Options Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DeltaBuddy – Smart Options Analytics</title>
   <link rel="stylesheet" href="landing.css" />
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f4fef9;
-      color: #1e3a2c;
+    /* Landing Page F&O Ticker Styles */
+    .landing-ticker-wrap {
+      background: #e6f4ea;
+      overflow: hidden;
+      white-space: nowrap;
+      border-top: 2px solid #34d399;
+      border-bottom: 2px solid #34d399;
+      padding: 0.5rem 1rem;
     }
-    .hero {
-      background: #065f46;
-      color: #fff;
-      text-align: center;
-      padding: 3rem 1rem;
-    }
-    .logo {
-      width: 160px;
-      display: block;
-      margin: 0 auto 1rem;
-    }
-    h1 {
-      font-size: 2.5rem;
-      margin: 0;
-    }
-    p {
-      font-size: 1.1rem;
-      margin: 1rem 0;
-    }
-    .cta-buttons .btn {
-      padding: 0.8rem 1.4rem;
-      margin: 0.5rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
+
+    .landing-ticker {
       display: inline-block;
-      transition: background 0.3s ease, transform 0.2s ease;
+      padding-left: 100%;
+      animation: landingTickerMove 25s linear infinite;
     }
-    .btn.primary {
-      background: #10b981;
-      color: white;
-    }
-    .btn.primary:hover {
-      background: #059669;
-      transform: translateY(-2px);
-    }
-    .btn.secondary {
-      background: #d1fae5;
+
+    .landing-ticker-item {
+      display: inline-block;
+      margin: 0 2rem;
+      font-weight: 600;
       color: #065f46;
+      font-size: 1rem;
     }
-    .btn.secondary:hover {
-      background: #a7f3d0;
-      transform: translateY(-2px);
+
+    .landing-ticker-item .positive {
+      color: #16a34a;
     }
-    .features {
-      padding: 2.5rem 1rem;
-      text-align: center;
+
+    .landing-ticker-item .negative {
+      color: #dc2626;
     }
-    .features-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      justify-content: center;
-      margin-top: 2rem;
-    }
-    .feature-card {
-      background: white;
-      padding: 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 0 6px rgba(0,0,0,0.1);
-      text-align: center;
-      flex: 1 1 240px;
-      transition: transform 0.2s ease, box-shadow 0.3s ease;
-    }
-    .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-    }
-    footer {
-      background: #1e3a2c;
-      color: white;
-      text-align: center;
-      padding: 1.2rem;
-    }
-    footer a {
-      color: #34d399;
-      text-decoration: none;
-    }
-    footer a:hover {
-      text-decoration: underline;
-    }
-    @media (max-width: 768px) {
-      .features-grid {
-        display: block;
+
+    @keyframes landingTickerMove {
+      0% {
+        transform: translateX(0%);
       }
-      .feature-card {
-        margin-bottom: 1.5rem;
-      }
-      .cta-buttons {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-      .cta-buttons .btn {
-        width: 80%;
-        max-width: 300px;
+      100% {
+        transform: translateX(-100%);
       }
     }
   </style>
 </head>
 <body>
+
   <section class="hero">
     <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo" class="logo" />
-    <h1>Master Indian Options Trading</h1>
-    <p>Your intelligent co-pilot for data-driven strategies and insights</p>
+    <h1>Your Smart Options Trading Assistant</h1>
+    <p>Live analytics, greeks, strategies, alerts and more for Indian options markets.</p>
     <div class="cta-buttons">
       <a href="signup.html" class="btn primary">Get Started</a>
-      <a href="dashboard.html" class="btn secondary">View Dashboard</a>
+      <a href="dashboard.html" class="btn secondary">Explore Dashboard</a>
     </div>
   </section>
 
+  <!-- F&O Stocks Ticker -->
+  <h2 style="margin-top: 1rem; text-align:center;">F&O Stocks Snapshot</h2>
+  <div class="landing-ticker-wrap">
+    <div class="landing-ticker">
+      <div class="landing-ticker-item">📈 RELIANCE: ₹2,700 <span class="positive">(+1.2%)</span></div>
+      <div class="landing-ticker-item">📉 INFY: ₹1,500 <span class="negative">(-0.8%)</span></div>
+      <div class="landing-ticker-item">📈 HDFC BANK: ₹1,650 <span class="positive">(+0.9%)</span></div>
+      <div class="landing-ticker-item">📉 TCS: ₹3,200 <span class="negative">(-0.4%)</span></div>
+      <div class="landing-ticker-item">📈 ICICI BANK: ₹1,010 <span class="positive">(+1.5%)</span></div>
+      <div class="landing-ticker-item">📉 SBI: ₹580 <span class="negative">(-0.3%)</span></div>
+    </div>
+  </div>
+
   <section class="features">
-    <h2>Why Choose DeltaBuddy?</h2>
+    <h2>Powerful Features</h2>
     <div class="features-grid">
       <div class="feature-card">
         <h3>Live Option Chain</h3>
-        <p>Access real-time F&O data with intuitive visualizations and alerts.</p>
+        <p>Strike-wise analytics & greeks with heatmaps.</p>
       </div>
       <div class="feature-card">
-        <h3>Greeks & Analytics</h3>
-        <p>Understand Delta, Vega, Theta, and more with dynamic calculations.</p>
+        <h3>Strategy Builder</h3>
+        <p>AI & custom strategy recommendations and risk analysis.</p>
       </div>
       <div class="feature-card">
-        <h3>Strategy Assistant</h3>
-        <p>AI-guided or custom options strategies for all market conditions.</p>
+        <h3>Smart Alerts</h3>
+        <p>Get Telegram or email alerts on breakout, news & events.</p>
       </div>
-      <div class="feature-card">
-        <h3>Portfolio Tracking</h3>
-        <p>Manage paper and live trades, with P&L summaries and insights.</p>
+    </div>
+  </section>
+
+  <section class="how-it-works">
+    <h2>How It Works</h2>
+    <div class="how-steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <p>Sign up and explore the dashboard</p>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <p>Select your stock or index</p>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <p>Track greeks, strategies, and place trades</p>
       </div>
     </div>
   </section>
 
   <footer>
-    <p>© 2025 DeltaBuddy. All rights reserved. | <a href="terms.html">Terms</a> | <a href="profile.html">Profile</a></p>
+    <p>© 2025 DeltaBuddy. All rights reserved.</p>
+    <p><a href="terms.html">Terms</a> • <a href="privacy.html">Privacy</a></p>
   </footer>
+
 </body>
 </html>
