@@ -1,233 +1,193 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DeltaBuddy Dashboard</title>
-  <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
+/* Base styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f9f9f9;
+  color: #222;
+}
 
-<!-- ✅ Login protection -->
-<script>
-  const token = localStorage.getItem('token');
-  if (!token) {
-    window.location.href = 'login.html';
+/* Hero */
+.hero {
+  background: #0f172a;
+  color: #fff;
+  text-align: center;
+  padding: 2.5rem 1rem;
+}
+
+.logo {
+  width: 160px;
+  display: block;
+  margin: 0 auto 1rem;
+}
+
+/* CTA Buttons */
+.cta-buttons .btn {
+  padding: 0.8rem 1.4rem;
+  margin: 0.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn.primary {
+  background: #3b82f6;
+  color: white;
+}
+
+.btn.primary:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+}
+
+.btn.secondary {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.btn.secondary:hover {
+  background: #d1d5db;
+  transform: translateY(-2px);
+}
+
+/* Ticker */
+.ticker-wrap {
+  background: #c7d2fe;
+  overflow: hidden;
+  white-space: nowrap;
+  border-top: 1px solid #93c5fd;
+  border-bottom: 1px solid #93c5fd;
+}
+
+.ticker {
+  display: inline-block;
+  padding-left: 100%;
+  animation: tickerMove 25s linear infinite;
+}
+
+.ticker-item {
+  display: inline-block;
+  margin: 0 2rem;
+  font-weight: 600;
+  color: #1e3a8a;
+}
+
+@keyframes tickerMove {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Features Section */
+.features {
+  padding: 2.5rem 1rem;
+  text-align: center;
+}
+
+.features-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.feature-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+  text-align: center;
+  flex: 1 1 220px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* How It Works Section */
+.how-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.step {
+  flex: 1 1 200px;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.step:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.step-number {
+  font-size: 2rem;
+  color: #3b82f6;
+  margin-bottom: 0.5rem;
+}
+
+/* Footer */
+footer {
+  background: #1e293b;
+  color: white;
+  text-align: center;
+  padding: 1.2rem;
+}
+
+footer a {
+  color: #60a5fa;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  .features-grid,
+  .how-steps {
+    display: block;
   }
-</script>
 
-<div class="layout">
-  <aside>
-    <a href="index.html">
-      <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo" />
-    </a>
-    <nav>
-      <ul>
-        <li><a href="dashboard.html" class="active">Dashboard</a></li>
-        <li><a href="portfolio.html">Portfolio</a></li>
-        <li><a href="greeks-alerts.html">Greeks & Alerts</a></li>
-        <li><a href="strategy-assistant.html">Strategy Assistant</a></li>
-        <li><a href="adjustment-bot.html">Adjustment Bot</a></li>
-        <li><a href="risk-coach.html">Risk Coach</a></li>
-        <li><a href="fno.html">Future & Options</a></li>
-        <li><a href="fii-dii.html">FII & DII</a></li>
-        <li><a href="events.html">Events</a></li>
-        <li><a href="screener.html">Screener</a></li>
-        <li><a href="telegram.html">Telegram Integration</a></li>
-
-        <!-- ✅ Logout button LAST -->
-        <li style="margin-top: 1rem;">
-          <button onclick="handleLogout()" style="background:none; border:none; color:white; cursor:pointer; padding:0; font: inherit; text-align: left;">Logout</button>
-        </li>
-      </ul>
-    </nav>
-  </aside>
-
-  <main>
-    <h1>Welcome to DeltaBuddy</h1>
-    <p>This is your personalized AI + SaaS dashboard.</p>
-
-    <!-- Market Overview Ticker -->
-    <h2 style="margin-top: 1rem;">Global Indices Snapshot</h2>
-    <div class="ticker-wrap">
-      <div class="ticker global">
-        <div class="ticker-item">📊 India VIX: 13.45</div>
-        <div class="ticker-item">📈 NIFTY 50: 22,510</div>
-        <div class="ticker-item">🏦 BANKNIFTY: 48,120</div>
-        <div class="ticker-item">🇺🇸 DOW JONES: 38,150</div>
-        <div class="ticker-item">🇺🇸 NASDAQ: 16,920</div>
-        <div class="ticker-item">🇩🇪 DAX: 18,800</div>
-      </div>
-    </div>
-
-    <!-- F&O Stocks Ticker -->
-    <h2 style="margin-top: 1rem;">F&O Stocks Snapshot</h2>
-    <div class="ticker-wrap" style="background: #f0f9ff;">
-      <div class="ticker fno">
-        <div class="ticker-item">📈 RELIANCE: ₹2,700 <span class="positive">(+1.2%)</span></div>
-        <div class="ticker-item">📉 INFY: ₹1,500 <span class="negative">(-0.8%)</span></div>
-      </div>
-    </div>
-
-    <!-- Market Monitoring -->
-    <h2 style="margin-top: 2rem;">Market Monitoring</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Real-time Greeks & Alerts</h3>
-        <p>Delta, Theta, Gamma, Vega monitoring with live triggers.</p>
-        <ul>
-          <li>🚨 Delta spike detected on NIFTY 17600</li>
-          <li>🟠 Gamma shift on BANKNIFTY ATM</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Market Pulse</h3>
-        <canvas id="marketPulseChart" height="200"></canvas>
-      </div>
-      <div class="card">
-        <h3>Live Greeks Widget (Coming Soon)</h3>
-        <canvas id="liveGreeksChart" height="200"></canvas>
-      </div>
-    </div>
-
-    <!-- Top Movers -->
-    <h2 style="margin-top: 2rem;">Top Movers</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Top Movers</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Symbol</th>
-              <th>LTP</th>
-              <th>% Change</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>RELIANCE</td>
-              <td>₹2,700</td>
-              <td style="color:green;">+1.2%</td>
-            </tr>
-            <tr>
-              <td>INFY</td>
-              <td>₹1,500</td>
-              <td style="color:red;">-0.8%</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- AI-Powered Tools -->
-    <h2 style="margin-top: 2rem;">AI-Powered Tools</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Strategy Assistant (DeltaGPT)</h3>
-        <p>AI-generated options strategies based on market conditions.</p>
-        <p><em>Coming soon: Interactive chat-based strategy builder.</em></p>
-      </div>
-      <div class="card">
-        <h3>Adjustment Bot</h3>
-        <p>Auto-monitor and adjust your trades based on delta shifts or VIX spikes.</p>
-        <p><em>Coming soon: Live adjustment signals with Telegram alerts.</em></p>
-      </div>
-    </div>
-
-    <!-- Behavior & Risk Insights -->
-    <h2 style="margin-top: 2rem;">Behavior & Risk Insights</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Risk Coach</h3>
-        <p>Receive behavioral insights and warnings like overtrading or under-hedging.</p>
-        <p><em>Coming soon: Personalized risk score and coaching tips.</em></p>
-      </div>
-      <div class="card">
-        <h3>Future & Options Tools</h3>
-        <p>OI, IV charts, intraday buildup, heatmaps, and more.</p>
-        <p><em>Coming soon: Advanced F&O analytics dashboard.</em></p>
-      </div>
-      <div class="card">
-        <h3>Events Calendar</h3>
-        <p>FOMC, GDP, RBI decisions with impact tags on strategy alerts.</p>
-        <a href="events.html" style="color: #3b82f6; text-decoration: none; font-weight: bold;">View Events →</a>
-      </div>
-      <div class="card">
-        <h3>FII & DII Activity</h3>
-        <p>Track FII & DII cash and derivatives activity to assess market sentiment.</p>
-        <a href="fii-dii.html" style="color: #3b82f6; text-decoration: none; font-weight: bold;">View FII/DII Activity →</a>
-      </div>
-    </div>
-  </main>
-</div>
-
-<!-- Market Pulse Chart -->
-<script>
-  const ctxPulse = document.getElementById('marketPulseChart').getContext('2d');
-  new Chart(ctxPulse, {
-    type: 'line',
-    data: {
-      labels: ['Day -6', 'Day -5', 'Day -4', 'Day -3', 'Day -2', 'Yesterday', 'Today'],
-      datasets: [
-        {
-          label: 'PCR Trend',
-          data: [1.02, 1.05, 1.10, 1.08, 0.95, 0.98, 0.92],
-          borderColor: '#3b82f6',
-          fill: false
-        },
-        {
-          label: 'VIX',
-          data: [14.5, 15.2, 16.0, 15.7, 15.0, 16.5, 19.2],
-          borderColor: '#ef4444',
-          fill: false
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      scales: {
-        y: { beginAtZero: false }
-      }
-    }
-  });
-
-  const ctxGreeks = document.getElementById('liveGreeksChart').getContext('2d');
-  new Chart(ctxGreeks, {
-    type: 'line',
-    data: {
-      labels: ['T-6', 'T-5', 'T-4', 'T-3', 'T-2', 'T-1', 'Today'],
-      datasets: [
-        {
-          label: 'Delta',
-          data: [0.3, 0.35, 0.4, 0.38, 0.36, 0.42, 0.45],
-          borderColor: '#10b981',
-          fill: false
-        },
-        {
-          label: 'Gamma',
-          data: [5.2, 5.5, 5.8, 6.0, 5.9, 6.1, 6.3],
-          borderColor: '#f59e0b',
-          fill: false
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      scales: {
-        y: { beginAtZero: false }
-      }
-    }
-  });
-</script>
-
-<!-- ✅ Logout function -->
-<script>
-  function handleLogout() {
-    localStorage.removeItem('token');
-    window.location.href = 'login.html';
+  .feature-card,
+  .step {
+    margin-bottom: 1.5rem;
   }
-</script>
 
-</body>
-</html>
+  .cta-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta-buttons .btn {
+    width: 80%;
+    max-width: 300px;
+  }
+
+  .ticker-item {
+    margin: 0 1rem;
+    font-size: 0.9rem;
+  }
+
+  .hero {
+    padding: 2rem 1rem;
+  }
+
+  .logo {
+    width: 120px;
+  }
+}
