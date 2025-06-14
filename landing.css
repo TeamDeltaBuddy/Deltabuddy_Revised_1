@@ -1,35 +1,57 @@
-/* Base styles */
+/* ====== BASE STYLES ====== */
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
-  padding: 0;
-  background: #f9f9f9;
-  color: #222;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  background: #0a0e17;
+  color: #f1f5f9;
 }
 
-/* Hero */
+/* ====== HERO SECTION ====== */
 .hero {
-  background: #0f172a;
-  color: #fff;
+  background: linear-gradient(135deg, #0f172a, #1e3a8a);
   text-align: center;
-  padding: 2.5rem 1rem;
+  padding: 3rem 1rem 2rem;
+  color: white;
+  position: relative;
+}
+
+.hero::after {
+  content: "";
+  background: radial-gradient(circle at top right, rgba(59,130,246,0.25), transparent);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
 }
 
 .logo {
-  width: 160px;
-  display: block;
-  margin: 0 auto 1rem;
+  width: 140px;
+  margin-bottom: 1.5rem;
 }
 
-/* CTA Buttons */
+.hero h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: #cbd5e1;
+}
+
+/* CTA BUTTONS */
 .cta-buttons .btn {
-  padding: 0.8rem 1.4rem;
-  margin: 0.5rem;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: bold;
   display: inline-block;
-  transition: background 0.3s ease, transform 0.2s ease;
+  margin: 0.5rem;
+  padding: 0.8rem 1.6rem;
+  font-weight: bold;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
 
 .btn.primary {
@@ -43,35 +65,37 @@ body {
 }
 
 .btn.secondary {
-  background: #e5e7eb;
-  color: #111827;
+  background: #e2e8f0;
+  color: #0f172a;
 }
 
 .btn.secondary:hover {
-  background: #d1d5db;
+  background: #cbd5e1;
   transform: translateY(-2px);
 }
 
-/* Ticker */
+/* ====== TICKER ====== */
 .ticker-wrap {
-  background: #c7d2fe;
+  background: #1e293b;
+  padding: 0.6rem 1rem;
   overflow: hidden;
+  border-top: 1px solid #334155;
+  border-bottom: 1px solid #334155;
   white-space: nowrap;
-  border-top: 1px solid #93c5fd;
-  border-bottom: 1px solid #93c5fd;
 }
 
 .ticker {
   display: inline-block;
   padding-left: 100%;
-  animation: tickerMove 25s linear infinite;
+  animation: tickerMove 30s linear infinite;
 }
 
 .ticker-item {
   display: inline-block;
   margin: 0 2rem;
   font-weight: 600;
-  color: #1e3a8a;
+  color: #facc15;
+  font-size: 0.95rem;
 }
 
 @keyframes tickerMove {
@@ -79,72 +103,80 @@ body {
   100% { transform: translateX(-100%); }
 }
 
-/* Features Section */
+/* ====== FEATURES ====== */
 .features {
-  padding: 2.5rem 1rem;
+  padding: 3rem 1.5rem;
   text-align: center;
+  background: #111827;
+}
+
+.features h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.8rem;
+  color: #60a5fa;
 }
 
 .features-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5rem;
   justify-content: center;
+  gap: 1.2rem;
   margin-top: 2rem;
 }
 
 .feature-card {
-  background: white;
+  background: #1e293b;
   padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 0 6px rgba(0,0,0,0.1);
-  text-align: center;
-  flex: 1 1 220px;
+  border-radius: 10px;
+  color: #f8fafc;
+  box-shadow: 0 0 8px rgba(30,58,138,0.3);
+  flex: 1 1 230px;
+  max-width: 300px;
   transition: transform 0.2s ease, box-shadow 0.3s ease;
-  cursor: pointer;
 }
 
 .feature-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 16px rgba(96,165,250,0.25);
 }
 
-/* How It Works Section */
+/* ====== HOW IT WORKS ====== */
 .how-steps {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
   justify-content: center;
-  margin-top: 2rem;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
 }
 
 .step {
-  flex: 1 1 200px;
-  background: white;
+  background: #0f172a;
+  border: 1px solid #1e3a8a;
+  color: white;
   padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  flex: 1 1 200px;
   text-align: center;
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .step:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  transform: scale(1.05);
 }
 
 .step-number {
   font-size: 2rem;
-  color: #3b82f6;
   margin-bottom: 0.5rem;
+  color: #38bdf8;
 }
 
-/* Footer */
+/* ====== FOOTER ====== */
 footer {
-  background: #1e293b;
-  color: white;
+  background: #0f172a;
+  color: #94a3b8;
   text-align: center;
-  padding: 1.2rem;
+  padding: 1.5rem;
+  font-size: 0.95rem;
 }
 
 footer a {
@@ -156,16 +188,10 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* Responsive adjustments for mobile */
+/* ====== MOBILE STYLES ====== */
 @media (max-width: 768px) {
-  .features-grid,
-  .how-steps {
+  .features-grid, .how-steps {
     display: block;
-  }
-
-  .feature-card,
-  .step {
-    margin-bottom: 1.5rem;
   }
 
   .cta-buttons {
@@ -181,14 +207,10 @@ footer a:hover {
 
   .ticker-item {
     margin: 0 1rem;
-    font-size: 0.9rem;
-  }
-
-  .hero {
-    padding: 2rem 1rem;
+    font-size: 0.85rem;
   }
 
   .logo {
-    width: 120px;
+    width: 100px;
   }
 }
