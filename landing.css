@@ -1,118 +1,194 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DeltaBuddy – Smart Options Analytics</title>
-  <link rel="stylesheet" href="landing.css" />
-  <style>
-    /* Landing Page F&O Ticker Styles */
-    .landing-ticker-wrap {
-      background: #e6f4ea;
-      overflow: hidden;
-      white-space: nowrap;
-      border-top: 2px solid #34d399;
-      border-bottom: 2px solid #34d399;
-      padding: 0.5rem 1rem;
-    }
+/* Base styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f9f9f9;
+  color: #222;
+}
 
-    .landing-ticker {
-      display: inline-block;
-      padding-left: 100%;
-      animation: landingTickerMove 25s linear infinite;
-    }
+/* Hero */
+.hero {
+  background: #0f172a;
+  color: #fff;
+  text-align: center;
+  padding: 2.5rem 1rem;
+}
 
-    .landing-ticker-item {
-      display: inline-block;
-      margin: 0 2rem;
-      font-weight: 600;
-      color: #065f46;
-      font-size: 1rem;
-    }
+.logo {
+  width: 160px;
+  display: block;
+  margin: 0 auto 1rem;
+}
 
-    .landing-ticker-item .positive {
-      color: #16a34a;
-    }
+/* CTA Buttons */
+.cta-buttons .btn {
+  padding: 0.8rem 1.4rem;
+  margin: 0.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
 
-    .landing-ticker-item .negative {
-      color: #dc2626;
-    }
+.btn.primary {
+  background: #3b82f6;
+  color: white;
+}
 
-    @keyframes landingTickerMove {
-      0% {
-        transform: translateX(0%);
-      }
-      100% {
-        transform: translateX(-100%);
-      }
-    }
-  </style>
-</head>
-<body>
+.btn.primary:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+}
 
-  <section class="hero">
-    <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo" class="logo" />
-    <h1>Your Smart Options Trading Assistant</h1>
-    <p>Live analytics, greeks, strategies, alerts and more for Indian options markets.</p>
-    <div class="cta-buttons">
-      <a href="signup.html" class="btn primary">Get Started</a>
-      <a href="dashboard.html" class="btn secondary">Explore Dashboard</a>
-    </div>
-  </section>
+.btn.secondary {
+  background: #e5e7eb;
+  color: #111827;
+}
 
-  <!-- F&O Stocks Ticker -->
-  <h2 style="margin-top: 1rem; text-align:center;">F&O Stocks Snapshot</h2>
-  <div class="landing-ticker-wrap">
-    <div class="landing-ticker">
-      <div class="landing-ticker-item">📈 RELIANCE: ₹2,700 <span class="positive">(+1.2%)</span></div>
-      <div class="landing-ticker-item">📉 INFY: ₹1,500 <span class="negative">(-0.8%)</span></div>
-      <div class="landing-ticker-item">📈 HDFC BANK: ₹1,650 <span class="positive">(+0.9%)</span></div>
-      <div class="landing-ticker-item">📉 TCS: ₹3,200 <span class="negative">(-0.4%)</span></div>
-      <div class="landing-ticker-item">📈 ICICI BANK: ₹1,010 <span class="positive">(+1.5%)</span></div>
-      <div class="landing-ticker-item">📉 SBI: ₹580 <span class="negative">(-0.3%)</span></div>
-    </div>
-  </div>
+.btn.secondary:hover {
+  background: #d1d5db;
+  transform: translateY(-2px);
+}
 
-  <section class="features">
-    <h2>Powerful Features</h2>
-    <div class="features-grid">
-      <div class="feature-card">
-        <h3>Live Option Chain</h3>
-        <p>Strike-wise analytics & greeks with heatmaps.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Strategy Builder</h3>
-        <p>AI & custom strategy recommendations and risk analysis.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Smart Alerts</h3>
-        <p>Get Telegram or email alerts on breakout, news & events.</p>
-      </div>
-    </div>
-  </section>
+/* Ticker */
+.ticker-wrap {
+  background: #c7d2fe;
+  overflow: hidden;
+  white-space: nowrap;
+  border-top: 1px solid #93c5fd;
+  border-bottom: 1px solid #93c5fd;
+}
 
-  <section class="how-it-works">
-    <h2>How It Works</h2>
-    <div class="how-steps">
-      <div class="step">
-        <div class="step-number">1</div>
-        <p>Sign up and explore the dashboard</p>
-      </div>
-      <div class="step">
-        <div class="step-number">2</div>
-        <p>Select your stock or index</p>
-      </div>
-      <div class="step">
-        <div class="step-number">3</div>
-        <p>Track greeks, strategies, and place trades</p>
-      </div>
-    </div>
-  </section>
+.ticker {
+  display: inline-block;
+  padding-left: 100%;
+  animation: tickerMove 25s linear infinite;
+}
 
-  <footer>
-    <p>© 2025 DeltaBuddy. All rights reserved.</p>
-    <p><a href="terms.html">Terms</a> • <a href="privacy.html">Privacy</a></p>
-  </footer>
+.ticker-item {
+  display: inline-block;
+  margin: 0 2rem;
+  font-weight: 600;
+  color: #1e3a8a;
+}
 
-</body>
-</html>
+@keyframes tickerMove {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Features Section */
+.features {
+  padding: 2.5rem 1rem;
+  text-align: center;
+}
+
+.features-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.feature-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+  text-align: center;
+  flex: 1 1 220px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* How It Works Section */
+.how-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.step {
+  flex: 1 1 200px;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.step:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.step-number {
+  font-size: 2rem;
+  color: #3b82f6;
+  margin-bottom: 0.5rem;
+}
+
+/* Footer */
+footer {
+  background: #1e293b;
+  color: white;
+  text-align: center;
+  padding: 1.2rem;
+}
+
+footer a {
+  color: #60a5fa;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  .features-grid,
+  .how-steps {
+    display: block;
+  }
+
+  .feature-card,
+  .step {
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta-buttons .btn {
+    width: 80%;
+    max-width: 300px;
+  }
+
+  .ticker-item {
+    margin: 0 1rem;
+    font-size: 0.9rem;
+  }
+
+  .hero {
+    padding: 2rem 1rem;
+  }
+
+  .logo {
+    width: 120px;
+  }
+}
