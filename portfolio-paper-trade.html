@@ -183,10 +183,6 @@
     }
   });
 
-  function updateSummary() {
-    // Optional: You can implement summary stats if needed
-  }
-
   function updatePLChart() {
     const range = 500;
     const step = 50;
@@ -225,7 +221,7 @@
         <td>${trade.strike}</td>
         <td>${trade.expiry}</td>
         <td>₹${trade.entryPrice}</td>
-        <td>₹${currentPrice}</td>
+        <td>₹${currentMarketPrice}</td>
         <td class="${pnlClass}">${pnl.toFixed(2)}</td>
       </tr>`;
       tbody.innerHTML += row;
@@ -256,3 +252,74 @@
       loadTrades();
     }
   }
+
+  function loadOptionChain() {
+    const options = [
+      { symbol: 'NIFTY', strike: 22500, expiry: '27-Jun-2025', type: 'Call', iv: 22, oiChange: 12, ltp: 150 },
+      { symbol: 'BANKNIFTY', strike: 48500, expiry: '27-Jun-2025', type: 'Put', iv: 27, oiChange: 8, ltp: 200 },
+      { symbol: 'RELIANCE', strike: 2600, expiry: '27-Jun-2025', type: 'Call', iv: 30, oiChange: 10, ltp: 100 },
+      { symbol: 'INFY', strike: 1500, expiry: '27-Jun-2025', type: 'Put', iv: 25, oiChange: 6, ltp: 80 },
+    ];
+
+    const tbody = document.getElementById('optionChainBody');
+    tbody.innerHTML = '';
+
+    options.forEach(option => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${option.symbol}</td>
+        <td>${option.strike}</td>
+        <td>${option.expiry}</td>
+        <td>${option.type}</td>
+        <td>${option.iv}%</td>
+        <td>${option.oiChange}%</td>
+        <td>₹${option.ltp}</td>
+        <td><button class="btn secondary" onclick="fillAddTrade('${option.symbol}', ${option.strike}, '${option.expiry}', '${option.type}', ${option.ltp})">Select</button></td>
+      `;
+      tbody.appendChild(row);
+    });
+  }
+
+  function fillAddTrade(symbol, strike, expiry, type, ltp) {
+    document.getElementById('symbol').value = symbol;
+    document.getElementById('strike').value = strike;
+    document.getElementById('expiry').value = expiry;
+    document.getElementById('tradeType').value = type;
+    document.getElementById('entryPrice').value = ltp;
+  }
+
+  function applyStrategy(strategyName) {
+    alert('Applying strategy: ' + strategyName);
+
+    const trades = JSON.parse(localStorage.getItem('paperTrades') || '[]');
+
+    if (strategyName === 'Iron Fly') {
+      trades.push(
+        { type: 'Call', symbol: 'NIFTY', strike: 25600, expiry: '27-Jun-2025', entryPrice: 150 },
+        { type: 'Put', symbol: 'NIFTY', strike: 25600, expiry: '27-Jun-2025', entryPrice: 160 },
+        { type: 'Call', symbol: 'NIFTY', strike: 25800, expiry: '27-Jun-2025', entryPrice: 90 },
+        { type: 'Put', symbol: 'NIFTY', strike: 25400, expiry: '27-Jun-2025', entryPrice: 95 }
+      );
+    } else if (strategyName === 'Bull Call Spread') {
+      trades.push(
+        { type: 'Call', symbol: 'BANKNIFTY', strike: 48500, expiry: '27-Jun-2025', entryPrice: 200 },
+        { type: 'Call', symbol: 'BANKNIFTY', strike: 49000, expiry: '27-Jun-2025', entryPrice: 120 }
+      );
+    } else if (strategyName === 'Short Straddle') {
+      trades.push(
+        { type: 'Call', symbol: 'RELIANCE', strike: 2600, expiry: '27-Jun-2025', entryPrice: 100 },
+        { type: 'Put', symbol: 'RELIANCE', strike: 2600, expiry: '27-Jun-2025', entryPrice: 110 }
+      );
+    }
+
+    localStorage.setItem('paperTrades', JSON.stringify(trades));
+    loadTrades();
+  }
+
+  // Initial load
+  loadTrades();
+  loadOptionChain();
+</script>
+
+</body>
+</html>
