@@ -1,18 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Simulate dynamic loading of card content
   simulateCardLoad("market-pulse-content", getMarketPulseData);
   simulateCardLoad("greeks-alerts-content", getGreeksAlertsData);
   simulateCardLoad("screener-content", getScreenerData);
 });
 
-// Simulate async load
 function simulateCardLoad(elementId, dataFn) {
   const container = document.getElementById(elementId);
-  container.innerHTML = "<p>Loading...</p>";
+  if (!container) return;
 
-  setTimeout(() => {
-    container.innerHTML = dataFn();
-  }, 1000); // Simulated 1 second load
+  container.innerHTML = "<div class='loader'></div>";
+
+  setTimeout(async () => {
+    container.innerHTML = await dataFn();
+  }, 1000);
 }
 
 async function getMarketPulseData() {
@@ -29,7 +29,7 @@ async function getMarketPulseData() {
     `;
   } catch (error) {
     console.error("Error loading Market Pulse:", error);
-    return `<p style="color:red;">Error loading Market Pulse</p>`;
+    return `<p class="error-msg">Error loading Market Pulse</p>`;
   }
 }
 
@@ -38,7 +38,6 @@ async function getGreeksAlertsData() {
     const response = await fetch('/api/greeks-alerts');
     const data = await response.json();
 
-    // Example: data.alerts = [ "Delta spike...", "Gamma shift..." ]
     return `
       <ul>
         ${data.alerts.map(alert => `<li>${alert}</li>`).join("")}
@@ -46,7 +45,7 @@ async function getGreeksAlertsData() {
     `;
   } catch (error) {
     console.error("Error loading Greeks Alerts:", error);
-    return `<p style="color:red;">Error loading Greeks Alerts</p>`;
+    return `<p class="error-msg">Error loading Greeks Alerts</p>`;
   }
 }
 
@@ -54,29 +53,27 @@ async function getScreenerData() {
   try {
     const response = await fetch('/api/screener');
     const data = await response.json();
-
-    // Example data.rows = [{ symbol, oiChange, iv, pcr, delta }]
     const rows = data.rows;
 
     return `
-      <table style="width: 100%; border-collapse: collapse;">
+      <table class="data-table">
         <thead>
-          <tr style="background: #f3f4f6;">
-            <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">Symbol</th>
-            <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">OI Change %</th>
-            <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">IV %</th>
-            <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">PCR</th>
-            <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">Delta</th>
+          <tr>
+            <th>Symbol</th>
+            <th>OI Change %</th>
+            <th>IV %</th>
+            <th>PCR</th>
+            <th>Delta</th>
           </tr>
         </thead>
         <tbody>
           ${rows.map(row => `
             <tr>
-              <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${row.symbol}</td>
-              <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${row.oiChange}</td>
-              <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${row.iv}</td>
-              <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${row.pcr}</td>
-              <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${row.delta}</td>
+              <td>${row.symbol}</td>
+              <td>${row.oiChange}</td>
+              <td>${row.iv}</td>
+              <td>${row.pcr}</td>
+              <td>${row.delta}</td>
             </tr>
           `).join("")}
         </tbody>
@@ -84,9 +81,10 @@ async function getScreenerData() {
     `;
   } catch (error) {
     console.error("Error loading Screener:", error);
-    return `<p style="color:red;">Error loading Screener</p>`;
+    return `<p class="error-msg">Error loading Screener</p>`;
   }
 }
+
 async function generateStrategy() {
   const userInput = document.getElementById('strategy-input').value;
   const resultContainer = document.getElementById('strategy-result');
@@ -96,18 +94,15 @@ async function generateStrategy() {
   try {
     const response = await fetch('/api/strategy-assistant', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ input: userInput })
     });
 
     const data = await response.json();
-
     resultContainer.innerHTML = `<pre>${data.strategy}</pre>`;
   } catch (error) {
     console.error('Error generating strategy:', error);
-    resultContainer.innerHTML = `<p style="color:red;">Error generating strategy.</p>`;
+    resultContainer.innerHTML = `<p class="error-msg">Error generating strategy.</p>`;
   }
 }
 
@@ -118,41 +113,37 @@ function applyScreenerFilters() {
   const pcrRange = document.getElementById("pcr-range").value;
   const deltaThreshold = document.getElementById("delta-threshold").value;
 
-  console.log("🟢 Screener Request:", {
-    selectedSymbols, oiMin, ivRange, pcrRange, deltaThreshold
-  });
-document.getElementById("screener-results").innerHTML = `<p>Loading results...</p>`;
+  console.log("🟢 Screener Request:", { selectedSymbols, oiMin, ivRange, pcrRange, deltaThreshold });
 
-  // Simulate dummy results
+  document.getElementById("screener-results").innerHTML = `<div class='loader'></div>`;
+
   const dummyResults = [
     { symbol: "RELIANCE", oiChange: "+25%", iv: "22%", pcr: "1.1", delta: "0.3" },
     { symbol: "INFY", oiChange: "+18%", iv: "19%", pcr: "0.9", delta: "0.2" },
     { symbol: "NIFTY", oiChange: "+30%", iv: "21%", pcr: "1.0", delta: "0.4" }
   ];
 
-  // Update "X results found"
   document.getElementById("screener-meta").textContent = `${dummyResults.length} results found`;
 
-  // Build results table
   const resultsTable = `
-    <table style="width: 100%; border-collapse: collapse;">
+    <table class="data-table">
       <thead>
-        <tr style="background: #f3f4f6;">
-          <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">Symbol</th>
-          <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">OI Change %</th>
-          <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">IV %</th>
-          <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">PCR</th>
-          <th style="padding: 0.5rem; border: 1px solid #e5e7eb;">Delta</th>
+        <tr>
+          <th>Symbol</th>
+          <th>OI Change %</th>
+          <th>IV %</th>
+          <th>PCR</th>
+          <th>Delta</th>
         </tr>
       </thead>
       <tbody>
         ${dummyResults.map(row => `
           <tr>
-            <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${row.symbol}</td>
-            <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${row.oiChange}</td>
-            <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${row.iv}</td>
-            <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${row.pcr}</td>
-            <td style="padding: 0.5rem; border: 1px solid #e5e7eb;">${row.delta}</td>
+            <td>${row.symbol}</td>
+            <td>${row.oiChange}</td>
+            <td>${row.iv}</td>
+            <td>${row.pcr}</td>
+            <td>${row.delta}</td>
           </tr>
         `).join("")}
       </tbody>
