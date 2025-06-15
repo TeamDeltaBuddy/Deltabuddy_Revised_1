@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alerts – DeltaBuddy</title>
+  <title>Greeks & Alerts – DeltaBuddy</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
     table {
@@ -41,14 +41,38 @@
     .alert-type.pcr {
       color: teal;
     }
+
+    nav.top-nav {
+      background: #0f172a;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav.top-nav a {
+      color: #60a5fa;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
+
+  <!-- ✅ Header Logo -->
+  <header style="text-align: center; padding: 1rem 0;">
+    <a href="index.html">
+      <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo" style="height: 60px;">
+    </a>
+  </header>
+
+  <!-- ✅ Page Title Nav -->
   <nav class="top-nav">
-    <a href="dashboard.html">← Dashboard</a>
+    <a href="dashboard.html">← Back to Dashboard</a>
     <span>Greeks & Alerts</span>
   </nav>
 
+  <!-- ✅ Alerts Table -->
   <main style="padding: 2rem;">
     <h2>Live Greeks & Sudden Alerts</h2>
 
@@ -99,7 +123,19 @@
       </tbody>
     </table>
 
-    <p style="margin-top: 2rem;">More real-time signals will be available with live API integration.</p>
+    <p style="margin-top: 2rem;">⚙️ More real-time signals will be available with live API integration.</p>
   </main>
+
+  <!-- ✅ Footer with Disclaimer -->
+  <footer style="margin-top: 3rem; background: #1e293b; color: white; text-align: center; padding: 1.5rem;">
+    <p>© 2025 DeltaBuddy. All rights reserved.</p>
+    <p><strong>Disclaimer:</strong> We are not SEBI registered. We believe in Paper Trading first. Before investing, please consult your financial advisor first.</p>
+    <p>
+      <a href="mailto:contact@deltabuddy.com" style="color:#60a5fa;">contact@deltabuddy.com</a> |
+      <a href="https://t.me/DeltaBuddyBot" style="color:#60a5fa;">Telegram</a> |
+      <a href="index.html" style="color:#60a5fa;">Home</a>
+    </p>
+  </footer>
+
 </body>
 </html>
