@@ -1,80 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DeltaBuddy – AI + SaaS Options Assistant</title>
-  <link rel="stylesheet" href="landing.css" />
-</head>
-<body>
-
-<!-- Hero Section -->
-<header class="hero">
-  <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo" class="logo" />
-  <h1>India’s First AI + SaaS Platform for Options Traders</h1>
-  <p class="hero-subtext">Smarter trades with Live Greeks, Strategy AI, and Adjustment Bot.</p>
-  <div class="cta-buttons">
-    <a href="https://t.me/DeltaBuddyBot" class="btn primary">Join Telegram Bot</a>
-    <a href="login.html" class="btn secondary">Sign In</a>
-  </div>
-</header>
-
-<!-- Global Ticker -->
-<div class="ticker-wrap">
-  <div class="ticker">
-    <div class="ticker-item">📈 NIFTY 50: 22,510</div>
-    <div class="ticker-item">🏦 BANKNIFTY: 48,120</div>
-    <div class="ticker-item">💹 India VIX: 13.45</div>
-    <div class="ticker-item">🌐 NASDAQ: 16,920</div>
-    <div class="ticker-item">🇺🇸 S&P 500: 5,290</div>
-    <div class="ticker-item">🇯🇵 Nikkei: 38,800</div>
-    <div class="ticker-item">🇬🇧 FTSE: 8,275</div>
-  </div>
-</div>
-
-<!-- Features Section -->
-<main class="features">
-  <h2>AI-Powered Trading Tools</h2>
-  <p class="section-subtext">
-    DeltaBuddy empowers Indian options traders with advanced AI tools and actionable strategy insights.
-  </p>
-  <div class="features-grid">
-    <div class="feature-card">🧠 <strong>DeltaGPT</strong><br/> AI-generated strategies</div>
-    <div class="feature-card">📉 <strong>Greeks Monitor</strong><br/> Real-time option Greeks</div>
-    <div class="feature-card">📊 <strong>Smart Screener</strong><br/> OI, IV, Greeks filter</div>
-    <div class="feature-card">📬 <strong>Telegram Alerts</strong><br/> Trade signals to your phone</div>
-    <div class="feature-card">🤖 <strong>Adjustment Bot</strong><br/> Real-time trade optimization</div>
-    <div class="feature-card">🧭 <strong>Market Pulse</strong><br/> VIX & PCR indicators</div>
-  </div>
-</main>
-
-<!-- How It Works -->
-<section class="features">
-  <h2>How It Works</h2>
-  <div class="how-steps">
-    <div class="step">
-      <div class="step-number">1️⃣</div>
-      <div>Sign in and connect your broker or use our simulator</div>
+      <source src="/assets/videos/hero.mp4" type="video/mp4">
+      <source src="/assets/videos/hero.webm" type="video/webm">
+      Your browser does not support the video tag.
+    </video>
+    <div class="relative z-10 flex flex-col items-center justify-center h-full bg-black bg-opacity-40 text-center px-4">
+      <h1 class="text-4xl md:text-6xl font-bold text-white leading-tight">
+        India’s First AI + SaaS Platform for Options Traders
+      </h1>
+      <p class="mt-4 text-lg md:text-2xl text-gray-200 max-w-2xl">
+        Harness AI-driven Greeks analytics, smart screeners, and real-time alerts—all in one place.
+      </p>
+      <div class="mt-6 flex space-x-4">
+        <a href="/signup" class="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-2xl font-medium transition">
+          Start Free Trial
+        </a>
+        <a href="https://t.me/deltabuddy_bot" target="_blank" rel="noopener noreferrer" class="px-6 py-3 border border-white text-white rounded-2xl font-medium hover:bg-white hover:text-blue-600 transition">
+          Join Telegram Bot
+        </a>
+      </div>
     </div>
-    <div class="step">
-      <div class="step-number">2️⃣</div>
-      <div>Receive real-time AI alerts & screen trade setups</div>
-    </div>
-    <div class="step">
-      <div class="step-number">3️⃣</div>
-      <div>Trade confidently with analytics & coaching</div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- Footer -->
-<footer>
-  <p>© 2025 DeltaBuddy. All rights reserved.</p>
-  <p>
-    <a href="mailto:contact@deltabuddy.com">contact@deltabuddy.com</a> |
-    <a href="https://t.me/DeltaBuddyBot">Telegram</a>
-  </p>
-</footer>
+  <!-- Placeholder for additional sections -->
+  <section id="features" class="py-20 px-4 md:px-20 bg-white">
+    <!-- Feature highlights go here -->
+  </section>
 
+  <!-- JavaScript for lazy-loading video -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const video = document.querySelector('video');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              video.play();
+              observer.unobserve(video);
+            }
+          });
+        }, { threshold: 0.25 });
+        observer.observe(video);
+      }
+    });
+  </script>
 </body>
 </html>
