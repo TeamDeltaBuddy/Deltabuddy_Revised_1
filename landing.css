@@ -1,12 +1,10 @@
-/* ====== BASE STYLES ====== */
+@import url('base.css');
+
 body {
-  margin: 0;
-  font-family: 'Segoe UI', Roboto, sans-serif;
   background: #0a0e17;
   color: #f1f5f9;
 }
 
-/* ====== HERO SECTION ====== */
 .hero {
   background: linear-gradient(135deg, #0f172a, #1e3a8a);
   text-align: center;
@@ -19,10 +17,7 @@ body {
   content: "";
   background: radial-gradient(circle at top right, rgba(59,130,246,0.25), transparent);
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
   pointer-events: none;
 }
 
@@ -43,14 +38,12 @@ body {
   color: #cbd5e1;
 }
 
-/* CTA BUTTONS */
 .cta-buttons .btn {
   display: inline-block;
   margin: 0.5rem;
   padding: 0.8rem 1.6rem;
   font-weight: bold;
   border-radius: 8px;
-  text-decoration: none;
   transition: all 0.3s ease;
 }
 
@@ -74,13 +67,12 @@ body {
   transform: translateY(-2px);
 }
 
-/* ====== TICKER ====== */
 .ticker-wrap {
   background: #1e293b;
   padding: 0.6rem 1rem;
-  overflow: hidden;
   border-top: 1px solid #334155;
   border-bottom: 1px solid #334155;
+  overflow: hidden;
   white-space: nowrap;
 }
 
@@ -103,7 +95,6 @@ body {
   100% { transform: translateX(-100%); }
 }
 
-/* ====== FEATURES ====== */
 .features {
   padding: 3rem 1.5rem;
   text-align: center;
@@ -140,37 +131,6 @@ body {
   box-shadow: 0 8px 16px rgba(96,165,250,0.25);
 }
 
-/* ====== HOW IT WORKS ====== */
-.how-steps {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-top: 2.5rem;
-}
-
-.step {
-  background: #0f172a;
-  border: 1px solid #1e3a8a;
-  color: white;
-  padding: 1.5rem;
-  border-radius: 10px;
-  flex: 1 1 200px;
-  text-align: center;
-  transition: transform 0.3s ease;
-}
-
-.step:hover {
-  transform: scale(1.05);
-}
-
-.step-number {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-  color: #38bdf8;
-}
-
-/* ====== FOOTER ====== */
 footer {
   background: #0f172a;
   color: #94a3b8;
@@ -181,36 +141,18 @@ footer {
 
 footer a {
   color: #60a5fa;
-  text-decoration: none;
 }
 
-footer a:hover {
-  text-decoration: underline;
-}
-
-/* ====== MOBILE STYLES ====== */
 @media (max-width: 768px) {
-  .features-grid, .how-steps {
+  .features-grid {
     display: block;
   }
-
   .cta-buttons {
-    display: flex;
     flex-direction: column;
     align-items: center;
   }
-
   .cta-buttons .btn {
     width: 80%;
     max-width: 300px;
-  }
-
-  .ticker-item {
-    margin: 0 1rem;
-    font-size: 0.85rem;
-  }
-
-  .logo {
-    width: 100px;
   }
 }
