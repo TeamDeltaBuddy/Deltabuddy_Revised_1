@@ -6,12 +6,12 @@
   <title>DeltaBuddy Dashboard</title>
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-  const token = localStorage.getItem('token');
-  if (!token) {
-    window.location.href = 'login.html';
-  }
-</script>
+  <script>
+    const token = localStorage.getItem('token');
+    if (!token) {
+      window.location.href = 'login.html';
+    }
+  </script>
 </head>
 <body>
 
@@ -69,10 +69,13 @@
       <div class="ticker fno">
         <div class="ticker-item">📈 RELIANCE: ₹2,700 <span class="positive">(+1.2%)</span></div>
         <div class="ticker-item">📉 INFY: ₹1,500 <span class="negative">(-0.8%)</span></div>
+        <div class="ticker-item">📈 HDFC BANK: ₹1,580 <span class="positive">(+1.6%)</span></div>
+        <div class="ticker-item">📉 TCS: ₹3,250 <span class="negative">(-0.5%)</span></div>
+        <div class="ticker-item">📈 ICICI BANK: ₹960 <span class="positive">(+2.1%)</span></div>
+        <div class="ticker-item">📉 SBIN: ₹590 <span class="negative">(-1.1%)</span></div>
       </div>
     </div>
 
-    <!-- Market Monitoring -->
     <!-- Top Movers -->
     <h2 style="margin-top: 2rem;">Top Movers</h2>
     <div class="grid">
@@ -100,8 +103,48 @@
           </tbody>
         </table>
       </div>
-    </div>
+      <!-- Top Gainers -->
+      <div class="card">
+        <h3>Top Gainers</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>LTP</th>
+              <th>% Change</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>ICICI BANK</td><td>₹960</td><td style="color:green;">+2.1%</td></tr>
+            <tr><td>HDFC BANK</td><td>₹1,580</td><td style="color:green;">+1.6%</td></tr>
+            <tr><td>RELIANCE</td><td>₹2,700</td><td style="color:green;">+1.2%</td></tr>
+            <tr><td>ITC</td><td>₹460</td><td style="color:green;">+1.0%</td></tr>
+            <tr><td>AXIS BANK</td><td>₹980</td><td style="color:green;">+0.9%</td></tr>
+          </tbody>
+        </table>
+      </div>
 
+      <!-- Top Losers -->
+      <div class="card">
+        <h3>Top Losers</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>LTP</th>
+              <th>% Change</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>SBIN</td><td>₹590</td><td style="color:red;">-1.1%</td></tr>
+            <tr><td>INFY</td><td>₹1,500</td><td style="color:red;">-0.8%</td></tr>
+            <tr><td>WIPRO</td><td>₹460</td><td style="color:red;">-0.6%</td></tr>
+            <tr><td>TCS</td><td>₹3,250</td><td style="color:red;">-0.5%</td></tr>
+            <tr><td>BAJAJ AUTO</td><td>₹5,200</td><td style="color:red;">-0.3%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
     <!-- AI-Powered Tools -->
     <h2 style="margin-top: 2rem;">AI-Powered Tools</h2>
     <div class="grid">
@@ -225,7 +268,6 @@
     });
   }
 </script>
-
 <!-- 🔓 Logout Function -->
 <script>
   function handleLogout() {
@@ -233,6 +275,7 @@
     window.location.href = 'login.html';
   }
 </script>
+
 <footer>
   <p>© 2025 DeltaBuddy. All rights reserved.</p>
   <p><strong>Disclaimer:</strong> We are not SEBI registered. We believe in Paper Trading first. Before investing, please consult your financial advisor first.</p>
