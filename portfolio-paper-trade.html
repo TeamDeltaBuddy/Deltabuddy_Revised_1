@@ -3,174 +3,141 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio Paper Trading - DeltaBuddy</title>
+  <title>Paper Trading – DeltaBuddy</title>
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-
-<header style="text-align: center; padding: 1rem 0;">
-  <a href="index.html">
-    <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo" style="height: 60px; max-width: 90%; object-fit: contain;">
-  </a>
-</header>
-
-<div class="layout">
-  <aside>
+  <header style="text-align: center; padding: 1rem 0; background: #0f172a;">
     <a href="index.html">
-      <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo" />
+      <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo" style="height: 60px; max-width: 90%; object-fit: contain;">
     </a>
-    <nav>
-      <ul>
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="portfolio.html" class="active">Portfolio</a></li>
-        <li><a href="greeks-alerts.html">Greeks & Alerts</a></li>
-        <li><a href="strategy-assistant.html">Strategy Assistant</a></li>
-        <li><a href="adjustment-bot.html">Adjustment Bot</a></li>
-        <li><a href="risk-coach.html">Risk Coach</a></li>
-        <li><a href="fno.html">Future & Options</a></li>
-        <li><a href="fii-dii.html">FII & DII</a></li>
-        <li><a href="events.html">Events</a></li>
-        <li><a href="screener.html">Screener</a></li>
-        <li><a href="telegram.html">Telegram Integration</a></li>
-      </ul>
-    </nav>
-  </aside>
+  </header>
 
-  <main>
-    <nav class="top-nav">
-      <a href="portfolio.html" class="btn secondary">← Back to Portfolio</a>
-      <span style="font-size: 1.5rem; font-weight: bold;">Paper Trading Dashboard</span>
-      <button class="btn secondary" onclick="clearAllTrades()">Clear All Trades</button>
-    </nav>
+  <div class="layout">
+    <aside>
+      <a href="index.html">
+        <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo" />
+      </a>
+      <nav>
+        <ul>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="portfolio.html" class="active">Portfolio</a></li>
+          <li><a href="greeks-alerts.html">Greeks & Alerts</a></li>
+          <li><a href="strategy-assistant.html">Strategy Assistant</a></li>
+          <li><a href="adjustment-bot.html">Adjustment Bot</a></li>
+          <li><a href="risk-coach.html">Risk Coach</a></li>
+          <li><a href="fno.html">Future & Options</a></li>
+          <li><a href="fii-dii.html">FII & DII</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="screener.html">Screener</a></li>
+          <li><a href="telegram.html">Telegram Integration</a></li>
+        </ul>
+      </nav>
+    </aside>
 
-    <div class="grid" style="margin-top: 2rem;">
-      <div class="card" style="grid-column: span 2;">
-        <h3>P/L vs Spot Chart</h3>
-        <canvas id="plChart"></canvas>
+    <main>
+      <nav class="top-nav">
+        <a href="portfolio.html" class="btn secondary">← Back to Portfolio</a>
+        <span style="font-size: 1.5rem; font-weight: bold;">Paper Trading Dashboard</span>
+        <button class="btn secondary" onclick="clearAllTrades()">Clear All Trades</button>
+      </nav>
+      <div class="grid" style="margin-top: 2rem;">
+        <div class="card" style="grid-column: span 2;">
+          <h3>P/L vs Spot Chart</h3>
+          <canvas id="plChart"></canvas>
+        </div>
+
+        <div class="card">
+          <h3>Add Trade Leg</h3>
+          <label>Type</label>
+          <select id="tradeType">
+            <option>Call</option>
+            <option>Put</option>
+          </select>
+
+          <label>Symbol</label>
+          <input type="text" id="symbol" placeholder="e.g. NIFTY">
+
+          <label>Strike</label>
+          <input type="number" id="strike" placeholder="e.g. 25000">
+
+          <label>Expiry</label>
+          <input type="text" id="expiry" placeholder="e.g. 27-Jun-2025">
+
+          <label>Entry Price</label>
+          <input type="number" id="entryPrice" placeholder="e.g. 150">
+
+          <button class="btn primary" onclick="addTrade()">Add Leg</button>
+        </div>
       </div>
 
-      <div class="card">
-        <h3>Add Trade Leg</h3>
-        <label>Type</label>
-        <select id="tradeType">
-          <option>Call</option>
-          <option>Put</option>
-        </select>
+      <h2 style="margin-top: 2rem;">Trades Summary</h2>
 
-        <label>Symbol</label>
-        <input type="text" id="symbol" placeholder="e.g. NIFTY">
-
-        <label>Strike</label>
-        <input type="number" id="strike" placeholder="e.g. 25000">
-
-        <label>Expiry</label>
-        <input type="text" id="expiry" placeholder="e.g. 27-Jun-2025">
-
-        <label>Entry Price</label>
-        <input type="number" id="entryPrice" placeholder="e.g. 150">
-
-        <button class="btn primary" onclick="addTrade()">Add Leg</button>
-      </div>
-    </div>
-
-    <h2 style="margin-top: 2rem;">Trades Summary</h2>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Symbol</th>
-          <th>Strike</th>
-          <th>Expiry</th>
-          <th>Entry Price</th>
-          <th>Current Price</th>
-          <th>P&amp;L (₹)</th>
-        </tr>
-      </thead>
-      <tbody id="tradesTableBody"></tbody>
-    </table>
-    <h2 style="margin-top: 2rem;">Option Chain Picker</h2>
-    <div class="card">
       <table>
         <thead>
           <tr>
+            <th>Type</th>
             <th>Symbol</th>
             <th>Strike</th>
             <th>Expiry</th>
-            <th>Type</th>
-            <th>IV %</th>
-            <th>OI Change %</th>
-            <th>LTP</th>
-            <th>Action</th>
+            <th>Entry Price</th>
+            <th>Current Price</th>
+            <th>P&amp;L (₹)</th>
           </tr>
         </thead>
-        <tbody id="optionChainBody"></tbody>
+        <tbody id="tradesTableBody"></tbody>
       </table>
-    </div>
 
-    <h2 style="margin-top: 2rem;">Strategy Optimizer</h2>
-    <div class="card">
-      <table>
-        <thead>
-          <tr>
-            <th>Strategy</th>
-            <th>Max Profit</th>
-            <th>Max Loss</th>
-            <th>Breakevens</th>
-            <th>POP</th>
-            <th>Margin Required</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Iron Fly</td>
-            <td>₹10000</td>
-            <td>₹5000</td>
-            <td>25400 - 25800</td>
-            <td>68%</td>
-            <td>₹200000</td>
-            <td><button class="btn secondary" onclick="applyStrategy('Iron Fly')">Apply</button></td>
-          </tr>
-          <tr>
-            <td>Bull Call Spread</td>
-            <td>₹7000</td>
-            <td>₹3000</td>
-            <td>25700+</td>
-            <td>72%</td>
-            <td>₹150000</td>
-            <td><button class="btn secondary" onclick="applyStrategy('Bull Call Spread')">Apply</button></td>
-          </tr>
-          <tr>
-            <td>Short Straddle</td>
-            <td>₹12000</td>
-            <td>Unlimited</td>
-            <td>--</td>
-            <td>54%</td>
-            <td>₹300000</td>
-            <td><button class="btn secondary" onclick="applyStrategy('Short Straddle')">Apply</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </main>
-</div>
+      <h2 style="margin-top: 2rem;">Option Chain Picker</h2>
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Strike</th>
+              <th>Expiry</th>
+              <th>Type</th>
+              <th>IV %</th>
+              <th>OI Change %</th>
+              <th>LTP</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="optionChainBody"></tbody>
+        </table>
+      </div>
 
-<script>
-// All JavaScript logic from your previous script remains here unchanged
-// (includes plChart, addTrade, clearAllTrades, loadTrades, loadOptionChain, fillAddTrade, applyStrategy)
-</script>
+      <h2 style="margin-top: 2rem;">Strategy Optimizer</h2>
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Strategy</th>
+              <th>Max Profit</th>
+              <th>Max Loss</th>
+              <th>Breakevens</th>
+              <th>POP</th>
+              <th>Margin Required</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="strategyTableBody"></tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+  <footer style="margin-top: 3rem; background: #1e293b; color: white; text-align: center; padding: 1.5rem;">
+    <p>© 2025 DeltaBuddy. All rights reserved.</p>
+    <p><strong>Disclaimer:</strong> We are not SEBI registered. We believe in Paper Trading first. Before investing, please consult your financial advisor first.</p>
+    <p>
+      <a href="mailto:contact@deltabuddy.com" style="color:#60a5fa;">contact@deltabuddy.com</a> |
+      <a href="https://t.me/DeltaBuddyBot" style="color:#60a5fa;">Telegram</a> |
+      <a href="index.html" style="color:#60a5fa;">Home</a>
+    </p>
+  </footer>
 
-<footer style="margin-top: 3rem; background: #1e293b; color: white; text-align: center; padding: 1.5rem;">
-  <p>© 2025 DeltaBuddy. All rights reserved.</p>
-  <p><strong>Disclaimer:</strong> We are not SEBI registered. We believe in Paper Trading first. Before investing, please consult your financial advisor first.</p>
-  <p>
-    <a href="mailto:contact@deltabuddy.com" style="color:#60a5fa;">contact@deltabuddy.com</a> |
-    <a href="https://t.me/DeltaBuddyBot" style="color:#60a5fa;">Telegram</a> |
-    <a href="index.html" style="color:#60a5fa;">Home</a>
-  </p>
-</footer>
-
+  <!-- JavaScript Logic -->
+  <script src="paper-trading.js"></script>
 </body>
 </html>
