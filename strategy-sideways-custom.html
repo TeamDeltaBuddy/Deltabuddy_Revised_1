@@ -4,42 +4,58 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sideways Custom Strategy Builder</title>
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 2rem; }
+    nav { margin-bottom: 1.5rem; font-size: 1rem; }
+    nav a { text-decoration: none; color: #3b82f6; font-weight: bold; }
+    nav a:hover { text-decoration: underline; }
+    .ai-box {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    button {
+      background: #3b82f6;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover { background: #2563eb; }
+  </style>
 </head>
 <body>
-  <!-- Nav Bar -->
-  <nav style="margin-bottom: 1rem;">
+  <nav>
     <a href="strategy-sideways.html">← Sideways Market Home</a> |
     <a href="strategy-sideways-ai.html">🧠 AI Generator</a> |
     <a href="strategy-sideways-prebuilt.html">📋 Prebuilt Finder</a> |
     <a href="strategy-sideways-custom.html">🛠️ Custom Builder</a>
   </nav>
 
-  <!-- Custom Strategy Builder -->
   <main>
     <div class="ai-box">
       <h3>🛠️ Strategy Builder</h3>
       <p>Build your custom strategy by adding legs:</p>
 
-      <!-- Builder Placeholder -->
       <div style="margin-bottom: 1rem;">
-        <button style="background: #3b82f6; color: white; padding: 0.5rem 1rem; border: none; border-radius: 5px;">+ Add Option Leg</button>
+        <button>+ Add Option Leg</button>
       </div>
 
       <div style="padding: 1rem; background: #f9f9f9; border-radius: 6px;">
         <p>[Strategy Legs Placeholder]</p>
       </div>
 
-      <!-- Payoff Chart Placeholder -->
       <div style="margin-top: 1rem; padding: 1rem; background: #f9f9f9; border-radius: 6px;">
         <p>[Payoff Chart Placeholder]</p>
       </div>
     </div>
 
-    <!-- Optimizer -->
-    <section class="ai-box" style="margin-top: 2rem;">
+    <section class="ai-box">
       <h4>Strategy Optimizer</h4>
-      <button style="background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 5px; border: none;">Improve My Strategy</button>
+      <button>Improve My Strategy</button>
       <p>[Optimizer Suggestions Placeholder]</p>
     </section>
   </main>
