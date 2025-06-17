@@ -4,18 +4,74 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bullish Strategies</title>
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 2rem;
+    }
+    nav {
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+    }
+    nav a {
+      text-decoration: none;
+      color: #3b82f6;
+      font-weight: bold;
+    }
+    nav span {
+      margin-left: 1rem;
+      color: #1e293b;
+    }
+    h2 {
+      text-align: center;
+      color: #0f172a;
+      margin-bottom: 2rem;
+    }
+    .market-card {
+      background: white;
+      padding: 2rem;
+      margin: 1rem auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      max-width: 500px;
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .market-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+    .market-card a {
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #1e3a8a;
+      display: block;
+    }
+  </style>
 </head>
 <body>
-  <nav class="top-nav">
+
+  <nav>
     <a href="strategy-assistant.html">← Market Selection</a>
-    <span>Bullish Market</span>
+    <span>| Bullish Market</span>
   </nav>
-  <main>
-    <h2 style="text-align:center;">Choose Strategy Type</h2>
-    <div class="market-card"><a href="strategy-bullish-prebuilt.html">🛠️ Pre-Built Strategies</a></div>
-    <div class="market-card"><a href="strategy-bullish-ai.html">🤖 AI Strategy Generator</a></div>
-    <div class="market-card"><a href="strategy-bullish-custom.html">🎨 Custom Build Strategy</a></div>
-  </main>
+
+  <h2>🧠 Choose Your Bullish Strategy Path</h2>
+
+  <div class="market-card">
+    <a href="strategy-bullish-prebuilt.html">🛠️ Pre-Built Strategies</a>
+  </div>
+
+  <div class="market-card">
+    <a href="strategy-bullish-ai.html">🤖 AI Strategy Generator</a>
+  </div>
+
+  <div class="market-card">
+    <a href="strategy-bullish-custom.html">🎨 Custom Build Strategy</a>
+  </div>
+
 </body>
 </html>
