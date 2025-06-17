@@ -4,44 +4,111 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bearish Custom Strategy Builder</title>
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 2rem; }
+    nav { margin-bottom: 1.5rem; font-size: 1rem; }
+    nav a { text-decoration: none; color: #3b82f6; font-weight: bold; }
+    nav a:hover { text-decoration: underline; }
+    .ai-box {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    h3, h4 { color: #0f172a; }
+    .leg-input {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    select, input {
+      padding: 0.5rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .btn {
+      background: #3b82f6;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
+    .btn:hover { background: #2563eb; }
+    .strategy-legs, .payoff-output {
+      padding: 1rem;
+      background: #f9f9f9;
+      border-radius: 6px;
+    }
+  </style>
 </head>
 <body>
-  <!-- Nav Bar -->
-  <nav style="margin-bottom: 1rem;">
+  <nav>
     <a href="strategy-bearish.html">← Bearish Market Home</a> |
     <a href="strategy-bearish-ai.html">🧠 AI Generator</a> |
     <a href="strategy-bearish-prebuilt.html">📋 Prebuilt Finder</a> |
     <a href="strategy-bearish-custom.html">🛠️ Custom Builder</a>
   </nav>
 
-  <!-- Custom Strategy Builder -->
   <main>
     <div class="ai-box">
       <h3>🛠️ Strategy Builder</h3>
       <p>Build your custom strategy by adding legs:</p>
 
-      <!-- Builder Placeholder -->
-      <div style="margin-bottom: 1rem;">
-        <button style="background: #3b82f6; color: white; padding: 0.5rem 1rem; border: none; border-radius: 5px;">+ Add Option Leg</button>
+      <div class="leg-input">
+        <select id="position">
+          <option value="Buy">Buy</option>
+          <option value="Sell">Sell</option>
+        </select>
+        <select id="optionType">
+          <option value="Call">Call</option>
+          <option value="Put">Put</option>
+        </select>
+        <input id="strike" type="number" placeholder="Strike Price" />
+        <button class="btn" onclick="addLeg()">+ Add Option Leg</button>
       </div>
 
-      <div style="padding: 1rem; background: #f9f9f9; border-radius: 6px;">
+      <div id="legs-output" class="strategy-legs">
         <p>[Strategy Legs Placeholder]</p>
       </div>
 
-      <!-- Payoff Chart Placeholder -->
-      <div style="margin-top: 1rem; padding: 1rem; background: #f9f9f9; border-radius: 6px;">
+      <div id="payoff-output" class="payoff-output" style="margin-top: 1rem;">
         <p>[Payoff Chart Placeholder]</p>
       </div>
     </div>
 
-    <!-- Optimizer -->
-    <section class="ai-box" style="margin-top: 2rem;">
+    <section class="ai-box">
       <h4>Strategy Optimizer</h4>
-      <button style="background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 5px; border: none;">Improve My Strategy</button>
-      <p>[Optimizer Suggestions Placeholder]</p>
+      <button class="btn" onclick="optimizeCustomStrategy()">Improve My Strategy</button>
+      <p id="optimizer-output">[Optimizer Suggestions Placeholder]</p>
     </section>
   </main>
+
+  <script>
+    const legs = [];
+
+    function addLeg() {
+      const position = document.getElementById('position').value;
+      const optionType = document.getElementById('optionType').value;
+      const strike = document.getElementById('strike').value;
+
+      if (!strike) return alert("Please enter a strike price.");
+
+      const leg = `${position} ${optionType} @ ${strike}`;
+      legs.push(leg);
+
+      document.getElementById('legs-output').innerHTML =
+        '<ul>' + legs.map(l => `<li>${l}</li>`).join('') + '</ul>';
+
+      document.getElementById('payoff-output').innerHTML =
+        `<p>Total Legs: ${legs.length} | (Payoff simulation placeholder)</p>`;
+    }
+
+    function optimizeCustomStrategy() {
+      document.getElementById('optimizer-output').innerText =
+        "Try converting into a bear ratio spread or adjusting the strikes closer to ATM.";
+    }
+  </script>
 </body>
 </html>
