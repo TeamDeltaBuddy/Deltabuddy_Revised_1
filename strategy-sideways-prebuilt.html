@@ -22,6 +22,12 @@
       border: 1px solid #ccc;
       margin-right: 1rem;
     }
+    #strategy-results p {
+      background: #e0f2fe;
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+      border-radius: 4px;
+    }
     button {
       background: #3b82f6;
       color: white;
@@ -47,34 +53,69 @@
       <p>Select filters to find pre-built options strategies:</p>
       <div style="margin-bottom: 1rem;">
         <label>Underlying: </label>
-        <select>
+        <select id="underlying" onchange="applyFilters()">
           <option>NIFTY</option>
           <option>BANKNIFTY</option>
           <option>Stocks</option>
         </select>
         <label>IV Rank: </label>
-        <select>
+        <select id="iv" onchange="applyFilters()">
           <option>Low</option>
           <option>Medium</option>
           <option>High</option>
         </select>
         <label>Days to Expiry: </label>
-        <select>
-          <option>&lt; 7</option>
+        <select id="dte" onchange="applyFilters()">
+          <option>< 7</option>
           <option>7 - 14</option>
           <option>15+</option>
         </select>
       </div>
-      <div style="padding: 1rem; background: #f9f9f9; border-radius: 6px;">
+      <div id="strategy-results" style="padding: 1rem; background: #f9f9f9; border-radius: 6px;">
         <p>[AI Suggested Strategies will appear here]</p>
       </div>
     </div>
 
     <section class="ai-box">
       <h4>Strategy Optimizer</h4>
-      <button>Improve My Strategy</button>
-      <p>[Optimizer Suggestions Placeholder]</p>
+      <button onclick="optimizeStrategy()">Improve My Strategy</button>
+      <p id="optimizer-output">[Optimizer Suggestions Placeholder]</p>
     </section>
   </main>
+
+  <script>
+    const strategies = [
+      { name: "Short Straddle", underlying: "NIFTY", iv: "High", dte: "< 7" },
+      { name: "Iron Butterfly", underlying: "BANKNIFTY", iv: "Medium", dte: "7 - 14" },
+      { name: "Short Strangle", underlying: "Stocks", iv: "Low", dte: "15+" },
+      { name: "Short Iron Condor", underlying: "BANKNIFTY", iv: "Low", dte: "15+" },
+      { name: "Batman", underlying: "NIFTY", iv: "Medium", dte: "7 - 14" },
+      { name: "Double Plateau", underlying: "Stocks", iv: "High", dte: "15+" },
+      { name: "Jade Lizard", underlying: "NIFTY", iv: "Low", dte: "< 7" },
+      { name: "Reverse Jade Lizard", underlying: "BANKNIFTY", iv: "High", dte: "7 - 14" }
+    ];
+
+    function applyFilters() {
+      const u = document.getElementById('underlying').value;
+      const iv = document.getElementById('iv').value;
+      const dte = document.getElementById('dte').value;
+      const spot = u === "NIFTY" ? 22500 : u === "BANKNIFTY" ? 48500 : 1500;
+      const strike = spot - (spot % 50);
+
+      const matches = strategies
+        .filter(s => s.underlying === u && s.iv === iv && s.dte === dte)
+        .map(s => `<p>✅ ${s.name} @ ${strike}</p>`);
+
+      const container = document.getElementById('strategy-results');
+      container.innerHTML = matches.length
+        ? matches.join('')
+        : "<p>No matching strategies found.</p>";
+    }
+
+    function optimizeStrategy() {
+      document.getElementById('optimizer-output').innerText =
+        "Suggestion: Adjust wings width; ensure premium received covers max risk zone.";
+    }
+  </script>
 </body>
 </html>
