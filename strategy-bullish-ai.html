@@ -4,58 +4,101 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bullish AI Strategy Generator</title>
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 2rem; }
+    nav { margin-bottom: 1.5rem; font-size: 1rem; }
+    nav a { text-decoration: none; color: #3b82f6; font-weight: bold; }
+    nav a:hover { text-decoration: underline; }
+    .ai-box {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    h3, h4 { color: #0f172a; }
+    textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 1rem;
+      resize: vertical;
+    }
+    button {
+      background: #3b82f6;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #2563eb;
+    }
+    #strategy-result {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #f9f9f9;
+      border-radius: 6px;
+      font-family: monospace;
+      white-space: pre-wrap;
+    }
+  </style>
 </head>
 <body>
-  <!-- Nav Bar -->
-  <nav style="margin-bottom: 1rem;">
+  <nav>
     <a href="strategy-bullish.html">← Bullish Market Home</a> |
     <a href="strategy-bullish-ai.html">🧠 AI Generator</a> |
     <a href="strategy-bullish-prebuilt.html">📋 Prebuilt Finder</a> |
     <a href="strategy-bullish-custom.html">🛠️ Custom Builder</a>
   </nav>
 
-  <!-- AI Strategy Generator -->
   <main>
     <div class="ai-box">
       <h3>🧠 AI Strategy Generator</h3>
       <p>Enter your market view or goal and get a suggested strategy:</p>
-      <textarea id="strategy-input" rows="3" style="width:100%; margin-bottom:1rem;"></textarea>
-      <button onclick="generateStrategy()" style="background:#3b82f6; color:white; padding:0.5rem 1rem; border:none; border-radius:5px; cursor:pointer;">Generate Strategy</button>
-      <div id="strategy-result" style="margin-top:1rem; padding:1rem; background:#f9f9f9; border-radius:6px;"></div>
+      <textarea id="strategy-input" rows="3" placeholder="e.g., NIFTY expected to be bullish this week..."></textarea>
+      <button onclick="generateStrategy()">Generate Strategy</button>
+      <div id="strategy-result"></div>
     </div>
 
-    <!-- Optimizer -->
-    <section class="ai-box" style="margin-top: 2rem;">
+    <section class="ai-box">
       <h4>Strategy Optimizer</h4>
-      <button style="background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 5px; border: none;">Improve My Strategy</button>
-      <p>[Optimizer Suggestions Placeholder]</p>
+      <button onclick="optimizeStrategy()">Improve My Strategy</button>
+      <p id="optimizer-output">[Optimizer Suggestions Placeholder]</p>
     </section>
   </main>
 
   <script>
     async function generateStrategy() {
-      const userInput = document.getElementById('strategy-input').value;
+      const userInput = document.getElementById('strategy-input').value.trim();
       const resultContainer = document.getElementById('strategy-result');
+      if (!userInput) {
+        resultContainer.innerHTML = '<p style="color:red;">Please enter a market view.</p>';
+        return;
+      }
 
       resultContainer.innerHTML = "<p>Generating strategy...</p>";
 
       try {
         const response = await fetch('/api/strategy-assistant', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ input: userInput })
         });
 
         const data = await response.json();
-
         resultContainer.innerHTML = `<pre>${data.strategy}</pre>`;
       } catch (error) {
         console.error('Error generating strategy:', error);
         resultContainer.innerHTML = `<p style="color:red;">Error generating strategy.</p>`;
       }
+    }
+
+    function optimizeStrategy() {
+      document.getElementById('optimizer-output').innerText =
+        "Try adjusting strike prices for better risk-reward; consider a Bull Call Ladder variation.";
     }
   </script>
 </body>
