@@ -4,15 +4,39 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sideways Strategies</title>
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 2rem; }
+    nav { margin-bottom: 1.5rem; font-size: 1rem; }
+    nav a { text-decoration: none; color: #3b82f6; font-weight: bold; }
+    nav a:hover { text-decoration: underline; }
+    .market-card {
+      background: white;
+      padding: 2rem;
+      margin: 1rem 0;
+      border-radius: 8px;
+      box-shadow: 0 0 4px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .market-card a {
+      text-decoration: none;
+      font-weight: bold;
+      color: #3b82f6;
+      font-size: 1.5rem;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #0f172a;
+    }
+  </style>
 </head>
 <body>
-  <nav class="top-nav">
-    <a href="strategy-assistant.html">← Market Selection</a>
-    <span>Sideways Market</span>
+  <nav>
+    <a href="strategy-assistant.html">← Market Selection</a> |
+    <span style="color:#0f172a;font-weight:bold;">Sideways Market</span>
   </nav>
   <main>
-    <h2 style="text-align:center;">Choose Strategy Type</h2>
+    <h2>Choose Strategy Type</h2>
     <div class="market-card"><a href="strategy-sideways-prebuilt.html">🛠️ Pre-Built Strategies</a></div>
     <div class="market-card"><a href="strategy-sideways-ai.html">🤖 AI Strategy Generator</a></div>
     <div class="market-card"><a href="strategy-sideways-custom.html">🎨 Custom Build Strategy</a></div>
