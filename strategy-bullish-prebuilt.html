@@ -102,6 +102,32 @@
       { name: "Synthetic Long", underlying: "Stocks", iv: "High", dte: "15+" }
     ];
 
+    const spotPrice = 19750;
+
+    function getStrikes(name) {
+      const base = Math.round(spotPrice / 100) * 100;
+      switch (name) {
+        case "Bull Call Spread":
+          return `Buy ${base} CE, Sell ${base + 200} CE`;
+        case "Bull Put Spread":
+          return `Sell ${base} PE, Buy ${base - 200} PE`;
+        case "Call Ratio Back Spread":
+          return `Sell 1 ${base} CE, Buy 2 ${base + 200} CE`;
+        case "Long Calendar with Calls":
+          return `Buy ${base} CE (Next Expiry), Sell ${base} CE (Near Expiry)`;
+        case "Bull Condor":
+          return `Buy ${base - 100} CE, Sell ${base} CE, Sell ${base + 200} CE, Buy ${base + 300} CE`;
+        case "Bull Butterfly":
+          return `Buy ${base - 100} CE, Sell 2 ${base} CE, Buy ${base + 100} CE`;
+        case "Range Forward":
+          return `Buy ${base} CE, Sell ${base - 100} PE`;
+        case "Long Synthetic":
+          return `Buy ${base} CE, Sell ${base} PE`;
+        default:
+          return "(strike example unavailable)";
+      }
+    }
+
     function applyFilters() {
       const u = document.getElementById('underlying').value;
       const iv = document.getElementById('iv').value;
@@ -109,7 +135,7 @@
       const matches = strategies.filter(s => s.underlying === u && s.iv === iv && s.dte === dte);
       const container = document.getElementById('strategy-results');
       container.innerHTML = matches.length
-        ? matches.map(s => `<p>✅ ${s.name}</p>`).join('')
+        ? matches.map(s => `<p>✅ <strong>${s.name}</strong><br/><small>${getStrikes(s.name)}</small></p>`).join('')
         : "<p>No matching strategies found.</p>";
     }
 
