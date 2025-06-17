@@ -6,8 +6,9 @@
   <title>Greeks & Alerts – DeltaBuddy</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    header { display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: #0f172a; color: white; }
-    .back-dashboard { background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 5px; text-decoration: none; }
+    body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 2rem; }
+    .top-nav { display: flex; justify-content: space-between; align-items: center; background: #0f172a; color: white; padding: 1rem; }
+    .top-nav a { color: #3b82f6; text-decoration: none; font-weight: bold; }
     .card { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); margin-top: 1rem; }
     ul { padding-left: 1.2rem; }
     table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
@@ -22,20 +23,15 @@
   </style>
 </head>
 <body>
-
-  <header>
-    <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo" style="width: 100px;">
-    <a class="back-dashboard" href="dashboard.html">⬅️ Back to Dashboard</a>
-  </header>
-
+  <nav class="top-nav">
+    <a href="dashboard.html">← Dashboard</a>
+    <span>Greeks & Alerts</span>
+  </nav>
   <main style="padding: 2rem;">
-    <h2>Real-time Greeks & Alerts</h2>
-    <p style="color: #444; max-width: 600px;">
-      Monitor your positions' option Greeks and get live alerts on sudden shifts or risk levels.
-    </p>
+    <h2 style="text-align:center;">📈 DeltaBuddy Greeks & Alerts</h2>
 
     <div class="card">
-      <h3>Δ Delta / Γ Gamma / Θ Theta / ν Vega</h3>
+      <h3>Live Option Greeks</h3>
       <ul id="live-greeks">
         <li>Delta: <span id="delta-value">0</span></li>
         <li>Gamma: <span id="gamma-value">0</span></li>
@@ -44,30 +40,27 @@
       </ul>
     </div>
 
-    <h2 style="margin-top:2rem;">Current Greeks Alerts</h2>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Symbol</th>
-          <th>Strike</th>
-          <th>Type</th>
-          <th>Greek</th>
-          <th>Target Value</th>
-          <th>Action</th>
-          <th>Remove</th>
-        </tr>
-      </thead>
-      <tbody id="alerts-table">
-        <!-- Alerts will appear here -->
-      </tbody>
-    </table>
-
-    <button onclick="addAutoAlerts()" class="add-btn">Add Suggested Alerts (Theta & Gamma)</button>
-
-    <h2 style="margin-top:2rem;">Add New Alert</h2>
+    <div class="card">
+      <h3>Current Greeks Alerts</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Symbol</th>
+            <th>Strike</th>
+            <th>Type</th>
+            <th>Greek</th>
+            <th>Target Value</th>
+            <th>Action</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody id="alerts-table"></tbody>
+      </table>
+      <button onclick="addAutoAlerts()" class="add-btn">Add Suggested Alerts (Theta & Gamma)</button>
+    </div>
 
     <div class="form-card">
+      <h3>Add New Alert</h3>
       <label for="symbol">Symbol</label>
       <select id="symbol">
         <option>NIFTY</option>
@@ -101,18 +94,14 @@
     </div>
 
     <div class="card">
-      <h3>💡 Tips & Coming Features</h3>
+      <h3>🌟 Upcoming Features (Phase 2)</h3>
       <ul>
-        <li>Customizable alert thresholds</li>
-        <li>Broker-linked real-time monitoring (Phase 2)</li>
-        <li>Telegram alert integration</li>
-        <li>Visualization charts of Greeks vs Time</li>
+        <li>Broker-linked real-time alert integration</li>
+        <li>Telegram alerts for real-time changes</li>
+        <li>Greeks trend charts & heatmaps</li>
+        <li>Automated exit triggers based on IV shifts</li>
       </ul>
     </div>
-
-    <a class="back-home" href="dashboard.html" style="display:block; text-align:center; margin-top:2rem; color:#3b82f6; text-decoration:none; font-weight:bold;">
-      ⬅️ Back to Dashboard
-    </a>
   </main>
 
   <script>
@@ -120,23 +109,21 @@
       const alerts = JSON.parse(localStorage.getItem('greeksAlerts') || '[]');
       const tbody = document.getElementById('alerts-table');
       tbody.innerHTML = '';
-
       if (alerts.length === 0) {
         tbody.innerHTML = '<tr><td colspan="7">No alerts yet.</td></tr>';
         return;
       }
-
       alerts.forEach((alert, index) => {
         const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${alert.symbol}</td>
-          <td>${alert.strike}</td>
-          <td>${alert.type}</td>
-          <td>${alert.greek}</td>
-          <td>${alert.target}</td>
+        row.innerHTML = \`
+          <td>\${alert.symbol}</td>
+          <td>\${alert.strike}</td>
+          <td>\${alert.type}</td>
+          <td>\${alert.greek}</td>
+          <td>\${alert.target}</td>
           <td>Notify</td>
-          <td><button class="remove-btn" onclick="removeAlert(${index})">Remove</button></td>
-        `;
+          <td><button class="remove-btn" onclick="removeAlert(\${index})">Remove</button></td>
+        \`;
         tbody.appendChild(row);
       });
     }
@@ -157,7 +144,6 @@
       const alerts = JSON.parse(localStorage.getItem('greeksAlerts') || '[]');
       alerts.push(alertObj);
       localStorage.setItem('greeksAlerts', JSON.stringify(alerts));
-
       loadAlerts();
       alert('Alert added!');
     }
@@ -174,7 +160,6 @@
         { symbol: 'NIFTY', strike: 'ATM', type: 'Call', greek: 'Theta', target: '<= -50' },
         { symbol: 'BANKNIFTY', strike: 'ATM', type: 'Put', greek: 'Gamma', target: '>= 10' }
       ];
-
       const alerts = JSON.parse(localStorage.getItem('greeksAlerts') || '[]');
       alerts.push(...autoAlerts);
       localStorage.setItem('greeksAlerts', JSON.stringify(alerts));
@@ -189,10 +174,9 @@
       document.getElementById('vega-value').innerText = (Math.random() * 50).toFixed(0);
     }
 
-    // Initialize
     loadAlerts();
     updateGreeks();
-    setInterval(updateGreeks, 10000); // update every 10 sec
+    setInterval(updateGreeks, 10000);
   </script>
 </body>
 </html>
