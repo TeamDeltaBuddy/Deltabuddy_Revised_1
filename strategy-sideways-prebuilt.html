@@ -4,24 +4,47 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sideways Prebuilt Strategy Finder</title>
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 2rem; }
+    nav { margin-bottom: 1.5rem; font-size: 1rem; }
+    nav a { text-decoration: none; color: #3b82f6; font-weight: bold; }
+    nav a:hover { text-decoration: underline; }
+    .ai-box {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    select {
+      padding: 0.5rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-right: 1rem;
+    }
+    button {
+      background: #3b82f6;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover { background: #2563eb; }
+  </style>
 </head>
 <body>
-  <!-- Nav Bar -->
-  <nav style="margin-bottom: 1rem;">
+  <nav>
     <a href="strategy-sideways.html">← Sideways Market Home</a> |
     <a href="strategy-sideways-ai.html">🧠 AI Generator</a> |
     <a href="strategy-sideways-prebuilt.html">📋 Prebuilt Finder</a> |
     <a href="strategy-sideways-custom.html">🛠️ Custom Builder</a>
   </nav>
 
-  <!-- Prebuilt Strategy Finder -->
   <main>
     <div class="ai-box">
       <h3>📋 Strategy Finder</h3>
       <p>Select filters to find pre-built options strategies:</p>
-      
-      <!-- Filters Placeholder -->
       <div style="margin-bottom: 1rem;">
         <label>Underlying: </label>
         <select>
@@ -29,32 +52,27 @@
           <option>BANKNIFTY</option>
           <option>Stocks</option>
         </select>
-
-        <label style="margin-left: 1rem;">IV Rank: </label>
+        <label>IV Rank: </label>
         <select>
           <option>Low</option>
           <option>Medium</option>
           <option>High</option>
         </select>
-
-        <label style="margin-left: 1rem;">Days to Expiry: </label>
+        <label>Days to Expiry: </label>
         <select>
           <option>&lt; 7</option>
           <option>7 - 14</option>
           <option>15+</option>
         </select>
       </div>
-
-      <!-- Suggested Strategies Placeholder -->
       <div style="padding: 1rem; background: #f9f9f9; border-radius: 6px;">
         <p>[AI Suggested Strategies will appear here]</p>
       </div>
     </div>
 
-    <!-- Optimizer -->
-    <section class="ai-box" style="margin-top: 2rem;">
+    <section class="ai-box">
       <h4>Strategy Optimizer</h4>
-      <button style="background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 5px; border: none;">Improve My Strategy</button>
+      <button>Improve My Strategy</button>
       <p>[Optimizer Suggestions Placeholder]</p>
     </section>
   </main>
