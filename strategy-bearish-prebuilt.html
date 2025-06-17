@@ -4,59 +4,112 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bearish Prebuilt Strategy Finder</title>
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 2rem; }
+    nav { margin-bottom: 1.5rem; font-size: 1rem; }
+    nav a { text-decoration: none; color: #3b82f6; font-weight: bold; }
+    nav a:hover { text-decoration: underline; }
+    .ai-box {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    h3, h4 { color: #0f172a; }
+    label { font-weight: 600; }
+    select {
+      margin-left: 0.5rem;
+      margin-right: 1rem;
+      padding: 0.4rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    #strategy-results p {
+      background: #fee2e2;
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+      border-radius: 4px;
+    }
+    button {
+      background: #3b82f6;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #2563eb;
+    }
+  </style>
 </head>
 <body>
-  <!-- Nav Bar -->
-  <nav style="margin-bottom: 1rem;">
+  <nav>
     <a href="strategy-bearish.html">← Bearish Market Home</a> |
     <a href="strategy-bearish-ai.html">🧠 AI Generator</a> |
     <a href="strategy-bearish-prebuilt.html">📋 Prebuilt Finder</a> |
     <a href="strategy-bearish-custom.html">🛠️ Custom Builder</a>
   </nav>
 
-  <!-- Prebuilt Strategy Finder -->
   <main>
     <div class="ai-box">
       <h3>📋 Strategy Finder</h3>
       <p>Select filters to find pre-built options strategies:</p>
-      
-      <!-- Filters Placeholder -->
       <div style="margin-bottom: 1rem;">
         <label>Underlying: </label>
-        <select>
+        <select id="underlying" onchange="applyFilters()">
           <option>NIFTY</option>
           <option>BANKNIFTY</option>
           <option>Stocks</option>
         </select>
-
-        <label style="margin-left: 1rem;">IV Rank: </label>
-        <select>
+        <label>IV Rank: </label>
+        <select id="iv" onchange="applyFilters()">
           <option>Low</option>
           <option>Medium</option>
           <option>High</option>
         </select>
-
-        <label style="margin-left: 1rem;">Days to Expiry: </label>
-        <select>
-          <option>&lt; 7</option>
+        <label>Days to Expiry: </label>
+        <select id="dte" onchange="applyFilters()">
+          <option>< 7</option>
           <option>7 - 14</option>
           <option>15+</option>
         </select>
       </div>
-
-      <!-- Suggested Strategies Placeholder -->
-      <div style="padding: 1rem; background: #f9f9f9; border-radius: 6px;">
+      <div id="strategy-results">
         <p>[AI Suggested Strategies will appear here]</p>
       </div>
     </div>
 
-    <!-- Optimizer -->
-    <section class="ai-box" style="margin-top: 2rem;">
+    <section class="ai-box">
       <h4>Strategy Optimizer</h4>
-      <button style="background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 5px; border: none;">Improve My Strategy</button>
-      <p>[Optimizer Suggestions Placeholder]</p>
+      <button onclick="optimizeStrategy()">Improve My Strategy</button>
+      <p id="optimizer-output">[Optimizer Suggestions Placeholder]</p>
     </section>
   </main>
+
+  <script>
+    const strategies = [
+      { name: "Bear Call Spread", underlying: "NIFTY", iv: "High", dte: "< 7" },
+      { name: "Bear Put Ladder", underlying: "BANKNIFTY", iv: "Medium", dte: "7 - 14" },
+      { name: "Synthetic Short", underlying: "Stocks", iv: "Low", dte: "15+" }
+    ];
+
+    function applyFilters() {
+      const u = document.getElementById('underlying').value;
+      const iv = document.getElementById('iv').value;
+      const dte = document.getElementById('dte').value;
+      const matches = strategies.filter(s => s.underlying === u && s.iv === iv && s.dte === dte);
+      const container = document.getElementById('strategy-results');
+      container.innerHTML = matches.length
+        ? matches.map(s => `<p>✅ ${s.name}</p>`).join('')
+        : "<p>No matching strategies found.</p>";
+    }
+
+    function optimizeStrategy() {
+      document.getElementById('optimizer-output').innerText =
+        "Shift short leg slightly OTM; check for better risk-reward with Bear Ratio Spread.";
+    }
+  </script>
 </body>
 </html>
