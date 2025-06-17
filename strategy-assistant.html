@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Strategy Assistant – DeltaBuddy</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 2rem; }
+    .market-card { background: white; padding: 2rem; margin: 1rem 0; border-radius: 8px; box-shadow: 0 0 4px rgba(0,0,0,0.1); text-align: center; }
+    .market-card a { text-decoration: none; font-weight: bold; color: #3b82f6; font-size: 1.5rem; }
+    .card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+      margin-top: 1rem;
+    }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { padding: 0.75rem; border: 1px solid #ccc; text-align: center; }
+    th { background-color: #f1f5f9; }
+    .tools-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .tools-grid .card {
+      flex: 1 1 220px;
+      text-align: center;
+    }
+    .card a {
+      display: inline-block;
+      margin-top: 0.75rem;
+      background: #3b82f6;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+    .card a:hover {
+      background: #2563eb;
+    }
+    .btn { padding: 0.5rem 1rem; background: #3b82f6; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 1rem; }
+    textarea { width: 100%; height: 80px; margin-top: 1rem; padding: 0.5rem; border-radius: 5px; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <a href="dashboard.html">← Dashboard</a>
+    <span>Strategy Assistant</span>
+  </nav>
+
+  <h2 style="text-align:center;">🧠 DeltaGPT Strategy Assistant</h2>
+
+  <div class="market-card"><a href="strategy-bullish.html">📈 Bullish Market</a></div>
+  <div class="market-card"><a href="strategy-bearish.html">📉 Bearish Market</a></div>
+  <div class="market-card"><a href="strategy-sideways.html">🔄 Sideways Market</a></div>
+
+  <h3 style="margin-top: 2rem;">🧠 Suggested Strategies</h3>
+  <div class="tools-grid">
+    <div class="card">
+      <strong>Iron Condor</strong>
+      <p>Neutral bias, high IV market.</p>
+      <a href="strategy-sideways-prebuilt.html">View Strategy</a>
+    </div>
+    <div class="card">
+      <strong>Bull Put Spread</strong>
+      <p>Moderate bullish bias, limited risk.</p>
+      <a href="strategy-bullish-prebuilt.html">View Strategy</a>
+    </div>
+    <div class="card">
+      <strong>Bear Call Spread</strong>
+      <p>Moderate bearish bias, limited risk.</p>
+      <a href="strategy-bearish-prebuilt.html">View Strategy</a>
+    </div>
+    <div class="card">
+      <strong>Long Straddle</strong>
+      <p>High volatility play, big move expected.</p>
+      <a href="strategy-sideways-prebuilt.html">View Strategy</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🧠 Get Strategy from DeltaGPT</h3>
+    <textarea id="deltagpt-prompt" placeholder="Describe your market view or scenario..."></textarea>
+    <button class="btn" onclick="invokeDeltaGPT()">🧠 Get AI Strategy</button>
+  </div>
+
+  <div class="card">
+    <h3>📜 Recent Strategy History</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Market Condition</th>
+          <th>Strategy</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="strategy-history"></tbody>
+    </table>
+    <p style="margin-top: 1rem;"><em>Live history will appear here as more strategies are used.</em></p>
+  </div>
+
+  <div class="card">
+    <h3>🌟 Upcoming Features (Phase 2)</h3>
+    <ul>
+      <li>AI-generated strategy recommendations</li>
+      <li>Backtest and simulate strategy P&L</li>
+      <li>One-click deploy to paper or live trades</li>
+      <li>Telegram alerts for strategy follow-ups</li>
+      <li>Strategy journal & review feature</li>
+    </ul>
+  </div>
+
+  <script>
+    async function invokeDeltaGPT() {
+      const prompt = document.getElementById('deltagpt-prompt').value.trim();
+      if (!prompt) return alert("Please enter a market view or scenario.");
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const response = {
+        market: 'Custom',
+        strategy: 'Delta-Neutral Calendar Spread',
+        status: 'AI Generated'
+      };
+      const row = document.createElement('tr');
+      row.innerHTML = `<td>${timeStr}</td><td>${response.market}</td><td>${response.strategy}</td><td>${response.status}</td>`;
+      document.getElementById('strategy-history').prepend(row);
+    }
+  </script>
+
+</body>
+</html>
