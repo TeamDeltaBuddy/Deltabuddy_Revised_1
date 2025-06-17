@@ -91,6 +91,13 @@
   <script>
     const strategies = [
       { name: "Bull Call Spread", underlying: "NIFTY", iv: "Low", dte: "< 7" },
+      { name: "Bull Put Spread", underlying: "BANKNIFTY", iv: "Low", dte: "7 - 14" },
+      { name: "Call Ratio Back Spread", underlying: "NIFTY", iv: "High", dte: "7 - 14" },
+      { name: "Long Calendar with Calls", underlying: "Stocks", iv: "Medium", dte: "15+" },
+      { name: "Bull Condor", underlying: "BANKNIFTY", iv: "Medium", dte: "< 7" },
+      { name: "Bull Butterfly", underlying: "NIFTY", iv: "Low", dte: "15+" },
+      { name: "Range Forward", underlying: "Stocks", iv: "High", dte: "15+" },
+      { name: "Long Synthetic", underlying: "NIFTY", iv: "Medium", dte: "7 - 14" },
       { name: "Bull Put Ladder", underlying: "BANKNIFTY", iv: "Medium", dte: "7 - 14" },
       { name: "Synthetic Long", underlying: "Stocks", iv: "High", dte: "15+" }
     ];
