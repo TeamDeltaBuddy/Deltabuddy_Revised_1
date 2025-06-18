@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; margin: 0; padding: 0; }
     header { display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: #0f172a; color: white; }
     .back-dashboard { background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 5px; text-decoration: none; }
     main { padding: 2rem; }
@@ -72,13 +73,36 @@
         <li>Max Pain (NIFTY): 22400</li>
       </ul>
     </div>
-
-    <a class="back-dashboard" href="dashboard.html" style="display:block; text-align:center; margin-top:2rem; color:#3b82f6; text-decoration:none; font-weight:bold;">
-      ⬅️ Back to Dashboard
-    </a>
   </main>
 
+  <!-- Modal -->
+  <div id="strategyModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:1.5rem; border-radius:8px; box-shadow:0 0 12px rgba(0,0,0,0.2); z-index:1000; max-width:400px;">
+    <h4>Strategy Suggestion</h4>
+    <p id="strategyDetails">Loading...</p>
+    <button onclick="document.getElementById('strategyModal').style.display='none'" style="margin-top:1rem; background:#3b82f6; color:white; border:none; padding:0.5rem 1rem; border-radius:4px;">Close</button>
+  </div>
+
   <script>
+    function getStrategyFromStrike(strike) {
+      if (strike > 22500) return `Consider a Bear Call Spread with strikes ${strike} & ${strike + 100}`;
+      if (strike < 22500) return `Consider a Bull Put Spread with strikes ${strike} & ${strike - 100}`;
+      return `Try an ATM Straddle at ${strike}`;
+    }
+
+    function setupChartInteraction(chart, strikes) {
+      chart.options.onClick = (e) => {
+        const points = chart.getElementsAtEventForMode(e, 'nearest', { intersect: true }, true);
+        if (points.length > 0) {
+          const index = points[0].index;
+          const selectedStrike = strikes[index];
+          const strategy = getStrategyFromStrike(selectedStrike);
+          document.getElementById("strategyDetails").textContent = strategy;
+          document.getElementById("strategyModal").style.display = "block";
+        }
+      };
+      chart.update();
+    }
+
     function fetchAndRender() {
       fetch("http://localhost:8000/api/fno/oi-buildup")
         .then(res => res.json())
@@ -87,15 +111,13 @@
           const body = document.getElementById("oi-greeks-table");
           body.innerHTML = "";
 
-          const strikes = [], callIV = [], putIV = [];
-          const pcrVals = [];
+          const strikes = [], callIV = [], putIV = [], pcrVals = [];
 
           data.forEach((r,i) => {
             const delta = +(Math.random() * (r.call_oi/100)).toFixed(2);
             const gamma = +(Math.random() * 0.1).toFixed(3);
             const vega = +(Math.random() * 0.3).toFixed(3);
             const theta = -(Math.random() * 0.05).toFixed(3);
-
             const heat = Math.min(Math.abs(r.call_oi), Math.abs(r.put_oi)) / 100 * 255;
             const color = `rgb(${255-heat},${heat},50)`;
 
@@ -118,15 +140,19 @@
             pcrVals.push(1 + 0.1*Math.sin(i/2));
           });
 
-          new Chart(document.getElementById("ivSkewChart").getContext("2d"), {
-            type: "line", data: {
+          const ivCtx = document.getElementById("ivSkewChart").getContext("2d");
+          const ivChart = new Chart(ivCtx, {
+            type: "line",
+            data: {
               labels: strikes,
               datasets: [
                 { label: "Call IV %", data: callIV, borderColor: "#3b82f6", fill: false },
                 { label: "Put IV %", data: putIV, borderColor: "#ef4444", fill: false }
               ]
-            }, options: { responsive: true }
+            },
+            options: { responsive: true }
           });
+          setupChartInteraction(ivChart, strikes);
 
           const dates = data.map((_,i) => {
             const d = new Date();
@@ -135,10 +161,12 @@
           });
 
           new Chart(document.getElementById("pcrTrendChart").getContext("2d"), {
-            type: "line", data: {
+            type: "line",
+            data: {
               labels: dates,
               datasets: [{ label: "PCR", data: pcrVals, borderColor: "#10b981", fill: false }]
-            }, options: { responsive: true }
+            },
+            options: { responsive: true }
           });
         })
         .catch(console.error);
