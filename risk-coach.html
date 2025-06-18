@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Risk Coach – DeltaBuddy</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     header { display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: #0f172a; color: white; }
     .back-dashboard { background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 5px; text-decoration: none; }
@@ -14,9 +15,13 @@
     th { background-color: #f1f5f9; }
     ul { padding-left: 1.2rem; }
     .btn { padding: 0.5rem 1rem; background: #3b82f6; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 1rem; }
+    .heat-score { display: inline-block; width: 100px; height: 10px; border-radius: 5px; background: linear-gradient(to right, #22c55e, #facc15, #ef4444); }
+    .trend-bar { height: 6px; border-radius: 4px; margin-top: 0.5rem; background: #ccc; position: relative; overflow: hidden; }
+    .trend-fill { height: 100%; background: #3b82f6; transition: width 0.3s ease; }
   </style>
 </head>
 <body>
+
   <header>
     <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo" style="width: 100px;">
     <a class="back-dashboard" href="dashboard.html">⬅️ Back to Dashboard</a>
@@ -28,35 +33,29 @@
       Your personal trading behavior and portfolio risk coach. Get actionable insights and tips to help you manage risk more effectively.
     </p>
 
-    <!-- Risk Score Summary -->
     <div class="card">
       <h3>Risk Coach Summary</h3>
       <p id="risk-score"><strong>Risk Score:</strong> 72 / 100 → 🟡 Moderate Risk</p>
+      <div class="trend-bar"><div id="score-bar" class="trend-fill" style="width:72%;"></div></div>
     </div>
 
-    <!-- Risk Insights Table -->
     <div class="card">
       <h3>Current Risk Insights</h3>
       <table>
         <thead>
-          <tr>
-            <th>Metric</th>
-            <th>Status</th>
-            <th>Comments</th>
-          </tr>
+          <tr><th>Metric</th><th>Status</th><th>Comments</th><th>Severity</th></tr>
         </thead>
         <tbody id="insights-table">
-          <tr><td>Delta</td><td>✅ Balanced</td><td>Within acceptable range</td></tr>
-          <tr><td>Vega</td><td>⚠️ High</td><td>Consider reducing Vega exposure</td></tr>
-          <tr><td>Gamma</td><td>✅ Normal</td><td>No action required</td></tr>
-          <tr><td>Overtrading</td><td>⚠️ Detected</td><td>12 trades today — review trade plan</td></tr>
-          <tr><td>Hedging</td><td>✅ OK</td><td>Sufficient hedges in place</td></tr>
-          <tr><td>Leverage</td><td>✅ OK</td><td>Leverage within safe limits</td></tr>
+          <tr><td>Delta</td><td>✅ Balanced</td><td>Within acceptable range</td><td><div class="heat-score"></div></td></tr>
+          <tr><td>Vega</td><td>⚠️ High</td><td>Consider reducing Vega exposure</td><td><div class="heat-score"></div></td></tr>
+          <tr><td>Gamma</td><td>✅ Normal</td><td>No action required</td><td><div class="heat-score"></div></td></tr>
+          <tr><td>Overtrading</td><td>⚠️ Detected</td><td>12 trades today — review trade plan</td><td><div class="heat-score"></div></td></tr>
+          <tr><td>Hedging</td><td>✅ OK</td><td>Sufficient hedges in place</td><td><div class="heat-score"></div></td></tr>
+          <tr><td>Leverage</td><td>✅ OK</td><td>Leverage within safe limits</td><td><div class="heat-score"></div></td></tr>
         </tbody>
       </table>
     </div>
 
-    <!-- Warnings & Tips -->
     <div class="card">
       <h3>Warnings & Tips</h3>
       <ul id="tips-list">
@@ -67,7 +66,11 @@
       <button class="btn" onclick="exportTips()">Download Tips</button>
     </div>
 
-    <!-- Next Features -->
+    <div class="card">
+      <h3>Risk Behavior Radar</h3>
+      <canvas id="radarChart" width="300" height="300"></canvas>
+    </div>
+
     <div class="card">
       <h3>Next Features (Phase 2)</h3>
       <ul>
@@ -76,7 +79,6 @@
         <li>Adaptive coaching tips based on live trades</li>
       </ul>
     </div>
-
   </main>
 
   <script>
@@ -85,26 +87,27 @@
       let level = '🟡 Moderate Risk';
       if (score >= 85) level = '🟢 Low Risk';
       else if (score <= 65) level = '🔴 High Risk';
-
       document.getElementById('risk-score').innerHTML = `<strong>Risk Score:</strong> ${score} / 100 → ${level}`;
+      document.getElementById('score-bar').style.width = `${score}%`;
     }
 
     function updateInsights() {
       const table = document.getElementById('insights-table');
       const statuses = ['✅', '⚠️', '🚨'];
       const comments = ['Within acceptable range', 'Monitor exposure', 'Consider adjustments', 'No action required'];
-
-      Array.from(table.rows).forEach(row => {
+      const cells = table.querySelectorAll('tbody tr');
+      cells.forEach(row => {
         const status = statuses[Math.floor(Math.random() * statuses.length)];
         const comment = comments[Math.floor(Math.random() * comments.length)];
-
+        const severity = Math.floor(Math.random() * 100);
         row.cells[1].textContent = status;
         row.cells[2].textContent = comment;
+        row.cells[3].querySelector('.heat-score').style.background = `linear-gradient(to right, #22c55e ${100 - severity}%, #ef4444 ${severity}%)`;
       });
     }
 
     function exportTips() {
-      const tips = Array.from(document.querySelectorAll('#tips-list li')).map(li => li.textContent).join('\n');
+      const tips = Array.from(document.querySelectorAll('#tips-list li')).map(li => li.textContent).join('\\n');
       const blob = new Blob([tips], { type: 'text/plain' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
@@ -112,15 +115,38 @@
       link.click();
     }
 
-    // Auto refresh every 10 seconds
+    function updateRadarChart(chart) {
+      chart.data.datasets[0].data = Array.from({ length: 6 }, () => Math.floor(Math.random() * 100));
+      chart.update();
+    }
+
+    const radarChart = new Chart(document.getElementById('radarChart'), {
+      type: 'radar',
+      data: {
+        labels: ['Delta', 'Vega', 'Gamma', 'Overtrading', 'Hedging', 'Leverage'],
+        datasets: [{
+          label: 'Behavior Metrics',
+          data: [60, 70, 80, 65, 75, 68],
+          backgroundColor: 'rgba(59, 130, 246, 0.2)',
+          borderColor: '#3b82f6',
+          pointBackgroundColor: '#3b82f6'
+        }]
+      },
+      options: {
+        responsive: true,
+        scale: { ticks: { beginAtZero: true, max: 100 } }
+      }
+    });
+
     setInterval(() => {
       updateRiskScore();
       updateInsights();
+      updateRadarChart(radarChart);
     }, 10000);
 
-    // Initialize
     updateRiskScore();
     updateInsights();
+    updateRadarChart(radarChart);
   </script>
 
 </body>
