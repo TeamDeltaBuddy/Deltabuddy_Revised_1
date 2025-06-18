@@ -9,61 +9,60 @@
   <style>
     header { display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: #0f172a; color: white; }
     .back-dashboard { background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 5px; text-decoration: none; }
+    main { padding: 2rem; }
     .card { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); margin-top: 1rem; }
-    ul { padding-left: 1.2rem; }
-    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-    th, td { padding: 0.75rem; border: 1px solid #ccc; text-align: center; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 14px; }
+    th, td { padding: 0.5rem; border: 1px solid #ccc; text-align: center; }
     th { background-color: #f1f5f9; }
+    .heatmap-cell { width: 20px; height: 20px; display: inline-block; border-radius: 3px; }
+    .tooltip { position: relative; cursor: help; }
+    .tooltip span { visibility: hidden; opacity: 0; background: rgba(0,0,0,0.8); color: #fff; text-align:center; padding:4px; border-radius:4px;
+                     position:absolute; bottom:125%; left:50%; transform:translateX(-50%); transition:opacity 0.3s; font-size:12px; z-index:10; }
+    .tooltip:hover span { visibility: visible; opacity:1; }
+    .greek-heat { width: 80px; height: 12px; border-radius: 4px; display: inline-block; margin: 1px; background: linear-gradient(to right, #22c55e, #facc15, #ef4444); }
   </style>
 </head>
 <body>
-
   <header>
     <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo" style="width: 100px;">
     <a class="back-dashboard" href="dashboard.html">⬅️ Back to Dashboard</a>
   </header>
 
-  <main style="padding: 2rem;">
+  <main>
     <h2>F&O Insights</h2>
-    <ul>
-      <li>📈 OI Buildup & Strike-wise Greeks</li>
-      <li>🔥 Heatmaps for Calls & Puts</li>
-      <li>📊 IV Skew & PCR Trends</li>
-    </ul>
     <p style="background: #fff3cd; padding: 1rem; border-radius: 6px;">
-      🚧 Live F&O data integration is under development.
+      🚧 Live F&O data isn’t available yet—here’s a fully interactive demo.
     </p>
 
-    <!-- OI Buildup Table -->
     <div class="card">
-      <h3>🔢 OI Buildup (Live)</h3>
+      <h3>🔢 OI & Greeks by Strike</h3>
       <table>
         <thead>
           <tr>
             <th>Strike</th>
-            <th>Call OI Change %</th>
-            <th>Put OI Change %</th>
+            <th>Call OI %</th>
+            <th>Put OI %</th>
+            <th class="tooltip">Heatmap<span>Intensity of option interest</span></th>
+            <th class="tooltip">Δ (Delta)<span>Sensitivity to price</span></th>
+            <th class="tooltip">Γ (Gamma)<span>Rate of Δ change</span></th>
+            <th class="tooltip">V (Vega)<span>Sensitivity to vol</span></th>
+            <th class="tooltip">Θ (Theta)<span>Time decay</span></th>
           </tr>
         </thead>
-        <tbody id="oi-table">
-          <!-- Data inserted by JS -->
-        </tbody>
+        <tbody id="oi-greeks-table"></tbody>
       </table>
     </div>
 
-    <!-- IV Skew Chart -->
     <div class="card">
       <h3>📊 IV Skew</h3>
       <canvas id="ivSkewChart" height="300"></canvas>
     </div>
 
-    <!-- PCR Trend Chart -->
     <div class="card">
       <h3>📊 PCR Trend</h3>
       <canvas id="pcrTrendChart" height="300"></canvas>
     </div>
 
-    <!-- Key F&O Metrics -->
     <div class="card">
       <h3>🔢 Key F&O Metrics (Sample)</h3>
       <ul>
@@ -74,122 +73,78 @@
       </ul>
     </div>
 
-    <!-- Upcoming Features -->
-    <div class="card">
-      <h3>🌟 Upcoming Features</h3>
-      <ul>
-        <li>Real-time OI Heatmaps</li>
-        <li>Strike-wise Greeks visualization</li>
-        <li>IV Skew charts over time</li>
-        <li>OI Buildup trends & anomaly detection</li>
-        <li>Telegram alert integration</li>
-      </ul>
-    </div>
-
-    <a class="back-home" href="dashboard.html" style="display:block; text-align:center; margin-top:2rem; color:#3b82f6; text-decoration:none; font-weight:bold;">
+    <a class="back-dashboard" href="dashboard.html" style="display:block; text-align:center; margin-top:2rem; color:#3b82f6; text-decoration:none; font-weight:bold;">
       ⬅️ Back to Dashboard
     </a>
   </main>
 
   <script>
-    fetch("http://localhost:8000/api/fno/oi-buildup")
-      .then(res => res.json())
-      .then(response => {
-        const oiData = response.data;
+    function fetchAndRender() {
+      fetch("http://localhost:8000/api/fno/oi-buildup")
+        .then(res => res.json())
+        .then(resp => {
+          const data = resp.data;
+          const body = document.getElementById("oi-greeks-table");
+          body.innerHTML = "";
 
-        // Populate OI Table
-        const oiTableBody = document.getElementById('oi-table');
-        oiTableBody.innerHTML = "";
-        oiData.forEach(row => {
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td>${row.strike}</td>
-            <td style="color:${row.call_oi >= 0 ? 'green' : 'red'};">${row.call_oi >= 0 ? '+' : ''}${row.call_oi}%</td>
-            <td style="color:${row.put_oi >= 0 ? 'green' : 'red'};">${row.put_oi >= 0 ? '+' : ''}${row.put_oi}%</td>
-          `;
-          oiTableBody.appendChild(tr);
-        });
+          const strikes = [], callIV = [], putIV = [];
+          const pcrVals = [];
 
-        // IV Skew Chart (Static for now)
-        const ivCtx = document.getElementById('ivSkewChart').getContext('2d');
-        new Chart(ivCtx, {
-          type: 'line',
-          data: {
-            labels: oiData.map(row => row.strike),
-            datasets: [
-              {
-                label: 'Call IV %',
-                data: [18, 17, 16.5, 17.2, 18.1], // Replace with dynamic IV data if needed
-                borderColor: '#3b82f6',
-                fill: false
-              },
-              {
-                label: 'Put IV %',
-                data: [19, 18.2, 17.8, 18.5, 19.3],
-                borderColor: '#ef4444',
-                fill: false
-              }
-            ]
-          },
-          options: {
-            responsive: true,
-            scales: {
-              y: {
-                beginAtZero: false,
-                title: {
-                  display: true,
-                  text: 'IV %'
-                }
-              },
-              x: {
-                title: {
-                  display: true,
-                  text: 'Strike'
-                }
-              }
-            }
-          }
-        });
+          data.forEach((r,i) => {
+            const delta = +(Math.random() * (r.call_oi/100)).toFixed(2);
+            const gamma = +(Math.random() * 0.1).toFixed(3);
+            const vega = +(Math.random() * 0.3).toFixed(3);
+            const theta = -(Math.random() * 0.05).toFixed(3);
 
-        // PCR Trend Chart (Static for now)
-        const pcrCtx = document.getElementById('pcrTrendChart').getContext('2d');
-        new Chart(pcrCtx, {
-          type: 'line',
-          data: {
-            labels: ['2025-06-01', '2025-06-02', '2025-06-03', '2025-06-04', '2025-06-05', '2025-06-06', '2025-06-07'],
-            datasets: [
-              {
-                label: 'PCR',
-                data: [1.05, 1.12, 1.08, 1.15, 1.09, 1.03, 1.10],
-                borderColor: '#10b981',
-                fill: false
-              }
-            ]
-          },
-          options: {
-            responsive: true,
-            scales: {
-              y: {
-                beginAtZero: false,
-                title: {
-                  display: true,
-                  text: 'PCR Value'
-                }
-              },
-              x: {
-                title: {
-                  display: true,
-                  text: 'Date'
-                }
-              }
-            }
-          }
-        });
-      })
-      .catch(error => {
-        console.error("Failed to fetch OI Buildup data:", error);
-      });
+            const heat = Math.min(Math.abs(r.call_oi), Math.abs(r.put_oi)) / 100 * 255;
+            const color = `rgb(${255-heat},${heat},50)`;
+
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td>${r.strike}</td>
+              <td style="color:${r.call_oi>=0?'green':'red'}">${r.call_oi>=0?'+':''}${r.call_oi}%</td>
+              <td style="color:${r.put_oi>=0?'green':'red'}">${r.put_oi>=0?'+':''}${r.put_oi}%</td>
+              <td><span class="heatmap-cell" style="background:${color}"></span></td>
+              <td><span class="greek-heat" style="background: linear-gradient(to right, green, yellow, red); width:${50+delta*50}%"></span> ${delta}</td>
+              <td><span class="greek-heat" style="width:${gamma*800}%"></span> ${gamma}</td>
+              <td><span class="greek-heat" style="width:${vega*300}%"></span> ${vega}</td>
+              <td><span class="greek-heat" style="width:${Math.abs(theta)*200}%"></span> ${theta}</td>
+            `;
+            body.appendChild(tr);
+
+            strikes.push(r.strike);
+            callIV.push(18 + i*0.2);
+            putIV.push(19 + i*0.15);
+            pcrVals.push(1 + 0.1*Math.sin(i/2));
+          });
+
+          new Chart(document.getElementById("ivSkewChart").getContext("2d"), {
+            type: "line", data: {
+              labels: strikes,
+              datasets: [
+                { label: "Call IV %", data: callIV, borderColor: "#3b82f6", fill: false },
+                { label: "Put IV %", data: putIV, borderColor: "#ef4444", fill: false }
+              ]
+            }, options: { responsive: true }
+          });
+
+          const dates = data.map((_,i) => {
+            const d = new Date();
+            d.setDate(d.getDate() - (6 - i));
+            return d.toISOString().slice(0,10);
+          });
+
+          new Chart(document.getElementById("pcrTrendChart").getContext("2d"), {
+            type: "line", data: {
+              labels: dates,
+              datasets: [{ label: "PCR", data: pcrVals, borderColor: "#10b981", fill: false }]
+            }, options: { responsive: true }
+          });
+        })
+        .catch(console.error);
+    }
+
+    fetchAndRender();
   </script>
-
 </body>
 </html>
