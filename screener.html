@@ -6,83 +6,67 @@
   <title>Screener - DeltaBuddy</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
+    body { background: #f9f9f9; font-family: Arial, sans-serif; padding: 1rem; }
+    header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+    header img { width: 120px; }
     .btn { padding: 0.7rem 1.2rem; margin: 0.5rem; border-radius: 5px; font-weight: bold; cursor: pointer; border: none; }
     .btn.primary { background: #3b82f6; color: white; }
     .btn.secondary { background: #e5e7eb; color: #111827; }
-    .tab-section { display: none; padding: 1rem; background: #fff; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1); margin-top: 1rem; }
+    .tab-section { display: none; padding: 1rem; background: white; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1); margin-top: 1rem; }
     table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
     th, td { padding: 0.75rem; border: 1px solid #ccc; text-align: center; }
     th { background-color: #f1f5f9; }
+    .export-btn { float: right; margin-top: 1rem; background: #10b981; color: white; }
   </style>
 </head>
 <body>
+  <header>
+    <img src="assets/deltabuddy-logo.png" alt="DeltaBuddy Logo">
+    <a href="dashboard.html" class="btn secondary">⬅ Back to Dashboard</a>
+  </header>
 
-  <nav>
-    <a href="dashboard.html" class="btn secondary">← Back to Dashboard</a>
-    <span style="font-size: 1.5rem; font-weight: bold;">Screener</span>
-  </nav>
+  <h1>Screener Dashboard</h1>
 
-  <div style="margin-top: 1rem;">
+  <div style="text-align: center;">
     <button class="btn primary" onclick="showTab('custom-tab')">Custom</button>
     <button class="btn secondary" onclick="showTab('prebuilt-tab')">Pre-Built</button>
     <button class="btn secondary" onclick="showTab('ai-tab')">AI Based</button>
   </div>
-
-  <!-- Custom Tab -->
   <div id="custom-tab" class="tab-section">
     <h2>Custom Screener</h2>
-
-    <label>Symbols (Ctrl+Click to select multiple):</label>
-    <select id="symbol-filter" multiple size="4" style="width: 100%; margin-bottom: 1rem;">
+    <select id="symbol-filter" multiple style="width: 100%; margin-bottom: 1rem;">
       <option value="NIFTY">NIFTY</option>
       <option value="BANKNIFTY">BANKNIFTY</option>
       <option value="RELIANCE">RELIANCE</option>
       <option value="INFY">INFY</option>
     </select>
-
-    <label>OI Change Min (%)</label>
-    <input type="number" id="oi-min" placeholder="e.g. 5" />
-
-    <label>IV Max (%)</label>
-    <input type="number" id="iv-range" placeholder="e.g. 30" />
-
-    <label>PCR Max</label>
-    <input type="number" id="pcr-range" placeholder="e.g. 1.2" />
-
-    <label>Delta Threshold Min</label>
-    <input type="number" id="delta-threshold" placeholder="e.g. 0.2" />
-
-    <button class="btn primary" id="run-custom">Run Screener</button>
+    <input type="number" id="oi-min" placeholder="Min OI Change %" />
+    <input type="number" id="iv-range" placeholder="Max IV %" />
+    <input type="number" id="pcr-range" placeholder="Max PCR" />
+    <input type="number" id="delta-threshold" placeholder="Min |Delta|" />
+    <div>
+      <button class="btn primary" onclick="runScreener()">Run Screener</button>
+      <button class="btn secondary" onclick="savePreset()">💾 Save Preset</button>
+      <button class="btn secondary" onclick="loadPreset()">📂 Load Preset</button>
+    </div>
   </div>
 
-  <!-- Pre-Built Tab -->
   <div id="prebuilt-tab" class="tab-section">
     <h2>Pre-Built Screener</h2>
-
-    <label>Open Filter:</label>
     <select id="open-filter">
       <option value="">-- Select --</option>
       <option value="open-high">Open = High</option>
       <option value="open-low">Open = Low</option>
     </select>
-
-    <button class="btn primary" id="run-prebuilt">Run Pre-Built Screener</button>
-
-    <hr style="margin: 1rem 0;" />
-
-    <h3>Other Pre-Built Filters:</h3>
-    <button class="btn secondary" onclick="runPreviousHighBreak()">Crossing Previous Day High</button>
-    <button class="btn secondary" onclick="runPreviousLowBreak()">Crossing Previous Day Low</button>
+    <button class="btn primary" onclick="runPrebuilt()">Run</button>
   </div>
 
-  <!-- AI Tab -->
   <div id="ai-tab" class="tab-section">
     <h2>AI Based Screener</h2>
-    <p>Coming soon — AI powered screening and strategy suggestions!</p>
+    <textarea id="ai-input" placeholder="Describe your market view or scenario..." style="width:100%;height:80px;"></textarea>
+    <button class="btn primary" onclick="runAIHelper()">🧠 Get Strategy</button>
   </div>
-
-  <!-- Shared Results Table -->
-  <h3>Results</h3>
+  <h3>Results <button class="btn export-btn" onclick="exportCSV()">⬇ Export CSV</button></h3>
   <table>
     <thead>
       <tr>
@@ -96,137 +80,146 @@
         <th>Open</th>
         <th>High</th>
         <th>Low</th>
+        <th>⚡ Trend</th>
       </tr>
     </thead>
     <tbody id="results-body"></tbody>
   </table>
-
 <script>
   function showTab(tabId) {
-    document.querySelectorAll('.tab-section').forEach(tab => {
-      tab.style.display = 'none';
-    });
+    document.querySelectorAll('.tab-section').forEach(tab => tab.style.display = 'none');
     document.getElementById(tabId).style.display = 'block';
-
-    document.querySelectorAll('.btn').forEach(btn => btn.classList.remove('primary'));
-    const tabButtonMap = {
-      'ai-tab': 'AI Based',
-      'prebuilt-tab': 'Pre-Built',
-      'custom-tab': 'Custom'
-    };
+    const map = { 'ai-tab': 'AI Based', 'prebuilt-tab': 'Pre-Built', 'custom-tab': 'Custom' };
     document.querySelectorAll('.btn').forEach(btn => {
-      if (btn.textContent.trim() === tabButtonMap[tabId]) {
-        btn.classList.add('primary');
-      } else {
-        btn.classList.remove('primary');
-        btn.classList.add('secondary');
-      }
+      btn.classList.remove('primary');
+      if (btn.textContent.trim() === map[tabId]) btn.classList.add('primary');
+      else btn.classList.add('secondary');
     });
   }
 
-  document.getElementById('run-custom').addEventListener('click', runScreener);
-  document.getElementById('run-prebuilt').addEventListener('click', runPrebuilt);
-
-  function runScreener() {
-    const selectedSymbols = Array.from(document.getElementById("symbol-filter").selectedOptions).map(option => option.value);
-    const oiMin = parseFloat(document.getElementById("oi-min").value);
-    const ivMax = parseFloat(document.getElementById("iv-range").value);
-    const pcrMax = parseFloat(document.getElementById("pcr-range").value);
-    const deltaMin = parseFloat(document.getElementById("delta-threshold").value);
-
-    console.log("🟢 Custom Screener Request:", {
-      selectedSymbols, oiMin, ivMax, pcrMax, deltaMin
+  function exportCSV() {
+    const rows = document.querySelectorAll('table tr');
+    let csv = [];
+    rows.forEach(row => {
+      const cols = row.querySelectorAll('th, td');
+      let rowData = [];
+      cols.forEach(col => rowData.push('"' + col.innerText + '"'));
+      csv.push(rowData.join(','));
     });
-
-    const data = getDummyData();
-
-    const filtered = data.filter(stock => {
-      if (selectedSymbols.length > 0 && !selectedSymbols.includes(stock.symbol)) return false;
-      if (!isNaN(oiMin) && stock.oiChange < oiMin) return false;
-      if (!isNaN(ivMax) && stock.iv > ivMax) return false;
-      if (!isNaN(pcrMax) && stock.pcr > pcrMax) return false;
-      if (!isNaN(deltaMin) && Math.abs(stock.delta) < deltaMin) return false;
-
-      return true;
-    });
-
-    renderResults(filtered);
+    const blob = new Blob([csv.join('\\n')], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'screener-results.csv';
+    link.click();
   }
 
-  function runPrebuilt() {
-    const openFilter = document.getElementById('open-filter').value;
-    const data = getDummyData();
-
-    const filtered = data.filter(stock => {
-      if (openFilter === 'open-high') {
-        return Math.abs(stock.open - stock.high) < 0.01;
-      }
-      if (openFilter === 'open-low') {
-        return Math.abs(stock.open - stock.low) < 0.01;
-      }
-      return true;
+  function drawSparkline(ctx, data) {
+    ctx.clearRect(0, 0, 60, 30);
+    ctx.beginPath();
+    const max = Math.max(...data), min = Math.min(...data);
+    data.forEach((val, i) => {
+      const x = (i / (data.length - 1)) * 60;
+      const y = 30 - ((val - min) / (max - min + 0.01)) * 30;
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
     });
-
-    console.log(`🟢 Pre-built Screener: ${openFilter}`, filtered.map(stock => ({
-      symbol: stock.symbol,
-      strike: stock.strike
-    })));
-
-    renderResults(filtered);
-  }
-
-  function runPreviousHighBreak() {
-    const data = getDummyData();
-
-    const filtered = data.filter(stock => stock.open > stock.high);
-
-    console.log('🟢 Previous Day High Break:', filtered.map(stock => ({
-      symbol: stock.symbol,
-      strike: stock.strike
-    })));
-
-    renderResults(filtered);
-  }
-
-  function runPreviousLowBreak() {
-    const data = getDummyData();
-
-    const filtered = data.filter(stock => stock.open < stock.low);
-
-    console.log('🟢 Previous Day Low Break:', filtered.map(stock => ({
-      symbol: stock.symbol,
-      strike: stock.strike
-    })));
-
-    renderResults(filtered);
+    ctx.strokeStyle = '#3b82f6';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
   }
 
   function renderResults(results) {
     const tbody = document.getElementById('results-body');
     tbody.innerHTML = '';
-
     if (results.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="10">No matching results.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan=\"11\">No matching results.</td></tr>';
       return;
     }
-
     results.forEach(stock => {
+      const id = `spark-${Math.random().toString(36).substring(2, 9)}`;
       const row = `
-        <tr>
-          <td>${stock.symbol}</td>
-          <td>${stock.strike}</td>
-          <td>${stock.type}</td>
-          <td>${stock.delta}</td>
-          <td>${stock.oiChange}%</td>
-          <td>${stock.iv}%</td>
-          <td>${stock.pcr}</td>
-          <td>${stock.open}</td>
-          <td>${stock.high}</td>
-          <td>${stock.low}</td>
-        </tr>
-      `;
+      <tr>
+        <td>${stock.symbol}</td>
+        <td>${stock.strike}</td>
+        <td>${stock.type}</td>
+        <td>${stock.delta}</td>
+        <td>${stock.oiChange}%</td>
+        <td>${stock.iv}%</td>
+        <td>${stock.pcr}</td>
+        <td>${stock.open}</td>
+        <td>${stock.high}</td>
+        <td>${stock.low}</td>
+        <td><canvas id="${id}" width="60" height="30"></canvas></td>
+      </tr>`;
       tbody.innerHTML += row;
+      setTimeout(() => {
+        const ctx = document.getElementById(id).getContext('2d');
+        drawSparkline(ctx, stock.spark || [stock.open, stock.high, stock.low, stock.open]);
+      }, 10);
     });
+  }
+
+  function runScreener() {
+    const selected = Array.from(document.getElementById("symbol-filter").selectedOptions).map(o => o.value);
+    const oiMin = parseFloat(document.getElementById("oi-min").value);
+    const ivMax = parseFloat(document.getElementById("iv-range").value);
+    const pcrMax = parseFloat(document.getElementById("pcr-range").value);
+    const deltaMin = parseFloat(document.getElementById("delta-threshold").value);
+    const data = getDummyData();
+    const filtered = data.filter(s => {
+      if (selected.length && !selected.includes(s.symbol)) return false;
+      if (!isNaN(oiMin) && s.oiChange < oiMin) return false;
+      if (!isNaN(ivMax) && s.iv > ivMax) return false;
+      if (!isNaN(pcrMax) && s.pcr > pcrMax) return false;
+      if (!isNaN(deltaMin) && Math.abs(s.delta) < deltaMin) return false;
+      return true;
+    });
+    renderResults(filtered);
+  }
+
+  function runPrebuilt() {
+    const filter = document.getElementById('open-filter').value;
+    const data = getDummyData();
+    const filtered = data.filter(s => {
+      if (filter === 'open-high') return Math.abs(s.open - s.high) < 0.01;
+      if (filter === 'open-low') return Math.abs(s.open - s.low) < 0.01;
+      return true;
+    });
+    renderResults(filtered);
+  }
+
+  function runAIHelper() {
+    const prompt = document.getElementById('ai-input').value.trim();
+    if (!prompt) return alert("Please enter a market view.");
+    const result = getDummyData().filter(s => s.symbol === 'NIFTY');
+    renderResults(result);
+    alert("🧠 DeltaGPT suggests a Delta-Neutral Spread for: " + prompt);
+  }
+
+  function savePreset() {
+    const config = {
+      selected: Array.from(document.getElementById("symbol-filter").selectedOptions).map(o => o.value),
+      oiMin: document.getElementById("oi-min").value,
+      ivMax: document.getElementById("iv-range").value,
+      pcrMax: document.getElementById("pcr-range").value,
+      deltaMin: document.getElementById("delta-threshold").value
+    };
+    localStorage.setItem('screener-preset', JSON.stringify(config));
+    alert("Preset saved!");
+  }
+
+  function loadPreset() {
+    const config = JSON.parse(localStorage.getItem('screener-preset'));
+    if (!config) return alert("No preset found.");
+    document.getElementById("oi-min").value = config.oiMin;
+    document.getElementById("iv-range").value = config.ivMax;
+    document.getElementById("pcr-range").value = config.pcrMax;
+    document.getElementById("delta-threshold").value = config.deltaMin;
+    const options = document.getElementById("symbol-filter").options;
+    for (let i = 0; i < options.length; i++) {
+      options[i].selected = config.selected.includes(options[i].value);
+    }
+    alert("Preset loaded!");
   }
 
   function getDummyData() {
@@ -234,13 +227,11 @@
       { symbol: 'NIFTY', strike: 22500, type: 'Call', delta: 0.35, oiChange: 12, iv: 22, pcr: 1.0, open: 22600, high: 22500, low: 22000 },
       { symbol: 'BANKNIFTY', strike: 48500, type: 'Put', delta: -0.42, oiChange: 8, iv: 27, pcr: 1.1, open: 48400, high: 48700, low: 48500 },
       { symbol: 'RELIANCE', strike: 2600, type: 'Call', delta: 0.5, oiChange: 10, iv: 30, pcr: 1.2, open: 2600, high: 2650, low: 2600 },
-      { symbol: 'INFY', strike: 1500, type: 'Put', delta: -0.3, oiChange: 6, iv: 25, pcr: 0.9, open: 1480, high: 1500, low: 1490 },
+      { symbol: 'INFY', strike: 1500, type: 'Put', delta: -0.3, oiChange: 6, iv: 25, pcr: 0.9, open: 1480, high: 1500, low: 1490 }
     ];
   }
 
-  window.addEventListener('DOMContentLoaded', () => {
-    showTab('custom-tab');
-  });
+  window.addEventListener('DOMContentLoaded', () => showTab('custom-tab'));
 </script>
 </body>
 </html>
